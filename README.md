@@ -100,7 +100,7 @@ func main() {
     - [x] 参考数据
         - [x] [融资融券交易汇总](./tushare_test.go#L578)
         - [x] [融资融券交易明细](./tushare_test.go#L595)
-        - [x] [融资融券标的](./tushare_test.go#L612)
+        - [x] [融资融券标的](./tushare_test.go#L612) <i>因没有权限, 测试结果未验证</i>
         - [x] [前十大股东](./tushare_test.go#L633)
         - [x] [前十大流通股东](./tushare_test.go#L650)
         - [x] [龙虎榜每日明细](./tushare_test.go#L667)
@@ -112,8 +112,8 @@ func main() {
         - [x] [概念股明细列表](./tushare_test.go#L769)
         - [x] [限售股解禁](./tushare_test.go#L786)
         - [x] [大宗交易](./tushare_test.go#L803)
-        - [x] ~~股票开户数据 （停）~~ 数据已停止更新
-        - [x] ~~股票开户数据（旧）~~ 数据已停止更新
+        - [x] ~~股票开户数据 （停）~~ <i>数据已停止更新</i>
+        - [x] ~~股票开户数据（旧）~~ <i>数据已停止更新</i>
         - [x] [股东人数](./tushare_test.go#L820)
         - [x] [股东增减持](./tushare_test.go#L837)
     - [ ] 特色数据
