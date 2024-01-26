@@ -1,0 +1,639 @@
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 沪深股票
+ - https://tushare.pro/document/2?doc_id=14
+*/
+
+// 股票列表
+message StockBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string symbol = 2 [json_name = "symbol"]; // 股票代码
+  string name = 3 [json_name = "name"]; // 股票名称
+  string area = 4 [json_name = "area"]; // 地域
+  string industry = 5 [json_name = "industry"]; // 所属行业
+  string fullname = 6 [json_name = "fullname"]; // 股票全称
+  string enname = 7 [json_name = "enname"]; // 英文全称
+  string cnspell = 8 [json_name = "cnspell"]; // 拼音缩写
+  string market = 9 [json_name = "market"]; // 市场类型（主板/创业板/科创板/CDR）
+  string exchange = 10 [json_name = "exchange"]; // 交易所代码
+  string curr_type = 11 [json_name = "curr_type"]; // 交易货币
+  string list_status = 12 [json_name = "list_status"]; // 上市状态 L上市 D退市 P暂停上市
+  string list_date = 13 [json_name = "list_date"]; // 上市日期
+  string delist_date = 14 [json_name = "delist_date"]; // 退市日期
+  string is_hs = 15 [json_name = "is_hs"]; // 是否沪深港通标的，N否 H沪股通 S深股通
+  string act_name = 16 [json_name = "act_name"]; // 实控人名称
+  string act_ent_type = 17 [json_name = "act_ent_type"]; // 实控人企业性质
+}
+
+message StockBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; //TS股票代码
+  string name = 5 [json_name = "name"]; //名称
+  string market = 6 [json_name = "market"]; //市场类别 （主板/创业板/科创板/CDR/北交所）
+  string list_status = 7 [json_name = "list_status"]; //上市状态 L上市 D退市 P暂停上市，默认是L
+  string exchange = 8 [json_name = "exchange"]; //交易所 SSE上交所 SZSE深交所 BSE北交所
+  string is_hs = 9 [json_name = "is_hs"]; //是否沪深港通标的，N否 H沪股通 S深股通
+}
+message StockBasicResponse {
+  repeated StockBasic list = 1;
+}
+
+// 交易日历
+message TradeCal {
+  string exchange = 1 [json_name = "exchange"]; // 交易所 SSE上交所 SZSE深交所
+  string cal_date = 2 [json_name = "cal_date"]; // 日历日期
+  int32 is_open = 3 [json_name = "is_open"]; // 是否交易 0休市 1交易
+  string pretrade_date = 4 [json_name = "pretrade_date"]; // 上一个交易日
+}
+message TradeCalRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string exchange = 4 [json_name = "exchange"]; // 交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源
+  string start_date = 5 [json_name = "start_date"]; // 开始日期 （格式：YYYYMMDD 下同）
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string is_open = 7 [json_name = "is_open"]; // 是否交易 '0'休市 '1'交易
+  string cal_date = 8 [json_name = "cal_date"]; // 日历日期
+}
+message TradeCalResponse {
+  repeated TradeCal list = 1;
+}
+
+// 股票曾用名
+message NameChange {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string name = 2 [json_name = "name"]; // 证券名称
+  string start_date = 3 [json_name = "start_date"]; // 开始日期
+  string end_date = 4 [json_name = "end_date"]; // 结束日期
+  string ann_date = 5 [json_name = "ann_date"]; // 公告日期
+  string change_reason = 6 [json_name = "change_reason"]; // 变更原因
+}
+message NameChangeRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码
+  string start_date = 5 [json_name = "start_date"]; // 公告开始日期
+  string end_date = 6 [json_name = "end_date"]; // 公告结束日期
+}
+message NameChangeResponse {
+  repeated NameChange list = 1;
+}
+
+// 沪深股通成份股
+message HsConst {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string hs_type = 2 [json_name = "hs_type"]; // 沪深港通类型SH沪SZ深
+  string in_date = 3 [json_name = "in_date"]; // 纳入日期
+  string out_date = 4 [json_name = "out_date"]; // 剔除日期
+  string is_new = 5 [json_name = "is_new"]; // 是否最新 1是 0否
+}
+message HsConstRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string hs_type = 4 [json_name = "hs_type"]; // 类型SH沪股通SZ深股通
+  string is_new = 5 [json_name = "is_new"]; // 是否最新 1 是 0 否 (默认1)
+  string ts_code = 6 [json_name = "ts_code"]; // TS代码
+}
+message HsConstResponse {
+  repeated HsConst list = 1;
+}
+
+// 上市公司基本信息
+message StockCompany {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string exchange = 2 [json_name = "exchange"]; // 交易所代码 ，SSE上交所 SZSE深交所
+  string chairman = 3 [json_name = "chairman"]; // 法人代表
+  string manager = 4 [json_name = "manager"]; // 总经理
+  string secretary = 5 [json_name = "secretary"]; // 董秘
+  float reg_capital = 6 [json_name = "reg_capital"]; // 注册资本(万元)
+  string setup_date = 7 [json_name = "setup_date"]; // 注册日期
+  string province = 8 [json_name = "province"]; // 所在省份
+  string city = 9 [json_name = "city"]; // 所在城市
+  string introduction = 10 [json_name = "introduction"]; // 公司介绍
+  string website = 11 [json_name = "website"]; // 公司主页
+  string email = 12 [json_name = "email"]; // 电子邮件
+  string office = 13 [json_name = "office"]; // 办公室
+  int64 employees = 14 [json_name = "employees"]; // 员工人数
+  string main_business = 15 [json_name = "main_business"]; // 主要业务及产品
+  string business_scope = 16 [json_name = "business_scope"]; // 经营范围
+}
+message StockCompanyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string exchange = 5 [json_name = "exchange"]; // 交易所代码 ，SSE上交所 SZSE深交所 BSE北交所
+  string status = 6 [json_name = "status"]; // 状态
+}
+message StockCompanyResponse {
+  repeated StockCompany list = 1;
+}
+
+// 上市公司管理层
+message StkManagers {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string name = 3 [json_name = "name"]; // 姓名
+  string gender = 4 [json_name = "gender"]; // 性别
+  string lev = 5 [json_name = "lev"]; // 岗位类别
+  string title = 6 [json_name = "title"]; // 岗位
+  string edu = 7 [json_name = "edu"]; // 学历
+  string national = 8 [json_name = "national"]; // 国籍
+  string birthday = 9 [json_name = "birthday"]; // 出生年月
+  string begin_date = 10 [json_name = "begin_date"]; // 上任日期
+  string end_date = 11 [json_name = "end_date"]; // 离任日期
+  string resume = 12 [json_name = "resume"]; // 个人简历
+}
+message StkManagersRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; //股票代码，支持单个或多个股票输入
+  string ann_date = 5 [json_name = "ann_date"]; //公告日期（YYYYMMDD格式，下同）
+  string start_date = 6 [json_name = "start_date"]; //公告开始日期
+  string end_date = 7 [json_name = "end_date"]; //公告结束日期
+}
+message StkManagersResponse {
+  repeated StkManagers list = 1;
+}
+
+// 管理层薪酬和持股
+message StkRewards {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string end_date = 3 [json_name = "end_date"]; // 截止日期
+  string name = 4 [json_name = "name"]; // 姓名
+  string title = 5 [json_name = "title"]; // 职务
+  float reward = 6 [json_name = "reward"]; // 报酬
+  float hold_vol = 7 [json_name = "hold_vol"]; // 持股数
+}
+message StkRewardsRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // TS股票代码，支持单个或多个代码输入
+  string end_date = 5 [json_name = "end_date"]; // 报告期
+}
+message StkRewardsResponse {
+  repeated StkRewards list = 1;
+}
+
+// IPO新股列表
+message NewShare {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string sub_code = 2 [json_name = "sub_code"]; // 申购代码
+  string name = 3 [json_name = "name"]; // 名称
+  string ipo_date = 4 [json_name = "ipo_date"]; // 上网发行日期
+  string issue_date = 5 [json_name = "issue_date"]; // 上市日期
+  float amount = 6 [json_name = "amount"]; // 发行总量（万股）
+  float market_amount = 7 [json_name = "market_amount"]; // 上网发行总量（万股）
+  float price = 8 [json_name = "price"]; // 发行价格
+  float pe = 9 [json_name = "pe"]; // 市盈率
+  float limit_amount = 10 [json_name = "limit_amount"]; // 个人申购上限（万股）
+  float funds = 11 [json_name = "funds"]; // 募集资金（亿元）
+  float ballot = 12 [json_name = "ballot"]; // 中签率
+}
+message NewShareRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string start_date = 4 [json_name = "start_date"]; // 上网发行开始日期
+  string end_date = 5 [json_name = "end_date"]; // 上网发行结束日期
+}
+message NewShareResponse {
+  repeated NewShare list = 1;
+}
+
+// 备用列表
+message BakBasic {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // TS股票代码
+  string name = 3 [json_name = "name"]; // 股票名称
+  string industry = 4 [json_name = "industry"]; // 行业
+  string area = 5 [json_name = "area"]; // 地域
+  float pe = 6 [json_name = "pe"]; // 市盈率（动）
+  float float_share = 7 [json_name = "float_share"]; // 流通股本（亿）
+  float total_share = 8 [json_name = "total_share"]; // 总股本（亿）
+  float total_assets = 9 [json_name = "total_assets"]; // 总资产（亿）
+  float liquid_assets = 10 [json_name = "liquid_assets"]; // 流动资产（亿）
+  float fixed_assets = 11 [json_name = "fixed_assets"]; // 固定资产（亿）
+  float reserved = 12 [json_name = "reserved"]; // 公积金
+  float reserved_pershare = 13 [json_name = "reserved_pershare"]; // 每股公积金
+  float eps = 14 [json_name = "eps"]; // 每股收益
+  float bvps = 15 [json_name = "bvps"]; // 每股净资产
+  float pb = 16 [json_name = "pb"]; // 市净率
+  string list_date = 17 [json_name = "list_date"]; // 上市日期
+  float undp = 18 [json_name = "undp"]; // 未分配利润
+  float per_undp = 19 [json_name = "per_undp"]; // 每股未分配利润
+  float rev_yoy = 20 [json_name = "rev_yoy"]; // 收入同比（%）
+  float profit_yoy = 21 [json_name = "profit_yoy"]; // 利润同比（%）
+  float gpr = 22 [json_name = "gpr"]; // 毛利率（%）
+  float npr = 23 [json_name = "npr"]; // 净利润率（%）
+  int64 holder_num = 24 [json_name = "holder_num"]; // 股东人数
+}
+message BakBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 5 [json_name = "ts_code"]; // 股票代码
+}
+message BakBasicResponse {
+  repeated BakBasic list = 1;
+}
+
+// 日线行情
+message Daily {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float open = 3 [json_name = "open"]; // 开盘价
+  float high = 4 [json_name = "high"]; // 最高价
+  float low = 5 [json_name = "low"]; // 最低价
+  float close = 6 [json_name = "close"]; // 收盘价
+  float pre_close = 7 [json_name = "pre_close"]; // 昨收价(前复权)
+  float change = 8 [json_name = "change"]; // 涨跌额
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅 （未复权，如果是复权请用 通用行情接口 ）
+  float vol = 10 [json_name = "vol"]; // 成交量 （手）
+  float amount = 11 [json_name = "amount"]; // 成交额 （千元）
+}
+message DailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（支持多个股票同时提取，逗号分隔）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期（YYYYMMDD）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
+  string end_date = 7 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
+}
+message DailyResponse {
+  repeated Daily list = 1;
+}
+
+// 周线行情
+message Weekly {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float close = 3 [json_name = "close"]; // 周收盘价
+  float open = 4 [json_name = "open"]; // 周开盘价
+  float high = 5 [json_name = "high"]; // 周最高价
+  float low = 6 [json_name = "low"]; // 周最低价
+  float pre_close = 7 [json_name = "pre_close"]; // 上一周收盘价
+  float change = 8 [json_name = "change"]; // 周涨跌额
+  float pct_chg = 9 [json_name = "pct_chg"]; // 周涨跌幅（未复权，如果是复权请用 通用行情接口 ）
+  float vol = 10 [json_name = "vol"]; // 周成交量
+  float amount = 11 [json_name = "amount"]; // 周成交额
+}
+message WeeklyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码 （ts_code,trade_date两个参数任选一）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期 （每周最后一个交易日期，YYYYMMDD格式）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message WeeklyResponse {
+  repeated Weekly list = 1;
+}
+
+// 月线行情
+message Monthly {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float close = 3 [json_name = "close"]; // 月收盘价
+  float open = 4 [json_name = "open"]; // 月开盘价
+  float high = 5 [json_name = "high"]; // 月最高价
+  float low = 6 [json_name = "low"]; // 月最低价
+  float pre_close = 7 [json_name = "pre_close"]; // 上月收盘价
+  float change = 8 [json_name = "change"]; // 月涨跌额
+  float pct_chg = 9 [json_name = "pct_chg"]; // 月涨跌幅（未复权，如果是复权请用 通用行情接口 ）
+  float vol = 10 [json_name = "vol"]; // 月成交量
+  float amount = 11 [json_name = "amount"]; // 月成交额
+}
+message MonthlyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码 （ts_code,trade_date两个参数任选一）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期 （每月最后一个交易日日期，YYYYMMDD格式）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message MonthlyResponse {
+  repeated Monthly list = 1;
+}
+
+// 复权因子
+message AdjFactor {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float adj_factor = 3 [json_name = "adj_factor"]; // 复权因子
+}
+message AdjFactorRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期(YYYYMMDD，下同)
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message AdjFactorResponse {
+  repeated AdjFactor list = 1;
+}
+
+// 每日指标
+message DailyBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float close = 3 [json_name = "close"]; // 当日收盘价
+  float turnover_rate = 4 [json_name = "turnover_rate"]; // 换手率（%）
+  float turnover_rate_f = 5 [json_name = "turnover_rate_f"]; // 换手率（自由流通股）
+  float volume_ratio = 6 [json_name = "volume_ratio"]; // 量比
+  float pe = 7 [json_name = "pe"]; // 市盈率（总市值/净利润，亏损的PE为空）
+  float pe_ttm = 8 [json_name = "pe_ttm"]; // 市盈率（TTM，亏损的PE为空）
+  float pb = 9 [json_name = "pb"]; // 市净率（总市值/净资产）
+  float ps = 10 [json_name = "ps"]; // 市销率
+  float ps_ttm = 11 [json_name = "ps_ttm"]; // 市销率（TTM）
+  float dv_ratio = 12 [json_name = "dv_ratio"]; // 股息率（%）
+  float dv_ttm = 13 [json_name = "dv_ttm"]; // 股息率（TTM）（%）
+  float total_share = 14 [json_name = "total_share"]; // 总股本（万股）
+  float float_share = 15 [json_name = "float_share"]; // 流通股本（万股）
+  float free_share = 16 [json_name = "free_share"]; // 自由流通股本（万）
+  float total_mv = 17 [json_name = "total_mv"]; // 总市值 （万元）
+  float circ_mv = 18 [json_name = "circ_mv"]; // 流通市值（万元）
+}
+message DailyBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（二选一）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期 （二选一）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
+  string end_date = 7 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
+}
+message DailyBasicResponse {
+  repeated DailyBasic list = 1;
+}
+
+// 个股资金流向
+message MoneyFlow {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  int64 buy_sm_vol = 3 [json_name = "buy_sm_vol"]; // 小单买入量（手）
+  float buy_sm_amount = 4 [json_name = "buy_sm_amount"]; // 小单买入金额（万元）
+  int64 sell_sm_vol = 5 [json_name = "sell_sm_vol"]; // 小单卖出量（手）
+  float sell_sm_amount = 6 [json_name = "sell_sm_amount"]; // 小单卖出金额（万元）
+  int64 buy_md_vol = 7 [json_name = "buy_md_vol"]; // 中单买入量（手）
+  float buy_md_amount = 8 [json_name = "buy_md_amount"]; // 中单买入金额（万元）
+  int64 sell_md_vol = 9 [json_name = "sell_md_vol"]; // 中单卖出量（手）
+  float sell_md_amount = 10 [json_name = "sell_md_amount"]; // 中单卖出金额（万元）
+  int64 buy_lg_vol = 11 [json_name = "buy_lg_vol"]; // 大单买入量（手）
+  float buy_lg_amount = 12 [json_name = "buy_lg_amount"]; // 大单买入金额（万元）
+  int64 sell_lg_vol = 13 [json_name = "sell_lg_vol"]; // 大单卖出量（手）
+  float sell_lg_amount = 14 [json_name = "sell_lg_amount"]; // 大单卖出金额（万元）
+  int64 buy_elg_vol = 15 [json_name = "buy_elg_vol"]; // 特大单买入量（手）
+  float buy_elg_amount = 16 [json_name = "buy_elg_amount"]; // 特大单买入金额（万元）
+  int64 sell_elg_vol = 17 [json_name = "sell_elg_vol"]; // 特大单卖出量（手）
+  float sell_elg_amount = 18 [json_name = "sell_elg_amount"]; // 特大单卖出金额（万元）
+  int64 net_mf_vol = 19 [json_name = "net_mf_vol"]; // 净流入量（手）
+  float net_mf_amount = 20 [json_name = "net_mf_amount"]; // 净流入额（万元）
+}
+message MoneyFlowRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（股票和时间参数至少输入一个）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message MoneyFlowResponse {
+  repeated MoneyFlow list = 1;
+}
+
+// 每日涨跌停价格
+message StkLimit {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // TS股票代码
+  float pre_close = 3 [json_name = "pre_close"]; // 昨日收盘价
+  float up_limit = 4 [json_name = "up_limit"]; // 涨停价
+  float down_limit = 5 [json_name = "down_limit"]; // 跌停价
+}
+message StkLimitRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期(YYYYMMDD，下同)
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message StkLimitResponse {
+  repeated StkLimit list = 1;
+}
+
+// 每日停复牌信息
+message Suspendd {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 停复牌日期
+  string suspend_timing = 3 [json_name = "suspend_timing"]; // 日内停牌时间段
+  string suspend_type = 4 [json_name = "suspend_type"]; // 停复牌类型：S-停牌，R-复牌
+}
+message SuspenddRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码(可输入多值)
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日日期
+  string start_date = 6 [json_name = "start_date"]; // 停复牌查询开始日期
+  string end_date = 7 [json_name = "end_date"]; // 停复牌查询结束日期
+  string suspend_type = 8 [json_name = "suspend_type"]; // 停复牌类型：S-停牌,R-复牌
+}
+message SuspenddResponse {
+  repeated Suspendd list = 1;
+}
+
+// 沪深港通资金流向
+message MoneyFlowHsgt {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  float ggt_ss = 2 [json_name = "ggt_ss"]; // 港股通（上海）
+  float ggt_sz = 3 [json_name = "ggt_sz"]; // 港股通（深圳）
+  float hgt = 4 [json_name = "hgt"]; // 沪股通（百万元）
+  float sgt = 5 [json_name = "sgt"]; // 深股通（百万元）
+  float north_money = 6 [json_name = "north_money"]; // 北向资金（百万元）
+  float south_money = 7 [json_name = "south_money"]; // 南向资金（百万元）
+}
+message MoneyFlowHsgtRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 (二选一)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期 (二选一)
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message MoneyFlowHsgtResponse {
+  repeated MoneyFlowHsgt list = 1;
+}
+
+// 沪深股通十大成交股
+message HsgtTop10 {
+  string trade_date = 1 [json_name = "trade_date"]; //交易日期
+  string ts_code = 2 [json_name = "ts_code"]; //股票代码
+  string name = 3 [json_name = "name"]; //股票名称
+  float close = 4 [json_name = "close"]; //收盘价
+  float change = 5 [json_name = "change"]; //涨跌额
+  int64 rank = 6 [json_name = "rank"]; //资金排名
+  int64 market_type = 7 [json_name = "market_type"]; //市场类型（1：沪市 3：深市）
+  float amount = 8 [json_name = "amount"]; //成交金额（元）
+  float net_amount = 9 [json_name = "net_amount"]; //净成交金额（元）
+  float buy = 10 [json_name = "buy"]; //买入金额（元）
+  float sell = 11 [json_name = "sell"]; //卖出金额（元）
+}
+message HsgtTop10Request {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（二选一）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期（二选一）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string market_type = 8 [json_name = "market_type"]; // 市场类型（1：沪市 3：深市）
+}
+message HsgtTop10Response {
+  repeated HsgtTop10 list = 1;
+}
+
+// 港股通十大成交股
+message GgtTop10 {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 股票代码
+  string name = 3 [json_name = "name"]; // 股票名称
+  float close = 4 [json_name = "close"]; // 收盘价
+  float p_change = 5 [json_name = "p_change"]; // 涨跌幅
+  int64 rank = 6 [json_name = "rank"]; // 资金排名
+  int64 market_type = 7 [json_name = "market_type"]; // 市场类型 2：港股通（沪） 4：港股通（深）
+  float amount = 8 [json_name = "amount"]; // 累计成交金额（元）
+  float net_amount = 9 [json_name = "net_amount"]; // 净买入金额（元）
+  float sh_amount = 10 [json_name = "sh_amount"]; // 沪市成交金额（元）
+  float sh_net_amount = 11 [json_name = "sh_net_amount"]; // 沪市净买入金额（元）
+  float sh_buy = 12 [json_name = "sh_buy"]; // 沪市买入金额（元）
+  float sh_sell = 13 [json_name = "sh_sell"]; // 沪市卖出金额
+  float sz_amount = 14 [json_name = "sz_amount"]; // 深市成交金额（元）
+  float sz_net_amount = 15 [json_name = "sz_net_amount"]; // 深市净买入金额（元）
+  float sz_buy = 16 [json_name = "sz_buy"]; // 深市买入金额（元）
+  float sz_sell = 17 [json_name = "sz_sell"]; // 深市卖出金额（元）
+}
+message GgtTop10Request {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（二选一）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期（二选一）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string market_type = 8 [json_name = "market_type"]; // 市场类型 2：港股通（沪） 4：港股通（深）
+}
+message GgtTop10Response {
+  repeated GgtTop10 list = 1;
+}
+
+// 港股通每日成交统计
+message GgtDaily {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  float buy_amount = 2 [json_name = "buy_amount"]; // 买入成交金额（亿元）
+  float buy_volume = 3 [json_name = "buy_volume"]; // 买入成交笔数（万笔）
+  float sell_amount = 4 [json_name = "sell_amount"]; // 卖出成交金额（亿元）
+  float sell_volume = 5 [json_name = "sell_volume"]; // 卖出成交笔数（万笔）
+}
+message GgtDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message GgtDailyResponse {
+  repeated GgtDaily list = 1;
+}
+
+// 港股通每月成交统计
+message GgtMonthly {
+  string month = 1 [json_name = "month"]; //	交易日期
+  float day_buy_amt = 2 [json_name = "day_buy_amt"]; //	当月日均买入成交金额（亿元）
+  float day_buy_vol = 3 [json_name = "day_buy_vol"]; //	当月日均买入成交笔数（万笔）
+  float day_sell_amt = 4 [json_name = "day_sell_amt"]; //	当月日均卖出成交金额（亿元）
+  float day_sell_vol = 5 [json_name = "day_sell_vol"]; //	当月日均卖出成交笔数（万笔）
+  float total_buy_amt = 6 [json_name = "total_buy_amt"]; //	总买入成交金额（亿元）
+  float total_buy_vol = 7 [json_name = "total_buy_vol"]; //	总买入成交笔数（万笔）
+  float total_sell_amt = 8 [json_name = "total_sell_amt"]; //	总卖出成交金额（亿元）
+  float total_sell_vol = 9 [json_name = "total_sell_vol"]; //	总卖出成交笔数（万笔）
+}
+message GgtMonthlyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string month = 4 [json_name = "month"]; // 月度（格式YYYYMM，下同，支持多个输入）
+  string start_month = 5 [json_name = "start_month"]; // 开始月度
+  string end_month = 6 [json_name = "end_month"]; // 结束月度
+}
+message GgtMonthlyResponse {
+  repeated GgtMonthly list = 1;
+}
+
+// 备用行情
+message BakDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  string name = 3 [json_name = "name"]; // 股票名称
+  float pct_change = 4 [json_name = "pct_change"]; // 涨跌幅
+  float close = 5 [json_name = "close"]; // 收盘价
+  float change = 6 [json_name = "change"]; // 涨跌额
+  float open = 7 [json_name = "open"]; // 开盘价
+  float high = 8 [json_name = "high"]; // 最高价
+  float low = 9 [json_name = "low"]; // 最低价
+  float pre_close = 10 [json_name = "pre_close"]; // 昨收价
+  float vol_ratio = 11 [json_name = "vol_ratio"]; // 量比
+  float turn_over = 12 [json_name = "turn_over"]; // 换手率
+  float swing = 13 [json_name = "swing"]; // 振幅
+  float vol = 14 [json_name = "vol"]; // 成交量
+  float amount = 15 [json_name = "amount"]; // 成交额
+  float selling = 16 [json_name = "selling"]; // 内盘（主动卖，手）
+  float buying = 17 [json_name = "buying"]; // 外盘（主动买， 手）
+  float total_share = 18 [json_name = "total_share"]; // 总股本(亿)
+  float float_share = 19 [json_name = "float_share"]; // 流通股本(亿)
+  float pe = 20 [json_name = "pe"]; // 市盈(动)
+  string industry = 21 [json_name = "industry"]; // 所属行业
+  string area = 22 [json_name = "area"]; // 所属地域
+  float float_mv = 23 [json_name = "float_mv"]; // 流通市值
+  float total_mv = 24 [json_name = "total_mv"]; // 总市值
+  float avg_price = 25 [json_name = "avg_price"]; // 平均价
+  float strength = 26 [json_name = "strength"]; // 强弱度(%)
+  float activity = 27 [json_name = "activity"]; // 活跃度(%)
+  float avg_turnover = 28 [json_name = "avg_turnover"]; // 笔换手
+  float attack = 29 [json_name = "attack"]; // 攻击波(%)
+  float interval_3 = 30 [json_name = "interval_3"]; // 近3月涨幅
+  float interval_6 = 31 [json_name = "interval_6"]; // 近6月涨幅
+}
+message BakDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  repeated string fields = 3 [json_name = "fields"];
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message BakDailyResponse {
+  repeated BakDaily list = 1;
+}

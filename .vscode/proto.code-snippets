@@ -1,0 +1,23 @@
+{
+  "Create proto message": {
+    "prefix": "message_new",
+    "body": [
+      "// $1",
+      "message $2 {}",
+      "message $2List {",
+      "\trepeated $2 list = 1;",
+      "}",
+      "message $2Request {",
+      "\tstring limit = 1 [json_name = \"limit\"];",
+      "\tstring offset = 2 [json_name = \"offset\"];",
+      "\trepeated string fields = 3 [json_name = \"fields\"];",
+      "}",
+      "message $2Response {",
+      "\trepeated $2 list = 1;",
+      "}",
+      "",
+      "$0"
+    ],
+    "description": ""
+  },
+}
