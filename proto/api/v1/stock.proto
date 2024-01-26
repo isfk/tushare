@@ -1380,3 +1380,371 @@ message DisclosureDateRequest {
 message DisclosureDateResponse {
   repeated DisclosureDate list = 1;
 }
+
+// 融资融券交易汇总|margin
+message Margin {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string exchange_id = 2 [json_name = "exchange_id"]; // 交易所代码（SSE上交所SZSE深交所BSE北交所）
+  float rzye = 3 [json_name = "rzye"]; // 融资余额(元)
+  float rzmre = 4 [json_name = "rzmre"]; // 融资买入额(元)
+  float rzche = 5 [json_name = "rzche"]; // 融资偿还额(元)
+  float rqye = 6 [json_name = "rqye"]; // 融券余额(元)
+  float rqmcl = 7 [json_name = "rqmcl"]; // 融券卖出量(股,份,手)
+  float rzrqye = 8 [json_name = "rzrqye"]; // 融资融券余额(元)
+  float rqyl = 9 [json_name = "rqyl"]; // 融券余量(股,份,手)
+}
+message MarginRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string exchange_id = 4 [json_name = "exchange_id"]; // 交易所代码（SSE上交所SZSE深交所BSE北交所）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message MarginResponse {
+  repeated Margin list = 1;
+}
+
+// 融资融券交易明细|margin_detail
+message MarginDetail {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // TS股票代码
+  string name = 3 [json_name = "name"]; // 股票名称 （20190910后有数据）
+  float rzye = 4 [json_name = "rzye"]; // 融资余额(元)
+  float rqye = 5 [json_name = "rqye"]; // 融券余额(元)
+  float rzmre = 6 [json_name = "rzmre"]; // 融资买入额(元)
+  float rqyl = 7 [json_name = "rqyl"]; // 融券余量（股）
+  float rzche = 8 [json_name = "rzche"]; // 融资偿还额(元)
+  float rqchl = 9 [json_name = "rqchl"]; // 融券偿还量(股)
+  float rqmcl = 10 [json_name = "rqmcl"]; // 融券卖出量(股,份,手)
+  float rzrqye = 11 [json_name = "rzrqye"]; // 融资融券余额(元)
+}
+message MarginDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message MarginDetailResponse {
+  repeated MarginDetail list = 1;
+}
+
+// 融资融券标的|margin_target
+message MarginTarget {
+  string ts_code = 1 [json_name = "ts_code"]; // 标的代码
+  string mg_type = 2 [json_name = "mg_type"]; // 标的类型：B买入标的 S卖出标的
+  string is_new = 3 [json_name = "is_new"]; // 最新标记：Y是 N否
+  string in_date = 4 [json_name = "in_date"]; // 纳入日期
+  string out_date = 5 [json_name = "out_date"]; // 剔除日期
+  string ann_date = 6 [json_name = "ann_date"]; // 公布日期
+}
+message MarginTargetRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string is_new = 4 [json_name = "is_new"]; // 是否最新
+  string mg_type = 5 [json_name = "mg_type"]; // 标的类型：B买入标的 S卖出标的
+}
+message MarginTargetResponse {
+  repeated MarginTarget list = 1;
+}
+
+// 前十大股东|top10_holders
+message Top10Holders {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string end_date = 3 [json_name = "end_date"]; // 报告期
+  string holder_name = 4 [json_name = "holder_name"]; // 股东名称
+  float hold_amount = 5 [json_name = "hold_amount"]; // 持有数量（股）
+  float hold_ratio = 6 [json_name = "hold_ratio"]; // 占总股本比例(%)
+  float hold_float_ratio = 7 [json_name = "hold_float_ratio"]; // 占流通股本比例(%)
+  float hold_change = 8 [json_name = "hold_change"]; // 持股变动
+  string holder_type = 9 [json_name = "holder_type"]; // 股东类型
+}
+message Top10HoldersRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string period = 4 [json_name = "period"]; // 报告期（YYYYMMDD格式，一般为每个季度最后一天）
+  string ann_date = 5 [json_name = "ann_date"]; // 公告日期
+  string start_date = 6 [json_name = "start_date"]; // 报告期开始日期
+  string end_date = 7 [json_name = "end_date"]; // 报告期结束日期
+}
+message Top10HoldersResponse {
+  repeated Top10Holders list = 1;
+}
+
+// 前十大流通股东|top10_floatholders
+message Top10Floatholders {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string end_date = 3 [json_name = "end_date"]; // 报告期
+  string holder_name = 4 [json_name = "holder_name"]; // 股东名称
+  float hold_amount = 5 [json_name = "hold_amount"]; // 持有数量（股）
+  float hold_ratio = 6 [json_name = "hold_ratio"]; // 占总股本比例(%)
+  float hold_float_ratio = 7 [json_name = "hold_float_ratio"]; // 占流通股本比例(%)
+  float hold_change = 8 [json_name = "hold_change"]; // 持股变动
+  string holder_type = 9 [json_name = "holder_type"]; // 股东类型
+}
+message Top10FloatholdersRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string period = 4 [json_name = "period"]; // 报告期（YYYYMMDD格式，一般为每个季度最后一天）
+  string ann_date = 5 [json_name = "ann_date"]; // 公告日期
+  string start_date = 6 [json_name = "start_date"]; // 报告期开始日期
+  string end_date = 7 [json_name = "end_date"]; // 报告期结束日期
+}
+message Top10FloatholdersResponse {
+  repeated Top10Floatholders list = 1;
+}
+
+// 龙虎榜每日明细|top_list
+message TopList {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // TS代码
+  string name = 3 [json_name = "name"]; // 名称
+  float close = 4 [json_name = "close"]; // 收盘价
+  float pct_change = 5 [json_name = "pct_change"]; // 涨跌幅
+  float turnover_rate = 6 [json_name = "turnover_rate"]; // 换手率
+  float amount = 7 [json_name = "amount"]; // 总成交额
+  float l_sell = 8 [json_name = "l_sell"]; // 龙虎榜卖出额
+  float l_buy = 9 [json_name = "l_buy"]; // 龙虎榜买入额
+  float l_amount = 10 [json_name = "l_amount"]; // 龙虎榜成交额
+  float net_amount = 11 [json_name = "net_amount"]; // 龙虎榜净买入额
+  float net_rate = 12 [json_name = "net_rate"]; // 龙虎榜净买额占比
+  float amount_rate = 13 [json_name = "amount_rate"]; // 龙虎榜成交额占比
+  float float_values = 14 [json_name = "float_values"]; // 当日流通市值
+  string reason = 15 [json_name = "reason"]; // 上榜理由
+}
+message TopListRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; //	交易日期
+  string ts_code = 4 [json_name = "ts_code"]; //	股票代码
+}
+message TopListResponse {
+  repeated TopList list = 1;
+}
+
+// 龙虎榜机构明细|top_inst
+message TopInst {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // TS代码
+  string exalter = 3 [json_name = "exalter"]; // 营业部名称
+  string side = 4 [json_name = "side"]; // 买卖类型0：买入金额最大的前5名， 1：卖出金额最大的前5名
+  float buy = 5 [json_name = "buy"]; // 买入额（元）
+  float buy_rate = 6 [json_name = "buy_rate"]; // 买入占总成交比例
+  float sell = 7 [json_name = "sell"]; // 卖出额（元）
+  float sell_rate = 8 [json_name = "sell_rate"]; // 卖出占总成交比例
+  float net_buy = 9 [json_name = "net_buy"]; // 净成交额（元）
+  string reason = 10 [json_name = "reason"]; // 上榜理由
+}
+message TopInstRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; //	交易日期
+  string ts_code = 4 [json_name = "ts_code"]; //	TS代码
+}
+message TopInstResponse {
+  repeated TopInst list = 1;
+}
+
+// 股权质押统计数据|pledge_stat
+message PledgeStat {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string end_date = 2 [json_name = "end_date"]; // 截止日期
+  int64 pledge_count = 3 [json_name = "pledge_count"]; // 质押次数
+  float unrest_pledge = 4 [json_name = "unrest_pledge"]; // 无限售股质押数量（万）
+  float rest_pledge = 5 [json_name = "rest_pledge"]; // 限售股份质押数量（万）
+  float total_share = 6 [json_name = "total_share"]; // 总股本
+  float pledge_ratio = 7 [json_name = "pledge_ratio"]; // 质押比例
+}
+message PledgeStatRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string end_date = 4 [json_name = "end_date"]; // 截止日期
+}
+message PledgeStatResponse {
+  repeated PledgeStat list = 1;
+}
+
+// 股权质押明细|pledge_detail
+message PledgeDetail {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string holder_name = 3 [json_name = "holder_name"]; // 股东名称
+  float pledge_amount = 4 [json_name = "pledge_amount"]; // 质押数量（万股）
+  string start_date = 5 [json_name = "start_date"]; // 质押开始日期
+  string end_date = 6 [json_name = "end_date"]; // 质押结束日期
+  string is_release = 7 [json_name = "is_release"]; // 是否已解押
+  string release_date = 8 [json_name = "release_date"]; // 解押日期
+  string pledgor = 9 [json_name = "pledgor"]; // 质押方
+  float holding_amount = 10 [json_name = "holding_amount"]; // 持股总数（万股）
+  float pledged_amount = 11 [json_name = "pledged_amount"]; // 质押总数（万股）
+  float p_total_ratio = 12 [json_name = "p_total_ratio"]; // 本次质押占总股本比例
+  float h_total_ratio = 13 [json_name = "h_total_ratio"]; // 持股总数占总股本比例
+  string is_buyback = 14 [json_name = "is_buyback"]; // 是否回购
+}
+message PledgeDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+}
+message PledgeDetailResponse {
+  repeated PledgeDetail list = 1;
+}
+
+// 股票回购|repurchase
+message Repurchase {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string end_date = 3 [json_name = "end_date"]; // 截止日期
+  string proc = 4 [json_name = "proc"]; // 进度
+  string exp_date = 5 [json_name = "exp_date"]; // 过期日期
+  float vol = 6 [json_name = "vol"]; // 回购数量
+  float amount = 7 [json_name = "amount"]; // 回购金额
+  float high_limit = 8 [json_name = "high_limit"]; // 回购最高价
+  float low_limit = 9 [json_name = "low_limit"]; // 回购最低价
+}
+message RepurchaseRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ann_date = 3 [json_name = "ann_date"]; // 公告日期（任意填参数，如果都不填，单次默认返回2000条）
+  string start_date = 4 [json_name = "start_date"]; // 公告开始日期
+  string end_date = 5 [json_name = "end_date"]; // 公告结束日期
+}
+message RepurchaseResponse {
+  repeated Repurchase list = 1;
+}
+
+// 概念股分类|concept
+message Concept {
+  string code = 1 [json_name = "code"]; // 概念分类ID
+  string name = 2 [json_name = "name"]; // 概念分类名称
+  string src = 3 [json_name = "src"]; // 来源
+}
+message ConceptRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string src = 3 [json_name = "src"]; // 来源，默认为ts
+}
+message ConceptResponse {
+  repeated Concept list = 1;
+}
+
+// 概念股列表|concept_detail
+message ConceptDetail {
+  string id = 1 [json_name = "id"]; // 概念代码
+  string concept_name = 2 [json_name = "concept_name"]; // 概念名称
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string name = 4 [json_name = "name"]; // 股票名称
+  string in_date = 5 [json_name = "in_date"]; // 纳入日期
+  string out_date = 6 [json_name = "out_date"]; // 剔除日期
+}
+message ConceptDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string id = 3 [json_name = "id"]; // 概念分类ID （id来自概念股分类接口）
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码 （以上参数二选一）
+}
+message ConceptDetailResponse {
+  repeated ConceptDetail list = 1;
+}
+
+// 限售股解禁|share_float
+message ShareFloat {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string float_date = 3 [json_name = "float_date"]; // 解禁日期
+  float float_share = 4 [json_name = "float_share"]; // 流通股份(股)
+  float float_ratio = 5 [json_name = "float_ratio"]; // 流通股份占总股本比率
+  string holder_name = 6 [json_name = "holder_name"]; // 股东名称
+  string share_type = 7 [json_name = "share_type"]; // 股份类型
+}
+message ShareFloatRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS股票代码（至少输入一个参数）
+  string ann_date = 4 [json_name = "ann_date"]; // 公告日期（日期格式：YYYYMMDD，下同）
+  string float_date = 5 [json_name = "float_date"]; // 解禁日期
+  string start_date = 6 [json_name = "start_date"]; // 解禁开始日期
+  string end_date = 7 [json_name = "end_date"]; // 解禁结束日期
+}
+message ShareFloatResponse {
+  repeated ShareFloat list = 1;
+}
+
+// 大宗交易|block_trade
+message BlockTrade {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日历
+  float price = 3 [json_name = "price"]; // 成交价
+  float vol = 4 [json_name = "vol"]; // 成交量（万股）
+  float amount = 5 [json_name = "amount"]; // 成交金额
+  string buyer = 6 [json_name = "buyer"]; // 买方营业部
+  string seller = 7 [json_name = "seller"]; // 卖方营业部
+}
+message BlockTradeRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码（股票代码和日期至少输入一个参数）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（格式：YYYYMMDD，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message BlockTradeResponse {
+  repeated BlockTrade list = 1;
+}
+
+// 股东人数|stk_holdernumber
+message StkHolderNumber {
+  string ts_code = 1 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string end_date = 3 [json_name = "end_date"]; // 截止日期
+  int64 holder_num = 4 [json_name = "holder_num"]; // 股东户数
+}
+message StkHolderNumberRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS股票代码
+  string endate = 4 [json_name = "enddate"]; // 截止日期 (字段有冲突，删掉了个d)
+  string start_date = 5 [json_name = "start_date"]; // 公告开始日期
+  string end_date = 6 [json_name = "end_date"]; // 公告结束日期
+}
+message StkHolderNumberResponse {
+  repeated StkHolderNumber list = 1;
+}
+
+// 股东增减持|stk_holdertrade
+message StkHolderTrade {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string holder_name = 3 [json_name = "holder_name"]; // 股东名称
+  string holder_type = 4 [json_name = "holder_type"]; // 股东类型G高管P个人C公司
+  string in_de = 5 [json_name = "in_de"]; // 类型IN增持DE减持
+  float change_vol = 6 [json_name = "change_vol"]; // 变动数量
+  float change_ratio = 7 [json_name = "change_ratio"]; // 占流通比例（%）
+  float after_share = 8 [json_name = "after_share"]; // 变动后持股
+  float after_ratio = 9 [json_name = "after_ratio"]; // 变动后占流通比例（%）
+  float avg_price = 10 [json_name = "avg_price"]; // 平均价格
+  float total_share = 11 [json_name = "total_share"]; // 持股总数
+  string begin_date = 12 [json_name = "begin_date"]; // 增减持开始日期
+  string close_date = 13 [json_name = "close_date"]; // 增减持结束日期
+}
+message StkHolderTradeRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS股票代码
+  string ann_date = 4 [json_name = "ann_date"]; // 公告日期
+  string start_date = 5 [json_name = "start_date"]; // 公告开始日期
+  string end_date = 6 [json_name = "end_date"]; // 公告结束日期
+  string trade_type = 7 [json_name = "trade_type"]; // 交易类型IN增持DE减持
+  string holder_type = 8 [json_name = "holder_type"]; // 股东类型C公司P个人G高管
+}
+message StkHolderTradeResponse {
+  repeated StkHolderTrade list = 1;
+}

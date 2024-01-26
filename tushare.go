@@ -5,9 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 const baseUrl = "http://api.tushare.pro"
+
+func TushareDate(t time.Time) string {
+	return t.Format("20060102")
+}
 
 func newTransport() *http.Client {
 	return &http.Client{}

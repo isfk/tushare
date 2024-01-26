@@ -110,6 +110,54 @@ const ApiFinaMainbz string = "fina_mainbz"
 // 财报披露计划 api name
 const ApiDisclosureDate string = "disclosure_date"
 
+// 融资融券交易汇总 api name
+const ApiMargin string = "margin"
+
+// 融资融券交易明细 api name
+const ApiMarginDetail string = "margin_detail"
+
+// 融资融券标的 api name
+const ApiMarginTarget string = "margin_target"
+
+// 前十大股东 api name
+const ApiTop10Holders string = "top10_holders"
+
+// 前十大流通股东 api name
+const ApiTop10Floatholders string = "top10_floatholders"
+
+// 龙虎榜每日明细 api name
+const ApiTopList string = "top_list"
+
+// 龙虎榜机构明细 api name
+const ApiTopInst string = "top_inst"
+
+// 股权质押统计数据 api name
+const ApiPledgeStat string = "pledge_stat"
+
+// 股权质押明细 api name
+const ApiPledgeDetail string = "pledge_detail"
+
+// 股票回购 api name
+const ApiRepurchase string = "repurchase"
+
+// 概念股分类 api name
+const ApiConcept string = "concept"
+
+// 概念股列表 api name
+const ApiConceptDetail string = "concept_detail"
+
+// 限售股解禁 api name
+const ApiShareFloat string = "share_float"
+
+// 大宗交易 api name
+const ApiBlockTrade string = "block_trade"
+
+// 股东人数 api name
+const ApiStkHolderNumber string = "stk_holdernumber"
+
+// 股东增减持 api name
+const ApiStkHolderTrade string = "stk_holdertrade"
+
 // fields
 
 // 股票列表 fields
@@ -210,6 +258,54 @@ var FieldsFinaMainbz = []string{"ts_code", "end_date", "bz_item", "bz_sales", "b
 
 // 财报披露计划 fields
 var FieldsDisclosureDate = []string{"ts_code", "ann_date", "end_date", "pre_date", "actual_date", "modify_date"}
+
+// 融资融券交易汇总 fields
+var FieldsMargin = []string{"trade_date", "exchange_id", "rzye", "rzmre", "rzche", "rqye", "rqmcl", "rzrqye", "rqyl"}
+
+// 融资融券交易明细 fields
+var FieldsMarginDetail = []string{"trade_date", "ts_code", "name", "rzye", "rqye", "rzmre", "rqyl", "rzche", "rqchl", "rqmcl", "rzrqye"}
+
+// 融资融券标的 fields
+var FieldsMarginTarget = []string{"ts_code", "mg_type", "is_new", "in_date", "out_date", "ann_date"}
+
+// 前十大股东 fields
+var FieldsTop10Holders = []string{"ts_code", "ann_date", "end_date", "holder_name", "hold_amount", "hold_ratio", "hold_float_ratio", "hold_change", "holder_type"}
+
+// 前十大流通股东 fields
+var FieldsTop10Floatholders = []string{"ts_code", "ann_date", "end_date", "holder_name", "hold_amount", "hold_ratio", "hold_float_ratio", "hold_change", "holder_type"}
+
+// 龙虎榜每日明细 fields
+var FieldsTopList = []string{"trade_date", "ts_code", "name", "close", "pct_change", "turnover_rate", "amount", "l_sell", "l_buy", "l_amount", "net_amount", "net_rate", "amount_rate", "float_values", "reason"}
+
+// 龙虎榜机构明细 fields
+var FieldsTopInst = []string{"trade_date", "ts_code", "exalter", "side", "buy", "buy_rate", "sell", "sell_rate", "net_buy", "reason"}
+
+// 股权质押统计数据 fields
+var FieldsPledgeStat = []string{"ts_code", "end_date", "pledge_count", "unrest_pledge", "rest_pledge", "total_share", "pledge_ratio"}
+
+// 股权质押明细 fields
+var FieldsPledgeDetail = []string{"ts_code", "ann_date", "holder_name", "pledge_amount", "start_date", "end_date", "is_release", "release_date", "pledgor", "holding_amount", "pledged_amount", "p_total_ratio", "h_total_ratio", "is_buyback"}
+
+// 股票回购 fields
+var FieldsRepurchase = []string{"ts_code", "ann_date", "end_date", "proc", "exp_date", "vol", "amount", "high_limit", "low_limit"}
+
+// 概念股分类 fields
+var FieldsConcept = []string{"code", "name", "src"}
+
+// 概念股列表 fields
+var FieldsConceptDetail = []string{"id", "concept_name", "ts_code", "name", "in_date", "out_date"}
+
+// 限售股解禁 fields
+var FieldsShareFloat = []string{"ts_code", "ann_date", "float_date", "float_share", "float_ratio", "holder_name", "share_type"}
+
+// 大宗交易 fields
+var FieldsBlockTrade = []string{"ts_code", "trade_date", "price", "vol", "amount", "buyer", "seller"}
+
+// 股东人数 fields
+var FieldsStkHolderNumber = []string{"ts_code", "ann_date", "end_date", "holder_num"}
+
+// 股东增减持 fields
+var FieldsStkHolderTrade = []string{"ts_code", "ann_date", "holder_name", "holder_type", "in_de", "change_vol", "change_ratio", "after_share", "after_ratio", "avg_price", "total_share", "begin_date", "close_date"}
 
 // struct
 
@@ -1811,6 +1907,486 @@ type DisclosureDateResponse struct {
 }
 
 func (x *DisclosureDateResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 融资融券交易汇总|margin
+type Margin struct {
+	TradeDate  string  `json:"trade_date"`  // 交易日期
+	ExchangeId string  `json:"exchange_id"` // 交易所代码（SSE上交所SZSE深交所BSE北交所）
+	Rzye       float64 `json:"rzye"`        // 融资余额(元)
+	Rzmre      float64 `json:"rzmre"`       // 融资买入额(元)
+	Rzche      float64 `json:"rzche"`       // 融资偿还额(元)
+	Rqye       float64 `json:"rqye"`        // 融券余额(元)
+	Rqmcl      float64 `json:"rqmcl"`       // 融券卖出量(股,份,手)
+	Rzrqye     float64 `json:"rzrqye"`      // 融资融券余额(元)
+	Rqyl       float64 `json:"rqyl"`        // 融券余量(股,份,手)
+}
+
+type MarginRequest struct {
+	Limit      string `json:"limit"`
+	Offset     string `json:"offset"`
+	TradeDate  string `json:"trade_date"`  // 交易日期
+	ExchangeId string `json:"exchange_id"` // 交易所代码（SSE上交所SZSE深交所BSE北交所）
+	StartDate  string `json:"start_date"`  // 开始日期
+	EndDate    string `json:"end_date"`    // 结束日期
+}
+
+type MarginResponse struct {
+	List []*Margin `json:"list"`
+}
+
+func (x *MarginResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 融资融券交易明细|margin_detail
+type MarginDetail struct {
+	TradeDate string  `json:"trade_date"` // 交易日期
+	TsCode    string  `json:"ts_code"`    // TS股票代码
+	Name      string  `json:"name"`       // 股票名称 （20190910后有数据）
+	Rzye      float64 `json:"rzye"`       // 融资余额(元)
+	Rqye      float64 `json:"rqye"`       // 融券余额(元)
+	Rzmre     float64 `json:"rzmre"`      // 融资买入额(元)
+	Rqyl      float64 `json:"rqyl"`       // 融券余量（股）
+	Rzche     float64 `json:"rzche"`      // 融资偿还额(元)
+	Rqchl     float64 `json:"rqchl"`      // 融券偿还量(股)
+	Rqmcl     float64 `json:"rqmcl"`      // 融券卖出量(股,份,手)
+	Rzrqye    float64 `json:"rzrqye"`     // 融资融券余额(元)
+}
+
+type MarginDetailRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode    string `json:"ts_code"`    // TS代码
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type MarginDetailResponse struct {
+	List []*MarginDetail `json:"list"`
+}
+
+func (x *MarginDetailResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 融资融券标的|margin_target
+type MarginTarget struct {
+	TsCode  string `json:"ts_code"`  // 标的代码
+	MgType  string `json:"mg_type"`  // 标的类型：B买入标的 S卖出标的
+	IsNew   string `json:"is_new"`   // 最新标记：Y是 N否
+	InDate  string `json:"in_date"`  // 纳入日期
+	OutDate string `json:"out_date"` // 剔除日期
+	AnnDate string `json:"ann_date"` // 公布日期
+}
+
+type MarginTargetRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	TsCode string `json:"ts_code"` // 股票代码
+	IsNew  string `json:"is_new"`  // 是否最新
+	MgType string `json:"mg_type"` // 标的类型：B买入标的 S卖出标的
+}
+
+type MarginTargetResponse struct {
+	List []*MarginTarget `json:"list"`
+}
+
+func (x *MarginTargetResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 前十大股东|top10_holders
+type Top10Holders struct {
+	TsCode         string  `json:"ts_code"`          // TS股票代码
+	AnnDate        string  `json:"ann_date"`         // 公告日期
+	EndDate        string  `json:"end_date"`         // 报告期
+	HolderName     string  `json:"holder_name"`      // 股东名称
+	HoldAmount     float64 `json:"hold_amount"`      // 持有数量（股）
+	HoldRatio      float64 `json:"hold_ratio"`       // 占总股本比例(%)
+	HoldFloatRatio float64 `json:"hold_float_ratio"` // 占流通股本比例(%)
+	HoldChange     float64 `json:"hold_change"`      // 持股变动
+	HolderType     string  `json:"holder_type"`      // 股东类型
+}
+
+type Top10HoldersRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS代码
+	Period    string `json:"period"`     // 报告期（YYYYMMDD格式，一般为每个季度最后一天）
+	AnnDate   string `json:"ann_date"`   // 公告日期
+	StartDate string `json:"start_date"` // 报告期开始日期
+	EndDate   string `json:"end_date"`   // 报告期结束日期
+}
+
+type Top10HoldersResponse struct {
+	List []*Top10Holders `json:"list"`
+}
+
+func (x *Top10HoldersResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 前十大流通股东|top10_floatholders
+type Top10Floatholders struct {
+	TsCode         string  `json:"ts_code"`          // TS股票代码
+	AnnDate        string  `json:"ann_date"`         // 公告日期
+	EndDate        string  `json:"end_date"`         // 报告期
+	HolderName     string  `json:"holder_name"`      // 股东名称
+	HoldAmount     float64 `json:"hold_amount"`      // 持有数量（股）
+	HoldRatio      float64 `json:"hold_ratio"`       // 占总股本比例(%)
+	HoldFloatRatio float64 `json:"hold_float_ratio"` // 占流通股本比例(%)
+	HoldChange     float64 `json:"hold_change"`      // 持股变动
+	HolderType     string  `json:"holder_type"`      // 股东类型
+}
+
+type Top10FloatholdersRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS代码
+	Period    string `json:"period"`     // 报告期（YYYYMMDD格式，一般为每个季度最后一天）
+	AnnDate   string `json:"ann_date"`   // 公告日期
+	StartDate string `json:"start_date"` // 报告期开始日期
+	EndDate   string `json:"end_date"`   // 报告期结束日期
+}
+
+type Top10FloatholdersResponse struct {
+	List []*Top10Floatholders `json:"list"`
+}
+
+func (x *Top10FloatholdersResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 龙虎榜每日明细|top_list
+type TopList struct {
+	TradeDate    string  `json:"trade_date"`    // 交易日期
+	TsCode       string  `json:"ts_code"`       // TS代码
+	Name         string  `json:"name"`          // 名称
+	Close        float64 `json:"close"`         // 收盘价
+	PctChange    float64 `json:"pct_change"`    // 涨跌幅
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率
+	Amount       float64 `json:"amount"`        // 总成交额
+	LSell        float64 `json:"l_sell"`        // 龙虎榜卖出额
+	LBuy         float64 `json:"l_buy"`         // 龙虎榜买入额
+	LAmount      float64 `json:"l_amount"`      // 龙虎榜成交额
+	NetAmount    float64 `json:"net_amount"`    // 龙虎榜净买入额
+	NetRate      float64 `json:"net_rate"`      // 龙虎榜净买额占比
+	AmountRate   float64 `json:"amount_rate"`   // 龙虎榜成交额占比
+	FloatValues  float64 `json:"float_values"`  // 当日流通市值
+	Reason       string  `json:"reason"`        // 上榜理由
+}
+
+type TopListRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` //	交易日期
+	TsCode    string `json:"ts_code"`    //	股票代码
+}
+
+type TopListResponse struct {
+	List []*TopList `json:"list"`
+}
+
+func (x *TopListResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 龙虎榜机构明细|top_inst
+type TopInst struct {
+	TradeDate string  `json:"trade_date"` // 交易日期
+	TsCode    string  `json:"ts_code"`    // TS代码
+	Exalter   string  `json:"exalter"`    // 营业部名称
+	Side      string  `json:"side"`       // 买卖类型0：买入金额最大的前5名， 1：卖出金额最大的前5名
+	Buy       float64 `json:"buy"`        // 买入额（元）
+	BuyRate   float64 `json:"buy_rate"`   // 买入占总成交比例
+	Sell      float64 `json:"sell"`       // 卖出额（元）
+	SellRate  float64 `json:"sell_rate"`  // 卖出占总成交比例
+	NetBuy    float64 `json:"net_buy"`    // 净成交额（元）
+	Reason    string  `json:"reason"`     // 上榜理由
+}
+
+type TopInstRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` //	交易日期
+	TsCode    string `json:"ts_code"`    //	TS代码
+}
+
+type TopInstResponse struct {
+	List []*TopInst `json:"list"`
+}
+
+func (x *TopInstResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 股权质押统计数据|pledge_stat
+type PledgeStat struct {
+	TsCode       string  `json:"ts_code"`       // TS代码
+	EndDate      string  `json:"end_date"`      // 截止日期
+	PledgeCount  int64   `json:"pledge_count"`  // 质押次数
+	UnrestPledge float64 `json:"unrest_pledge"` // 无限售股质押数量（万）
+	RestPledge   float64 `json:"rest_pledge"`   // 限售股份质押数量（万）
+	TotalShare   float64 `json:"total_share"`   // 总股本
+	PledgeRatio  float64 `json:"pledge_ratio"`  // 质押比例
+}
+
+type PledgeStatRequest struct {
+	Limit   string `json:"limit"`
+	Offset  string `json:"offset"`
+	TsCode  string `json:"ts_code"`  // 股票代码
+	EndDate string `json:"end_date"` // 截止日期
+}
+
+type PledgeStatResponse struct {
+	List []*PledgeStat `json:"list"`
+}
+
+func (x *PledgeStatResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 股权质押明细|pledge_detail
+type PledgeDetail struct {
+	TsCode        string  `json:"ts_code"`        // TS股票代码
+	AnnDate       string  `json:"ann_date"`       // 公告日期
+	HolderName    string  `json:"holder_name"`    // 股东名称
+	PledgeAmount  float64 `json:"pledge_amount"`  // 质押数量（万股）
+	StartDate     string  `json:"start_date"`     // 质押开始日期
+	EndDate       string  `json:"end_date"`       // 质押结束日期
+	IsRelease     string  `json:"is_release"`     // 是否已解押
+	ReleaseDate   string  `json:"release_date"`   // 解押日期
+	Pledgor       string  `json:"pledgor"`        // 质押方
+	HoldingAmount float64 `json:"holding_amount"` // 持股总数（万股）
+	PledgedAmount float64 `json:"pledged_amount"` // 质押总数（万股）
+	PTotalRatio   float64 `json:"p_total_ratio"`  // 本次质押占总股本比例
+	HTotalRatio   float64 `json:"h_total_ratio"`  // 持股总数占总股本比例
+	IsBuyback     string  `json:"is_buyback"`     // 是否回购
+}
+
+type PledgeDetailRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	TsCode string `json:"ts_code"` // 股票代码
+}
+
+type PledgeDetailResponse struct {
+	List []*PledgeDetail `json:"list"`
+}
+
+func (x *PledgeDetailResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 股票回购|repurchase
+type Repurchase struct {
+	TsCode    string  `json:"ts_code"`    // TS代码
+	AnnDate   string  `json:"ann_date"`   // 公告日期
+	EndDate   string  `json:"end_date"`   // 截止日期
+	Proc      string  `json:"proc"`       // 进度
+	ExpDate   string  `json:"exp_date"`   // 过期日期
+	Vol       float64 `json:"vol"`        // 回购数量
+	Amount    float64 `json:"amount"`     // 回购金额
+	HighLimit float64 `json:"high_limit"` // 回购最高价
+	LowLimit  float64 `json:"low_limit"`  // 回购最低价
+}
+
+type RepurchaseRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	AnnDate   string `json:"ann_date"`   // 公告日期（任意填参数，如果都不填，单次默认返回2000条）
+	StartDate string `json:"start_date"` // 公告开始日期
+	EndDate   string `json:"end_date"`   // 公告结束日期
+}
+
+type RepurchaseResponse struct {
+	List []*Repurchase `json:"list"`
+}
+
+func (x *RepurchaseResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 概念股分类|concept
+type Concept struct {
+	Code string `json:"code"` // 概念分类ID
+	Name string `json:"name"` // 概念分类名称
+	Src  string `json:"src"`  // 来源
+}
+
+type ConceptRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	Src    string `json:"src"` // 来源，默认为ts
+}
+
+type ConceptResponse struct {
+	List []*Concept `json:"list"`
+}
+
+func (x *ConceptResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 概念股列表|concept_detail
+type ConceptDetail struct {
+	Id          string `json:"id"`           // 概念代码
+	ConceptName string `json:"concept_name"` // 概念名称
+	TsCode      string `json:"ts_code"`      // 股票代码
+	Name        string `json:"name"`         // 股票名称
+	InDate      string `json:"in_date"`      // 纳入日期
+	OutDate     string `json:"out_date"`     // 剔除日期
+}
+
+type ConceptDetailRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	Id     string `json:"id"`      // 概念分类ID （id来自概念股分类接口）
+	TsCode string `json:"ts_code"` // 股票代码 （以上参数二选一）
+}
+
+type ConceptDetailResponse struct {
+	List []*ConceptDetail `json:"list"`
+}
+
+func (x *ConceptDetailResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 限售股解禁|share_float
+type ShareFloat struct {
+	TsCode     string  `json:"ts_code"`     // TS代码
+	AnnDate    string  `json:"ann_date"`    // 公告日期
+	FloatDate  string  `json:"float_date"`  // 解禁日期
+	FloatShare float64 `json:"float_share"` // 流通股份(股)
+	FloatRatio float64 `json:"float_ratio"` // 流通股份占总股本比率
+	HolderName string  `json:"holder_name"` // 股东名称
+	ShareType  string  `json:"share_type"`  // 股份类型
+}
+
+type ShareFloatRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS股票代码（至少输入一个参数）
+	AnnDate   string `json:"ann_date"`   // 公告日期（日期格式：YYYYMMDD，下同）
+	FloatDate string `json:"float_date"` // 解禁日期
+	StartDate string `json:"start_date"` // 解禁开始日期
+	EndDate   string `json:"end_date"`   // 解禁结束日期
+}
+
+type ShareFloatResponse struct {
+	List []*ShareFloat `json:"list"`
+}
+
+func (x *ShareFloatResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 大宗交易|block_trade
+type BlockTrade struct {
+	TsCode    string  `json:"ts_code"`    // TS代码
+	TradeDate string  `json:"trade_date"` // 交易日历
+	Price     float64 `json:"price"`      // 成交价
+	Vol       float64 `json:"vol"`        // 成交量（万股）
+	Amount    float64 `json:"amount"`     // 成交金额
+	Buyer     string  `json:"buyer"`      // 买方营业部
+	Seller    string  `json:"seller"`     // 卖方营业部
+}
+
+type BlockTradeRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS代码（股票代码和日期至少输入一个参数）
+	TradeDate string `json:"trade_date"` // 交易日期（格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type BlockTradeResponse struct {
+	List []*BlockTrade `json:"list"`
+}
+
+func (x *BlockTradeResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 股东人数|stk_holdernumber
+type StkHolderNumber struct {
+	TsCode    string `json:"ts_code"`    // TS股票代码
+	AnnDate   string `json:"ann_date"`   // 公告日期
+	EndDate   string `json:"end_date"`   // 截止日期
+	HolderNum int64  `json:"holder_num"` // 股东户数
+}
+
+type StkHolderNumberRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS股票代码
+	Endate    string `json:"enddate"`    // 截止日期 (字段有冲突，删掉了个d)
+	StartDate string `json:"start_date"` // 公告开始日期
+	EndDate   string `json:"end_date"`   // 公告结束日期
+}
+
+type StkHolderNumberResponse struct {
+	List []*StkHolderNumber `json:"list"`
+}
+
+func (x *StkHolderNumberResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 股东增减持|stk_holdertrade
+type StkHolderTrade struct {
+	TsCode      string  `json:"ts_code"`      // TS代码
+	AnnDate     string  `json:"ann_date"`     // 公告日期
+	HolderName  string  `json:"holder_name"`  // 股东名称
+	HolderType  string  `json:"holder_type"`  // 股东类型G高管P个人C公司
+	InDe        string  `json:"in_de"`        // 类型IN增持DE减持
+	ChangeVol   float64 `json:"change_vol"`   // 变动数量
+	ChangeRatio float64 `json:"change_ratio"` // 占流通比例（%）
+	AfterShare  float64 `json:"after_share"`  // 变动后持股
+	AfterRatio  float64 `json:"after_ratio"`  // 变动后占流通比例（%）
+	AvgPrice    float64 `json:"avg_price"`    // 平均价格
+	TotalShare  float64 `json:"total_share"`  // 持股总数
+	BeginDate   string  `json:"begin_date"`   // 增减持开始日期
+	CloseDate   string  `json:"close_date"`   // 增减持结束日期
+}
+
+type StkHolderTradeRequest struct {
+	Limit      string `json:"limit"`
+	Offset     string `json:"offset"`
+	TsCode     string `json:"ts_code"`     // TS股票代码
+	AnnDate    string `json:"ann_date"`    // 公告日期
+	StartDate  string `json:"start_date"`  // 公告开始日期
+	EndDate    string `json:"end_date"`    // 公告结束日期
+	TradeType  string `json:"trade_type"`  // 交易类型IN增持DE减持
+	HolderType string `json:"holder_type"` // 股东类型C公司P个人G高管
+}
+
+type StkHolderTradeResponse struct {
+	List []*StkHolderTrade `json:"list"`
+}
+
+func (x *StkHolderTradeResponse) String() string {
 	bytes, _ := json.Marshal(x)
 	return string(bytes)
 }
