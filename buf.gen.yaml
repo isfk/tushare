@@ -2,6 +2,6 @@ version: v1
 managed:
   enabled: true
 plugins:
-  - plugin: go-struct
+  - plugin: go-tushare
     out: gen
     opt: paths=source_relative

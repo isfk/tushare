@@ -4,7 +4,7 @@
 >
 > 使用泛型函数进行请求
 >
-> proto 定义了接口的 `Request` `Response` 以及 `数据结构`, 方便使用
+> proto 定义了接口的 `Request` `Response` `数据结构` 以及 `Fields***` 接口对应全部字段, 方便使用
 
 接口说明请参考[官网文档](https://tushare.pro/document/2)
 
@@ -47,7 +47,7 @@ func main() {
 
 ## 开发
 
-- 安装插件 `go install github.com/isfk/tushare/protoc-gen-go-struct@latest`
+- 安装插件 `go install github.com/isfk/tushare/protoc-gen-go-tushare@latest`
 - 使用快捷命令 `message_new` 添加定义
 - 使用 `buf generate` 生成定义
 - 在 `tushare_test.go` 中添加测试方法
