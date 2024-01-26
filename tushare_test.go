@@ -23,7 +23,7 @@ func TestStockBasic(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -40,7 +40,7 @@ func TestTradeCal(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -57,7 +57,7 @@ func TestNameChange(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -74,7 +74,7 @@ func TestHsConst(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -91,7 +91,7 @@ func TestStockCompany(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -108,7 +108,7 @@ func TestStkManagers(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -125,7 +125,7 @@ func TestStkRewards(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -142,7 +142,7 @@ func TestNewShare(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -159,7 +159,7 @@ func TestBakBasic(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -176,7 +176,7 @@ func TestDaily(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -193,7 +193,7 @@ func TestWeekly(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -210,7 +210,7 @@ func TestMonthly(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -227,7 +227,7 @@ func TestAdjFactor(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -244,7 +244,7 @@ func TestDailyBasic(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -261,7 +261,7 @@ func TestMoneyFlow(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -278,7 +278,7 @@ func TestStkLimit(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -295,7 +295,7 @@ func TestSuspendd(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -312,7 +312,7 @@ func TestMoneyFlowHsgt(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -329,7 +329,7 @@ func TestHsgtTop10(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -346,7 +346,7 @@ func TestGgtTop10(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -363,7 +363,7 @@ func TestGgtDaily(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -384,7 +384,7 @@ func TestGgtMonthly(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
 
@@ -401,6 +401,6 @@ func TestBakDaily(t *testing.T) {
 		return
 	}
 	if resp.Resp != nil {
-		t.Logf("%v", resp.Resp)
+		t.Logf("%v", resp.Resp.String())
 	}
 }
