@@ -45,6 +45,14 @@ func main() {
 // 2024/01/26 10:44:19 list:{exchange:"SSE"  cal_date:"20240126"  is_open:1  pretrade_date:"20240125"}
 ```
 
+## 开发
+
+- 安装插件 `go install github.com/isfk/tushare/protoc-gen-go-struct@latest`
+- 使用快捷命令 `message_new` 添加定义
+- 使用 `buf generate` 生成定义
+- 在 `tushare_test.go` 中添加测试方法
+- 修改 `README.md` 进度
+
 ## 进度
 
 - [ ] 沪深股票
