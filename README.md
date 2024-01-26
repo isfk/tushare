@@ -42,7 +42,7 @@ func main() {
 }
 
 // go run main.go
-// 2024/01/26 10:44:19 list:{exchange:"SSE"  cal_date:"20240126"  is_open:1  pretrade_date:"20240125"}
+// 2024/01/26 10:44:19 {"list":[{"exchange":"SSE","cal_date":"20240126","is_open":1,"pretrade_date":"20240125"}]}
 ```
 
 ## 开发
