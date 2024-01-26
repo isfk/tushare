@@ -10,25 +10,39 @@
 
 ## 使用
 
+```sh
+go get -u github.com/isfk/tushare
+```
+
 ```go
+package main
+
 import (
-	v1 "github.com/isfk/tushare/gen/api/v1"
+	"log"
+	"time"
+
 	"github.com/isfk/tushare"
+	v1 "github.com/isfk/tushare/gen/api/v1"
 )
 
-ts := tushare.NewTushare("your token")
-resp, err := tushare.RequestTushare[v1.TradeCalRequest, v1.TradeCalResponse](ts, &tushare.Request[v1.TradeCalRequest]{
-    Params:  &v1.TradeCalRequest{CalDate: time.Now().Format("20060102"), Limit: "2", Offset: "0"},
-    ApiName: tushare.ApiTradeCal,
-    Fields:  []string{},
-})
-if err != nil {
-    t.Errorf("%v", err)
-    return
+func main() {
+	ts := tushare.NewTushare("your token")  // Get token from https://tushare.pro/user/token
+	resp, err := tushare.RequestTushare[v1.TradeCalRequest, v1.TradeCalResponse](ts, &tushare.Request[v1.TradeCalRequest]{
+		Params:  &v1.TradeCalRequest{CalDate: time.Now().Format("20060102"), Limit: "2", Offset: "0"},
+		ApiName: tushare.ApiTradeCal,
+		Fields:  []string{},
+	})
+	if err != nil {
+		log.Fatalf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		log.Printf("%v", resp.Resp)
+	}
 }
-if resp.Resp != nil {
-    t.Logf("%v", resp.Resp)
-}
+
+// go run main.go
+// 2024/01/26 10:44:19 list:{exchange:"SSE"  cal_date:"20240126"  is_open:1  pretrade_date:"20240125"}
 ```
 
 ## 进度
