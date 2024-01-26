@@ -33,13 +33,12 @@ message StockBasic {
 message StockBasicRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; //TS股票代码
-  string name = 5 [json_name = "name"]; //名称
-  string market = 6 [json_name = "market"]; //市场类别 （主板/创业板/科创板/CDR/北交所）
-  string list_status = 7 [json_name = "list_status"]; //上市状态 L上市 D退市 P暂停上市，默认是L
-  string exchange = 8 [json_name = "exchange"]; //交易所 SSE上交所 SZSE深交所 BSE北交所
-  string is_hs = 9 [json_name = "is_hs"]; //是否沪深港通标的，N否 H沪股通 S深股通
+  string ts_code = 3 [json_name = "ts_code"]; //TS股票代码
+  string name = 4 [json_name = "name"]; //名称
+  string market = 5 [json_name = "market"]; //市场类别 （主板/创业板/科创板/CDR/北交所）
+  string list_status = 6 [json_name = "list_status"]; //上市状态 L上市 D退市 P暂停上市，默认是L
+  string exchange = 7 [json_name = "exchange"]; //交易所 SSE上交所 SZSE深交所 BSE北交所
+  string is_hs = 8 [json_name = "is_hs"]; //是否沪深港通标的，N否 H沪股通 S深股通
 }
 message StockBasicResponse {
   repeated StockBasic list = 1;
@@ -55,12 +54,11 @@ message TradeCal {
 message TradeCalRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string exchange = 4 [json_name = "exchange"]; // 交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源
-  string start_date = 5 [json_name = "start_date"]; // 开始日期 （格式：YYYYMMDD 下同）
-  string end_date = 6 [json_name = "end_date"]; // 结束日期
-  string is_open = 7 [json_name = "is_open"]; // 是否交易 '0'休市 '1'交易
-  string cal_date = 8 [json_name = "cal_date"]; // 日历日期
+  string exchange = 3 [json_name = "exchange"]; // 交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源
+  string start_date = 4 [json_name = "start_date"]; // 开始日期 （格式：YYYYMMDD 下同）
+  string end_date = 5 [json_name = "end_date"]; // 结束日期
+  string is_open = 6 [json_name = "is_open"]; // 是否交易 '0'休市 '1'交易
+  string cal_date = 7 [json_name = "cal_date"]; // 日历日期
 }
 message TradeCalResponse {
   repeated TradeCal list = 1;
@@ -78,10 +76,9 @@ message NameChange {
 message NameChangeRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // TS代码
-  string start_date = 5 [json_name = "start_date"]; // 公告开始日期
-  string end_date = 6 [json_name = "end_date"]; // 公告结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string start_date = 4 [json_name = "start_date"]; // 公告开始日期
+  string end_date = 5 [json_name = "end_date"]; // 公告结束日期
 }
 message NameChangeResponse {
   repeated NameChange list = 1;
@@ -98,10 +95,9 @@ message HsConst {
 message HsConstRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string hs_type = 4 [json_name = "hs_type"]; // 类型SH沪股通SZ深股通
-  string is_new = 5 [json_name = "is_new"]; // 是否最新 1 是 0 否 (默认1)
-  string ts_code = 6 [json_name = "ts_code"]; // TS代码
+  string hs_type = 3 [json_name = "hs_type"]; // 类型SH沪股通SZ深股通
+  string is_new = 4 [json_name = "is_new"]; // 是否最新 1 是 0 否 (默认1)
+  string ts_code = 5 [json_name = "ts_code"]; // TS代码
 }
 message HsConstResponse {
   repeated HsConst list = 1;
@@ -129,10 +125,9 @@ message StockCompany {
 message StockCompanyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
-  string exchange = 5 [json_name = "exchange"]; // 交易所代码 ，SSE上交所 SZSE深交所 BSE北交所
-  string status = 6 [json_name = "status"]; // 状态
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string exchange = 4 [json_name = "exchange"]; // 交易所代码 ，SSE上交所 SZSE深交所 BSE北交所
+  string status = 5 [json_name = "status"]; // 状态
 }
 message StockCompanyResponse {
   repeated StockCompany list = 1;
@@ -156,11 +151,10 @@ message StkManagers {
 message StkManagersRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; //股票代码，支持单个或多个股票输入
-  string ann_date = 5 [json_name = "ann_date"]; //公告日期（YYYYMMDD格式，下同）
-  string start_date = 6 [json_name = "start_date"]; //公告开始日期
-  string end_date = 7 [json_name = "end_date"]; //公告结束日期
+  string ts_code = 3 [json_name = "ts_code"]; //股票代码，支持单个或多个股票输入
+  string ann_date = 4 [json_name = "ann_date"]; //公告日期（YYYYMMDD格式，下同）
+  string start_date = 5 [json_name = "start_date"]; //公告开始日期
+  string end_date = 6 [json_name = "end_date"]; //公告结束日期
 }
 message StkManagersResponse {
   repeated StkManagers list = 1;
@@ -179,9 +173,8 @@ message StkRewards {
 message StkRewardsRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // TS股票代码，支持单个或多个代码输入
-  string end_date = 5 [json_name = "end_date"]; // 报告期
+  string ts_code = 3 [json_name = "ts_code"]; // TS股票代码，支持单个或多个代码输入
+  string end_date = 4 [json_name = "end_date"]; // 报告期
 }
 message StkRewardsResponse {
   repeated StkRewards list = 1;
@@ -205,9 +198,8 @@ message NewShare {
 message NewShareRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string start_date = 4 [json_name = "start_date"]; // 上网发行开始日期
-  string end_date = 5 [json_name = "end_date"]; // 上网发行结束日期
+  string start_date = 3 [json_name = "start_date"]; // 上网发行开始日期
+  string end_date = 4 [json_name = "end_date"]; // 上网发行结束日期
 }
 message NewShareResponse {
   repeated NewShare list = 1;
@@ -243,9 +235,8 @@ message BakBasic {
 message BakBasicRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
-  string ts_code = 5 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
 }
 message BakBasicResponse {
   repeated BakBasic list = 1;
@@ -268,11 +259,10 @@ message Daily {
 message DailyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（支持多个股票同时提取，逗号分隔）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期（YYYYMMDD）
-  string start_date = 6 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
-  string end_date = 7 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码（支持多个股票同时提取，逗号分隔）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
+  string end_date = 6 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
 }
 message DailyResponse {
   repeated Daily list = 1;
@@ -295,11 +285,10 @@ message Weekly {
 message WeeklyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // TS代码 （ts_code,trade_date两个参数任选一）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期 （每周最后一个交易日期，YYYYMMDD格式）
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码 （ts_code,trade_date两个参数任选一）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （每周最后一个交易日期，YYYYMMDD格式）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
 }
 message WeeklyResponse {
   repeated Weekly list = 1;
@@ -322,11 +311,10 @@ message Monthly {
 message MonthlyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // TS代码 （ts_code,trade_date两个参数任选一）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期 （每月最后一个交易日日期，YYYYMMDD格式）
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码 （ts_code,trade_date两个参数任选一）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （每月最后一个交易日日期，YYYYMMDD格式）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
 }
 message MonthlyResponse {
   repeated Monthly list = 1;
@@ -341,11 +329,10 @@ message AdjFactor {
 message AdjFactorRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期(YYYYMMDD，下同)
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期(YYYYMMDD，下同)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
 }
 message AdjFactorResponse {
   repeated AdjFactor list = 1;
@@ -375,11 +362,10 @@ message DailyBasic {
 message DailyBasicRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（二选一）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期 （二选一）
-  string start_date = 6 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
-  string end_date = 7 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码（二选一）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （二选一）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
+  string end_date = 6 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
 }
 message DailyBasicResponse {
   repeated DailyBasic list = 1;
@@ -411,11 +397,10 @@ message MoneyFlow {
 message MoneyFlowRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（股票和时间参数至少输入一个）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码（股票和时间参数至少输入一个）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
 }
 message MoneyFlowResponse {
   repeated MoneyFlow list = 1;
@@ -432,11 +417,10 @@ message StkLimit {
 message StkLimitRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期(YYYYMMDD，下同)
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期(YYYYMMDD，下同)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
 }
 message StkLimitResponse {
   repeated StkLimit list = 1;
@@ -452,12 +436,11 @@ message Suspendd {
 message SuspenddRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码(可输入多值)
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日日期
-  string start_date = 6 [json_name = "start_date"]; // 停复牌查询开始日期
-  string end_date = 7 [json_name = "end_date"]; // 停复牌查询结束日期
-  string suspend_type = 8 [json_name = "suspend_type"]; // 停复牌类型：S-停牌,R-复牌
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码(可输入多值)
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日日期
+  string start_date = 5 [json_name = "start_date"]; // 停复牌查询开始日期
+  string end_date = 6 [json_name = "end_date"]; // 停复牌查询结束日期
+  string suspend_type = 7 [json_name = "suspend_type"]; // 停复牌类型：S-停牌,R-复牌
 }
 message SuspenddResponse {
   repeated Suspendd list = 1;
@@ -476,10 +459,9 @@ message MoneyFlowHsgt {
 message MoneyFlowHsgtRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 (二选一)
-  string start_date = 5 [json_name = "start_date"]; // 开始日期 (二选一)
-  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期 (二选一)
+  string start_date = 4 [json_name = "start_date"]; // 开始日期 (二选一)
+  string end_date = 5 [json_name = "end_date"]; // 结束日期
 }
 message MoneyFlowHsgtResponse {
   repeated MoneyFlowHsgt list = 1;
@@ -502,12 +484,11 @@ message HsgtTop10 {
 message HsgtTop10Request {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（二选一）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期（二选一）
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
-  string market_type = 8 [json_name = "market_type"]; // 市场类型（1：沪市 3：深市）
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码（二选一）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（二选一）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string market_type = 7 [json_name = "market_type"]; // 市场类型（1：沪市 3：深市）
 }
 message HsgtTop10Response {
   repeated HsgtTop10 list = 1;
@@ -536,12 +517,11 @@ message GgtTop10 {
 message GgtTop10Request {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码（二选一）
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期（二选一）
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
-  string market_type = 8 [json_name = "market_type"]; // 市场类型 2：港股通（沪） 4：港股通（深）
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码（二选一）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（二选一）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string market_type = 7 [json_name = "market_type"]; // 市场类型 2：港股通（沪） 4：港股通（深）
 }
 message GgtTop10Response {
   repeated GgtTop10 list = 1;
@@ -558,10 +538,9 @@ message GgtDaily {
 message GgtDailyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）
-  string start_date = 5 [json_name = "start_date"]; // 开始日期
-  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）
+  string start_date = 4 [json_name = "start_date"]; // 开始日期
+  string end_date = 5 [json_name = "end_date"]; // 结束日期
 }
 message GgtDailyResponse {
   repeated GgtDaily list = 1;
@@ -582,10 +561,9 @@ message GgtMonthly {
 message GgtMonthlyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string month = 4 [json_name = "month"]; // 月度（格式YYYYMM，下同，支持多个输入）
-  string start_month = 5 [json_name = "start_month"]; // 开始月度
-  string end_month = 6 [json_name = "end_month"]; // 结束月度
+  string month = 3 [json_name = "month"]; // 月度（格式YYYYMM，下同，支持多个输入）
+  string start_month = 4 [json_name = "start_month"]; // 开始月度
+  string end_month = 5 [json_name = "end_month"]; // 结束月度
 }
 message GgtMonthlyResponse {
   repeated GgtMonthly list = 1;
@@ -628,11 +606,10 @@ message BakDaily {
 message BakDailyRequest {
   string limit = 1 [json_name = "limit"];
   string offset = 2 [json_name = "offset"];
-  repeated string fields = 3 [json_name = "fields"];
-  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
-  string trade_date = 5 [json_name = "trade_date"]; // 交易日期
-  string start_date = 6 [json_name = "start_date"]; // 开始日期
-  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
 }
 message BakDailyResponse {
   repeated BakDaily list = 1;
