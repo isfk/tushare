@@ -2,14 +2,14 @@
   "Create proto message": {
     "prefix": "message_new",
     "body": [
-      "// $1",
-      "message $2 {}",
-      "message $2Request {",
+      "// ${1:接口名称}|${3:api_name}",
+      "message ${2:ApiName} {}",
+      "message ${2:ApiName}Request {",
       "\tstring limit = 1 [json_name = \"limit\"];",
       "\tstring offset = 2 [json_name = \"offset\"];",
       "}",
-      "message $2Response {",
-      "\trepeated $2 list = 1;",
+      "message ${2:ApiName}Response {",
+      "\trepeated ${2:ApiName} list = 1;",
       "}",
       "",
       "$0"

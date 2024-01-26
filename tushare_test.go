@@ -16,7 +16,7 @@ func TestStockBasic(t *testing.T) {
 	resp, err := RequestTushare[v1.StockBasicRequest, v1.StockBasicResponse](ts, &Request[v1.StockBasicRequest]{
 		Params:  &v1.StockBasicRequest{Limit: "2", Offset: "0"},
 		ApiName: v1.ApiStockBasic,
-		Fields:  []string{},
+		Fields:  v1.FieldsStockBasic,
 	})
 	if err != nil {
 		t.Errorf("%v", err)

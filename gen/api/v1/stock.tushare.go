@@ -9,6 +9,150 @@ import (
 
 var _ = json.Decoder{}
 
+// api name
+
+// 股票列表 api name
+const ApiStockBasic string = "stock_basic"
+
+// 交易日历 api name
+const ApiTradeCal string = "trade_cal"
+
+// 股票曾用名 api name
+const ApiNameChange string = "namechange"
+
+// 沪深股通成份股 api name
+const ApiHsConst string = "hs_const"
+
+// 上市公司基本信息 api name
+const ApiStockCompany string = "stock_company"
+
+// 上市公司管理层 api name
+const ApiStkManagers string = "stk_managers"
+
+// 管理层薪酬和持股 api name
+const ApiStkRewards string = "stk_rewards"
+
+// IPO新股列表 api name
+const ApiNewShare string = "new_share"
+
+// 备用列表 api name
+const ApiBakBasic string = "bak_basic"
+
+// 日线行情 api name
+const ApiDaily string = "daily"
+
+// 周线行情 api name
+const ApiWeekly string = "weekly"
+
+// 月线行情 api name
+const ApiMonthly string = "monthly"
+
+// 复权因子 api name
+const ApiAdjFactor string = "adj_factor"
+
+// 每日指标 api name
+const ApiDailyBasic string = "daily_basic"
+
+// 个股资金流向 api name
+const ApiMoneyFlow string = "moneyflow"
+
+// 每日涨跌停价格 api name
+const ApiStkLimit string = "stk_limit"
+
+// 每日停复牌信息 api name
+const ApiSuspendd string = "suspend_d"
+
+// 沪深港通资金流向 api name
+const ApiMoneyFlowHsgt string = "moneyflow_hsgt"
+
+// 沪深股通十大成交股 api name
+const ApiHsgtTop10 string = "hsgt_top10"
+
+// 港股通十大成交股 api name
+const ApiGgtTop10 string = "ggt_top10"
+
+// 港股通每日成交统计 api name
+const ApiGgtDaily string = "ggt_daily"
+
+// 港股通每月成交统计 api name
+const ApiGgtMonthly string = "ggt_monthly"
+
+// 备用行情 api name
+const ApiBakDaily string = "bak_daily"
+
+// fields
+
+// 股票列表 fields
+var FieldsStockBasic = []string{"ts_code", "symbol", "name", "area", "industry", "fullname", "enname", "cnspell", "market", "exchange", "curr_type", "list_status", "list_date", "delist_date", "is_hs", "act_name", "act_ent_type"}
+
+// 交易日历 fields
+var FieldsTradeCal = []string{"exchange", "cal_date", "is_open", "pretrade_date"}
+
+// 股票曾用名 fields
+var FieldsNameChange = []string{"ts_code", "name", "start_date", "end_date", "ann_date", "change_reason"}
+
+// 沪深股通成份股 fields
+var FieldsHsConst = []string{"ts_code", "hs_type", "in_date", "out_date", "is_new"}
+
+// 上市公司基本信息 fields
+var FieldsStockCompany = []string{"ts_code", "exchange", "chairman", "manager", "secretary", "reg_capital", "setup_date", "province", "city", "introduction", "website", "email", "office", "employees", "main_business", "business_scope"}
+
+// 上市公司管理层 fields
+var FieldsStkManagers = []string{"ts_code", "ann_date", "name", "gender", "lev", "title", "edu", "national", "birthday", "begin_date", "end_date", "resume"}
+
+// 管理层薪酬和持股 fields
+var FieldsStkRewards = []string{"ts_code", "ann_date", "end_date", "name", "title", "reward", "hold_vol"}
+
+// IPO新股列表 fields
+var FieldsNewShare = []string{"ts_code", "sub_code", "name", "ipo_date", "issue_date", "amount", "market_amount", "price", "pe", "limit_amount", "funds", "ballot"}
+
+// 备用列表 fields
+var FieldsBakBasic = []string{"trade_date", "ts_code", "name", "industry", "area", "pe", "float_share", "total_share", "total_assets", "liquid_assets", "fixed_assets", "reserved", "reserved_pershare", "eps", "bvps", "pb", "list_date", "undp", "per_undp", "rev_yoy", "profit_yoy", "gpr", "npr", "holder_num"}
+
+// 日线行情 fields
+var FieldsDaily = []string{"ts_code", "trade_date", "open", "high", "low", "close", "pre_close", "change", "pct_chg", "vol", "amount"}
+
+// 周线行情 fields
+var FieldsWeekly = []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_chg", "vol", "amount"}
+
+// 月线行情 fields
+var FieldsMonthly = []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_chg", "vol", "amount"}
+
+// 复权因子 fields
+var FieldsAdjFactor = []string{"ts_code", "trade_date", "adj_factor"}
+
+// 每日指标 fields
+var FieldsDailyBasic = []string{"ts_code", "trade_date", "close", "turnover_rate", "turnover_rate_f", "volume_ratio", "pe", "pe_ttm", "pb", "ps", "ps_ttm", "dv_ratio", "dv_ttm", "total_share", "float_share", "free_share", "total_mv", "circ_mv"}
+
+// 个股资金流向 fields
+var FieldsMoneyFlow = []string{"ts_code", "trade_date", "buy_sm_vol", "buy_sm_amount", "sell_sm_vol", "sell_sm_amount", "buy_md_vol", "buy_md_amount", "sell_md_vol", "sell_md_amount", "buy_lg_vol", "buy_lg_amount", "sell_lg_vol", "sell_lg_amount", "buy_elg_vol", "buy_elg_amount", "sell_elg_vol", "sell_elg_amount", "net_mf_vol", "net_mf_amount"}
+
+// 每日涨跌停价格 fields
+var FieldsStkLimit = []string{"trade_date", "ts_code", "pre_close", "up_limit", "down_limit"}
+
+// 每日停复牌信息 fields
+var FieldsSuspendd = []string{"ts_code", "trade_date", "suspend_timing", "suspend_type"}
+
+// 沪深港通资金流向 fields
+var FieldsMoneyFlowHsgt = []string{"trade_date", "ggt_ss", "ggt_sz", "hgt", "sgt", "north_money", "south_money"}
+
+// 沪深股通十大成交股 fields
+var FieldsHsgtTop10 = []string{"trade_date", "ts_code", "name", "close", "change", "rank", "market_type", "amount", "net_amount", "buy", "sell"}
+
+// 港股通十大成交股 fields
+var FieldsGgtTop10 = []string{"trade_date", "ts_code", "name", "close", "p_change", "rank", "market_type", "amount", "net_amount", "sh_amount", "sh_net_amount", "sh_buy", "sh_sell", "sz_amount", "sz_net_amount", "sz_buy", "sz_sell"}
+
+// 港股通每日成交统计 fields
+var FieldsGgtDaily = []string{"trade_date", "buy_amount", "buy_volume", "sell_amount", "sell_volume"}
+
+// 港股通每月成交统计 fields
+var FieldsGgtMonthly = []string{"month", "day_buy_amt", "day_buy_vol", "day_sell_amt", "day_sell_vol", "total_buy_amt", "total_buy_vol", "total_sell_amt", "total_sell_vol"}
+
+// 备用行情 fields
+var FieldsBakDaily = []string{"ts_code", "trade_date", "name", "pct_change", "close", "change", "open", "high", "low", "pre_close", "vol_ratio", "turn_over", "swing", "vol", "amount", "selling", "buying", "total_share", "float_share", "pe", "industry", "area", "float_mv", "total_mv", "avg_price", "strength", "activity", "avg_turnover", "attack", "interval_3", "interval_6"}
+
+// struct
+
 // 股票列表|stock_basic
 type StockBasic struct {
 	TsCode     string `json:"ts_code"`      // TS代码
@@ -29,12 +173,6 @@ type StockBasic struct {
 	ActName    string `json:"act_name"`     // 实控人名称
 	ActEntType string `json:"act_ent_type"` // 实控人企业性质
 }
-
-// ApiStockBasic StockBasic api name
-const ApiStockBasic = "stock_basic"
-
-// FieldsStockBasic StockBasic fields
-var FieldsStockBasic = []string{"ts_code", "symbol", "name", "area", "industry", "fullname", "enname", "cnspell", "market", "exchange", "curr_type", "list_status", "list_date", "delist_date", "is_hs", "act_name", "act_ent_type"}
 
 type StockBasicRequest struct {
 	Limit      string `json:"limit"`
@@ -63,12 +201,6 @@ type TradeCal struct {
 	IsOpen       int32  `json:"is_open"`       // 是否交易 0休市 1交易
 	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
-
-// ApiTradeCal TradeCal api name
-const ApiTradeCal = "trade_cal"
-
-// FieldsTradeCal TradeCal fields
-var FieldsTradeCal = []string{"exchange", "cal_date", "is_open", "pretrade_date"}
 
 type TradeCalRequest struct {
 	Limit     string `json:"limit"`
@@ -99,12 +231,6 @@ type NameChange struct {
 	ChangeReason string `json:"change_reason"` // 变更原因
 }
 
-// ApiNameChange NameChange api name
-const ApiNameChange = "namechange"
-
-// FieldsNameChange NameChange fields
-var FieldsNameChange = []string{"ts_code", "name", "start_date", "end_date", "ann_date", "change_reason"}
-
 type NameChangeRequest struct {
 	Limit     string `json:"limit"`
 	Offset    string `json:"offset"`
@@ -131,12 +257,6 @@ type HsConst struct {
 	IsNew   string `json:"is_new"`   // 是否最新 1是 0否
 }
 
-// ApiHsConst HsConst api name
-const ApiHsConst = "hs_const"
-
-// FieldsHsConst HsConst fields
-var FieldsHsConst = []string{"ts_code", "hs_type", "in_date", "out_date", "is_new"}
-
 type HsConstRequest struct {
 	Limit  string `json:"limit"`
 	Offset string `json:"offset"`
@@ -161,7 +281,7 @@ type StockCompany struct {
 	Chairman      string  `json:"chairman"`       // 法人代表
 	Manager       string  `json:"manager"`        // 总经理
 	Secretary     string  `json:"secretary"`      // 董秘
-	RegCapital    float32 `json:"reg_capital"`    // 注册资本(万元)
+	RegCapital    float64 `json:"reg_capital"`    // 注册资本(万元)
 	SetupDate     string  `json:"setup_date"`     // 注册日期
 	Province      string  `json:"province"`       // 所在省份
 	City          string  `json:"city"`           // 所在城市
@@ -173,12 +293,6 @@ type StockCompany struct {
 	MainBusiness  string  `json:"main_business"`  // 主要业务及产品
 	BusinessScope string  `json:"business_scope"` // 经营范围
 }
-
-// ApiStockCompany StockCompany api name
-const ApiStockCompany = "stock_company"
-
-// FieldsStockCompany StockCompany fields
-var FieldsStockCompany = []string{"ts_code", "exchange", "chairman", "manager", "secretary", "reg_capital", "setup_date", "province", "city", "introduction", "website", "email", "office", "employees", "main_business", "business_scope"}
 
 type StockCompanyRequest struct {
 	Limit    string `json:"limit"`
@@ -213,12 +327,6 @@ type StkManagers struct {
 	Resume    string `json:"resume"`     // 个人简历
 }
 
-// ApiStkManagers StkManagers api name
-const ApiStkManagers = "stk_managers"
-
-// FieldsStkManagers StkManagers fields
-var FieldsStkManagers = []string{"ts_code", "ann_date", "name", "gender", "lev", "title", "edu", "national", "birthday", "begin_date", "end_date", "resume"}
-
 type StkManagersRequest struct {
 	Limit     string `json:"limit"`
 	Offset    string `json:"offset"`
@@ -244,15 +352,9 @@ type StkRewards struct {
 	EndDate string  `json:"end_date"` // 截止日期
 	Name    string  `json:"name"`     // 姓名
 	Title   string  `json:"title"`    // 职务
-	Reward  float32 `json:"reward"`   // 报酬
-	HoldVol float32 `json:"hold_vol"` // 持股数
+	Reward  float64 `json:"reward"`   // 报酬
+	HoldVol float64 `json:"hold_vol"` // 持股数
 }
-
-// ApiStkRewards StkRewards api name
-const ApiStkRewards = "stk_rewards"
-
-// FieldsStkRewards StkRewards fields
-var FieldsStkRewards = []string{"ts_code", "ann_date", "end_date", "name", "title", "reward", "hold_vol"}
 
 type StkRewardsRequest struct {
 	Limit   string `json:"limit"`
@@ -277,20 +379,14 @@ type NewShare struct {
 	Name         string  `json:"name"`          // 名称
 	IpoDate      string  `json:"ipo_date"`      // 上网发行日期
 	IssueDate    string  `json:"issue_date"`    // 上市日期
-	Amount       float32 `json:"amount"`        // 发行总量（万股）
-	MarketAmount float32 `json:"market_amount"` // 上网发行总量（万股）
-	Price        float32 `json:"price"`         // 发行价格
-	Pe           float32 `json:"pe"`            // 市盈率
-	LimitAmount  float32 `json:"limit_amount"`  // 个人申购上限（万股）
-	Funds        float32 `json:"funds"`         // 募集资金（亿元）
-	Ballot       float32 `json:"ballot"`        // 中签率
+	Amount       float64 `json:"amount"`        // 发行总量（万股）
+	MarketAmount float64 `json:"market_amount"` // 上网发行总量（万股）
+	Price        float64 `json:"price"`         // 发行价格
+	Pe           float64 `json:"pe"`            // 市盈率
+	LimitAmount  float64 `json:"limit_amount"`  // 个人申购上限（万股）
+	Funds        float64 `json:"funds"`         // 募集资金（亿元）
+	Ballot       float64 `json:"ballot"`        // 中签率
 }
-
-// ApiNewShare NewShare api name
-const ApiNewShare = "new_share"
-
-// FieldsNewShare NewShare fields
-var FieldsNewShare = []string{"ts_code", "sub_code", "name", "ipo_date", "issue_date", "amount", "market_amount", "price", "pe", "limit_amount", "funds", "ballot"}
 
 type NewShareRequest struct {
 	Limit     string `json:"limit"`
@@ -315,32 +411,26 @@ type BakBasic struct {
 	Name             string  `json:"name"`              // 股票名称
 	Industry         string  `json:"industry"`          // 行业
 	Area             string  `json:"area"`              // 地域
-	Pe               float32 `json:"pe"`                // 市盈率（动）
-	FloatShare       float32 `json:"float_share"`       // 流通股本（亿）
-	TotalShare       float32 `json:"total_share"`       // 总股本（亿）
-	TotalAssets      float32 `json:"total_assets"`      // 总资产（亿）
-	LiquidAssets     float32 `json:"liquid_assets"`     // 流动资产（亿）
-	FixedAssets      float32 `json:"fixed_assets"`      // 固定资产（亿）
-	Reserved         float32 `json:"reserved"`          // 公积金
-	ReservedPershare float32 `json:"reserved_pershare"` // 每股公积金
-	Eps              float32 `json:"eps"`               // 每股收益
-	Bvps             float32 `json:"bvps"`              // 每股净资产
-	Pb               float32 `json:"pb"`                // 市净率
+	Pe               float64 `json:"pe"`                // 市盈率（动）
+	FloatShare       float64 `json:"float_share"`       // 流通股本（亿）
+	TotalShare       float64 `json:"total_share"`       // 总股本（亿）
+	TotalAssets      float64 `json:"total_assets"`      // 总资产（亿）
+	LiquidAssets     float64 `json:"liquid_assets"`     // 流动资产（亿）
+	FixedAssets      float64 `json:"fixed_assets"`      // 固定资产（亿）
+	Reserved         float64 `json:"reserved"`          // 公积金
+	ReservedPershare float64 `json:"reserved_pershare"` // 每股公积金
+	Eps              float64 `json:"eps"`               // 每股收益
+	Bvps             float64 `json:"bvps"`              // 每股净资产
+	Pb               float64 `json:"pb"`                // 市净率
 	ListDate         string  `json:"list_date"`         // 上市日期
-	Undp             float32 `json:"undp"`              // 未分配利润
-	PerUndp          float32 `json:"per_undp"`          // 每股未分配利润
-	RevYoy           float32 `json:"rev_yoy"`           // 收入同比（%）
-	ProfitYoy        float32 `json:"profit_yoy"`        // 利润同比（%）
-	Gpr              float32 `json:"gpr"`               // 毛利率（%）
-	Npr              float32 `json:"npr"`               // 净利润率（%）
+	Undp             float64 `json:"undp"`              // 未分配利润
+	PerUndp          float64 `json:"per_undp"`          // 每股未分配利润
+	RevYoy           float64 `json:"rev_yoy"`           // 收入同比（%）
+	ProfitYoy        float64 `json:"profit_yoy"`        // 利润同比（%）
+	Gpr              float64 `json:"gpr"`               // 毛利率（%）
+	Npr              float64 `json:"npr"`               // 净利润率（%）
 	HolderNum        int64   `json:"holder_num"`        // 股东人数
 }
-
-// ApiBakBasic BakBasic api name
-const ApiBakBasic = "bak_basic"
-
-// FieldsBakBasic BakBasic fields
-var FieldsBakBasic = []string{"trade_date", "ts_code", "name", "industry", "area", "pe", "float_share", "total_share", "total_assets", "liquid_assets", "fixed_assets", "reserved", "reserved_pershare", "eps", "bvps", "pb", "list_date", "undp", "per_undp", "rev_yoy", "profit_yoy", "gpr", "npr", "holder_num"}
 
 type BakBasicRequest struct {
 	Limit     string `json:"limit"`
@@ -362,22 +452,16 @@ func (x *BakBasicResponse) String() string {
 type Daily struct {
 	TsCode    string  `json:"ts_code"`    // 股票代码
 	TradeDate string  `json:"trade_date"` // 交易日期
-	Open      float32 `json:"open"`       // 开盘价
-	High      float32 `json:"high"`       // 最高价
-	Low       float32 `json:"low"`        // 最低价
-	Close     float32 `json:"close"`      // 收盘价
-	PreClose  float32 `json:"pre_close"`  // 昨收价(前复权)
-	Change    float32 `json:"change"`     // 涨跌额
-	PctChg    float32 `json:"pct_chg"`    // 涨跌幅 （未复权，如果是复权请用 通用行情接口 ）
-	Vol       float32 `json:"vol"`        // 成交量 （手）
-	Amount    float32 `json:"amount"`     // 成交额 （千元）
+	Open      float64 `json:"open"`       // 开盘价
+	High      float64 `json:"high"`       // 最高价
+	Low       float64 `json:"low"`        // 最低价
+	Close     float64 `json:"close"`      // 收盘价
+	PreClose  float64 `json:"pre_close"`  // 昨收价(前复权)
+	Change    float64 `json:"change"`     // 涨跌额
+	PctChg    float64 `json:"pct_chg"`    // 涨跌幅 （未复权，如果是复权请用 通用行情接口 ）
+	Vol       float64 `json:"vol"`        // 成交量 （手）
+	Amount    float64 `json:"amount"`     // 成交额 （千元）
 }
-
-// ApiDaily Daily api name
-const ApiDaily = "daily"
-
-// FieldsDaily Daily fields
-var FieldsDaily = []string{"ts_code", "trade_date", "open", "high", "low", "close", "pre_close", "change", "pct_chg", "vol", "amount"}
 
 type DailyRequest struct {
 	Limit     string `json:"limit"`
@@ -401,22 +485,16 @@ func (x *DailyResponse) String() string {
 type Weekly struct {
 	TsCode    string  `json:"ts_code"`    // 股票代码
 	TradeDate string  `json:"trade_date"` // 交易日期
-	Close     float32 `json:"close"`      // 周收盘价
-	Open      float32 `json:"open"`       // 周开盘价
-	High      float32 `json:"high"`       // 周最高价
-	Low       float32 `json:"low"`        // 周最低价
-	PreClose  float32 `json:"pre_close"`  // 上一周收盘价
-	Change    float32 `json:"change"`     // 周涨跌额
-	PctChg    float32 `json:"pct_chg"`    // 周涨跌幅（未复权，如果是复权请用 通用行情接口 ）
-	Vol       float32 `json:"vol"`        // 周成交量
-	Amount    float32 `json:"amount"`     // 周成交额
+	Close     float64 `json:"close"`      // 周收盘价
+	Open      float64 `json:"open"`       // 周开盘价
+	High      float64 `json:"high"`       // 周最高价
+	Low       float64 `json:"low"`        // 周最低价
+	PreClose  float64 `json:"pre_close"`  // 上一周收盘价
+	Change    float64 `json:"change"`     // 周涨跌额
+	PctChg    float64 `json:"pct_chg"`    // 周涨跌幅（未复权，如果是复权请用 通用行情接口 ）
+	Vol       float64 `json:"vol"`        // 周成交量
+	Amount    float64 `json:"amount"`     // 周成交额
 }
-
-// ApiWeekly Weekly api name
-const ApiWeekly = "weekly"
-
-// FieldsWeekly Weekly fields
-var FieldsWeekly = []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_chg", "vol", "amount"}
 
 type WeeklyRequest struct {
 	Limit     string `json:"limit"`
@@ -440,22 +518,16 @@ func (x *WeeklyResponse) String() string {
 type Monthly struct {
 	TsCode    string  `json:"ts_code"`    // 股票代码
 	TradeDate string  `json:"trade_date"` // 交易日期
-	Close     float32 `json:"close"`      // 月收盘价
-	Open      float32 `json:"open"`       // 月开盘价
-	High      float32 `json:"high"`       // 月最高价
-	Low       float32 `json:"low"`        // 月最低价
-	PreClose  float32 `json:"pre_close"`  // 上月收盘价
-	Change    float32 `json:"change"`     // 月涨跌额
-	PctChg    float32 `json:"pct_chg"`    // 月涨跌幅（未复权，如果是复权请用 通用行情接口 ）
-	Vol       float32 `json:"vol"`        // 月成交量
-	Amount    float32 `json:"amount"`     // 月成交额
+	Close     float64 `json:"close"`      // 月收盘价
+	Open      float64 `json:"open"`       // 月开盘价
+	High      float64 `json:"high"`       // 月最高价
+	Low       float64 `json:"low"`        // 月最低价
+	PreClose  float64 `json:"pre_close"`  // 上月收盘价
+	Change    float64 `json:"change"`     // 月涨跌额
+	PctChg    float64 `json:"pct_chg"`    // 月涨跌幅（未复权，如果是复权请用 通用行情接口 ）
+	Vol       float64 `json:"vol"`        // 月成交量
+	Amount    float64 `json:"amount"`     // 月成交额
 }
-
-// ApiMonthly Monthly api name
-const ApiMonthly = "monthly"
-
-// FieldsMonthly Monthly fields
-var FieldsMonthly = []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_chg", "vol", "amount"}
 
 type MonthlyRequest struct {
 	Limit     string `json:"limit"`
@@ -479,14 +551,8 @@ func (x *MonthlyResponse) String() string {
 type AdjFactor struct {
 	TsCode    string  `json:"ts_code"`    // 股票代码
 	TradeDate string  `json:"trade_date"` // 交易日期
-	AdjFactor float32 `json:"adj_factor"` // 复权因子
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
 }
-
-// ApiAdjFactor AdjFactor api name
-const ApiAdjFactor = "adj_factor"
-
-// FieldsAdjFactor AdjFactor fields
-var FieldsAdjFactor = []string{"ts_code", "trade_date", "adj_factor"}
 
 type AdjFactorRequest struct {
 	Limit     string `json:"limit"`
@@ -510,29 +576,23 @@ func (x *AdjFactorResponse) String() string {
 type DailyBasic struct {
 	TsCode        string  `json:"ts_code"`         // TS股票代码
 	TradeDate     string  `json:"trade_date"`      // 交易日期
-	Close         float32 `json:"close"`           // 当日收盘价
-	TurnoverRate  float32 `json:"turnover_rate"`   // 换手率（%）
-	TurnoverRateF float32 `json:"turnover_rate_f"` // 换手率（自由流通股）
-	VolumeRatio   float32 `json:"volume_ratio"`    // 量比
-	Pe            float32 `json:"pe"`              // 市盈率（总市值/净利润，亏损的PE为空）
-	PeTtm         float32 `json:"pe_ttm"`          // 市盈率（TTM，亏损的PE为空）
-	Pb            float32 `json:"pb"`              // 市净率（总市值/净资产）
-	Ps            float32 `json:"ps"`              // 市销率
-	PsTtm         float32 `json:"ps_ttm"`          // 市销率（TTM）
-	DvRatio       float32 `json:"dv_ratio"`        // 股息率（%）
-	DvTtm         float32 `json:"dv_ttm"`          // 股息率（TTM）（%）
-	TotalShare    float32 `json:"total_share"`     // 总股本（万股）
-	FloatShare    float32 `json:"float_share"`     // 流通股本（万股）
-	FreeShare     float32 `json:"free_share"`      // 自由流通股本（万）
-	TotalMv       float32 `json:"total_mv"`        // 总市值 （万元）
-	CircMv        float32 `json:"circ_mv"`         // 流通市值（万元）
+	Close         float64 `json:"close"`           // 当日收盘价
+	TurnoverRate  float64 `json:"turnover_rate"`   // 换手率（%）
+	TurnoverRateF float64 `json:"turnover_rate_f"` // 换手率（自由流通股）
+	VolumeRatio   float64 `json:"volume_ratio"`    // 量比
+	Pe            float64 `json:"pe"`              // 市盈率（总市值/净利润，亏损的PE为空）
+	PeTtm         float64 `json:"pe_ttm"`          // 市盈率（TTM，亏损的PE为空）
+	Pb            float64 `json:"pb"`              // 市净率（总市值/净资产）
+	Ps            float64 `json:"ps"`              // 市销率
+	PsTtm         float64 `json:"ps_ttm"`          // 市销率（TTM）
+	DvRatio       float64 `json:"dv_ratio"`        // 股息率（%）
+	DvTtm         float64 `json:"dv_ttm"`          // 股息率（TTM）（%）
+	TotalShare    float64 `json:"total_share"`     // 总股本（万股）
+	FloatShare    float64 `json:"float_share"`     // 流通股本（万股）
+	FreeShare     float64 `json:"free_share"`      // 自由流通股本（万）
+	TotalMv       float64 `json:"total_mv"`        // 总市值 （万元）
+	CircMv        float64 `json:"circ_mv"`         // 流通市值（万元）
 }
-
-// ApiDailyBasic DailyBasic api name
-const ApiDailyBasic = "daily_basic"
-
-// FieldsDailyBasic DailyBasic fields
-var FieldsDailyBasic = []string{"ts_code", "trade_date", "close", "turnover_rate", "turnover_rate_f", "volume_ratio", "pe", "pe_ttm", "pb", "ps", "ps_ttm", "dv_ratio", "dv_ttm", "total_share", "float_share", "free_share", "total_mv", "circ_mv"}
 
 type DailyBasicRequest struct {
 	Limit     string `json:"limit"`
@@ -557,30 +617,24 @@ type MoneyFlow struct {
 	TsCode        string  `json:"ts_code"`         // TS代码
 	TradeDate     string  `json:"trade_date"`      // 交易日期
 	BuySmVol      int64   `json:"buy_sm_vol"`      // 小单买入量（手）
-	BuySmAmount   float32 `json:"buy_sm_amount"`   // 小单买入金额（万元）
+	BuySmAmount   float64 `json:"buy_sm_amount"`   // 小单买入金额（万元）
 	SellSmVol     int64   `json:"sell_sm_vol"`     // 小单卖出量（手）
-	SellSmAmount  float32 `json:"sell_sm_amount"`  // 小单卖出金额（万元）
+	SellSmAmount  float64 `json:"sell_sm_amount"`  // 小单卖出金额（万元）
 	BuyMdVol      int64   `json:"buy_md_vol"`      // 中单买入量（手）
-	BuyMdAmount   float32 `json:"buy_md_amount"`   // 中单买入金额（万元）
+	BuyMdAmount   float64 `json:"buy_md_amount"`   // 中单买入金额（万元）
 	SellMdVol     int64   `json:"sell_md_vol"`     // 中单卖出量（手）
-	SellMdAmount  float32 `json:"sell_md_amount"`  // 中单卖出金额（万元）
+	SellMdAmount  float64 `json:"sell_md_amount"`  // 中单卖出金额（万元）
 	BuyLgVol      int64   `json:"buy_lg_vol"`      // 大单买入量（手）
-	BuyLgAmount   float32 `json:"buy_lg_amount"`   // 大单买入金额（万元）
+	BuyLgAmount   float64 `json:"buy_lg_amount"`   // 大单买入金额（万元）
 	SellLgVol     int64   `json:"sell_lg_vol"`     // 大单卖出量（手）
-	SellLgAmount  float32 `json:"sell_lg_amount"`  // 大单卖出金额（万元）
+	SellLgAmount  float64 `json:"sell_lg_amount"`  // 大单卖出金额（万元）
 	BuyElgVol     int64   `json:"buy_elg_vol"`     // 特大单买入量（手）
-	BuyElgAmount  float32 `json:"buy_elg_amount"`  // 特大单买入金额（万元）
+	BuyElgAmount  float64 `json:"buy_elg_amount"`  // 特大单买入金额（万元）
 	SellElgVol    int64   `json:"sell_elg_vol"`    // 特大单卖出量（手）
-	SellElgAmount float32 `json:"sell_elg_amount"` // 特大单卖出金额（万元）
+	SellElgAmount float64 `json:"sell_elg_amount"` // 特大单卖出金额（万元）
 	NetMfVol      int64   `json:"net_mf_vol"`      // 净流入量（手）
-	NetMfAmount   float32 `json:"net_mf_amount"`   // 净流入额（万元）
+	NetMfAmount   float64 `json:"net_mf_amount"`   // 净流入额（万元）
 }
-
-// ApiMoneyFlow MoneyFlow api name
-const ApiMoneyFlow = "moneyflow"
-
-// FieldsMoneyFlow MoneyFlow fields
-var FieldsMoneyFlow = []string{"ts_code", "trade_date", "buy_sm_vol", "buy_sm_amount", "sell_sm_vol", "sell_sm_amount", "buy_md_vol", "buy_md_amount", "sell_md_vol", "sell_md_amount", "buy_lg_vol", "buy_lg_amount", "sell_lg_vol", "sell_lg_amount", "buy_elg_vol", "buy_elg_amount", "sell_elg_vol", "sell_elg_amount", "net_mf_vol", "net_mf_amount"}
 
 type MoneyFlowRequest struct {
 	Limit     string `json:"limit"`
@@ -604,16 +658,10 @@ func (x *MoneyFlowResponse) String() string {
 type StkLimit struct {
 	TradeDate string  `json:"trade_date"` // 交易日期
 	TsCode    string  `json:"ts_code"`    // TS股票代码
-	PreClose  float32 `json:"pre_close"`  // 昨日收盘价
-	UpLimit   float32 `json:"up_limit"`   // 涨停价
-	DownLimit float32 `json:"down_limit"` // 跌停价
+	PreClose  float64 `json:"pre_close"`  // 昨日收盘价
+	UpLimit   float64 `json:"up_limit"`   // 涨停价
+	DownLimit float64 `json:"down_limit"` // 跌停价
 }
-
-// ApiStkLimit StkLimit api name
-const ApiStkLimit = "stk_limit"
-
-// FieldsStkLimit StkLimit fields
-var FieldsStkLimit = []string{"trade_date", "ts_code", "pre_close", "up_limit", "down_limit"}
 
 type StkLimitRequest struct {
 	Limit     string `json:"limit"`
@@ -641,12 +689,6 @@ type Suspendd struct {
 	SuspendType   string `json:"suspend_type"`   // 停复牌类型：S-停牌，R-复牌
 }
 
-// ApiSuspendd Suspendd api name
-const ApiSuspendd = "suspend_d"
-
-// FieldsSuspendd Suspendd fields
-var FieldsSuspendd = []string{"ts_code", "trade_date", "suspend_timing", "suspend_type"}
-
 type SuspenddRequest struct {
 	Limit       string `json:"limit"`
 	Offset      string `json:"offset"`
@@ -669,19 +711,13 @@ func (x *SuspenddResponse) String() string {
 // 沪深港通资金流向|moneyflow_hsgt
 type MoneyFlowHsgt struct {
 	TradeDate  string  `json:"trade_date"`  // 交易日期
-	GgtSs      float32 `json:"ggt_ss"`      // 港股通（上海）
-	GgtSz      float32 `json:"ggt_sz"`      // 港股通（深圳）
-	Hgt        float32 `json:"hgt"`         // 沪股通（百万元）
-	Sgt        float32 `json:"sgt"`         // 深股通（百万元）
-	NorthMoney float32 `json:"north_money"` // 北向资金（百万元）
-	SouthMoney float32 `json:"south_money"` // 南向资金（百万元）
+	GgtSs      float64 `json:"ggt_ss"`      // 港股通（上海）
+	GgtSz      float64 `json:"ggt_sz"`      // 港股通（深圳）
+	Hgt        float64 `json:"hgt"`         // 沪股通（百万元）
+	Sgt        float64 `json:"sgt"`         // 深股通（百万元）
+	NorthMoney float64 `json:"north_money"` // 北向资金（百万元）
+	SouthMoney float64 `json:"south_money"` // 南向资金（百万元）
 }
-
-// ApiMoneyFlowHsgt MoneyFlowHsgt api name
-const ApiMoneyFlowHsgt = "moneyflow_hsgt"
-
-// FieldsMoneyFlowHsgt MoneyFlowHsgt fields
-var FieldsMoneyFlowHsgt = []string{"trade_date", "ggt_ss", "ggt_sz", "hgt", "sgt", "north_money", "south_money"}
 
 type MoneyFlowHsgtRequest struct {
 	Limit     string `json:"limit"`
@@ -705,21 +741,15 @@ type HsgtTop10 struct {
 	TradeDate  string  `json:"trade_date"`  //交易日期
 	TsCode     string  `json:"ts_code"`     //股票代码
 	Name       string  `json:"name"`        //股票名称
-	Close      float32 `json:"close"`       //收盘价
-	Change     float32 `json:"change"`      //涨跌额
+	Close      float64 `json:"close"`       //收盘价
+	Change     float64 `json:"change"`      //涨跌额
 	Rank       int64   `json:"rank"`        //资金排名
 	MarketType int64   `json:"market_type"` //市场类型（1：沪市 3：深市）
-	Amount     float32 `json:"amount"`      //成交金额（元）
-	NetAmount  float32 `json:"net_amount"`  //净成交金额（元）
-	Buy        float32 `json:"buy"`         //买入金额（元）
-	Sell       float32 `json:"sell"`        //卖出金额（元）
+	Amount     float64 `json:"amount"`      //成交金额（元）
+	NetAmount  float64 `json:"net_amount"`  //净成交金额（元）
+	Buy        float64 `json:"buy"`         //买入金额（元）
+	Sell       float64 `json:"sell"`        //卖出金额（元）
 }
-
-// ApiHsgtTop10 HsgtTop10 api name
-const ApiHsgtTop10 = "hsgt_top10"
-
-// FieldsHsgtTop10 HsgtTop10 fields
-var FieldsHsgtTop10 = []string{"trade_date", "ts_code", "name", "close", "change", "rank", "market_type", "amount", "net_amount", "buy", "sell"}
 
 type HsgtTop10Request struct {
 	Limit      string `json:"limit"`
@@ -745,27 +775,21 @@ type GgtTop10 struct {
 	TradeDate   string  `json:"trade_date"`    // 交易日期
 	TsCode      string  `json:"ts_code"`       // 股票代码
 	Name        string  `json:"name"`          // 股票名称
-	Close       float32 `json:"close"`         // 收盘价
-	PChange     float32 `json:"p_change"`      // 涨跌幅
+	Close       float64 `json:"close"`         // 收盘价
+	PChange     float64 `json:"p_change"`      // 涨跌幅
 	Rank        int64   `json:"rank"`          // 资金排名
 	MarketType  int64   `json:"market_type"`   // 市场类型 2：港股通（沪） 4：港股通（深）
-	Amount      float32 `json:"amount"`        // 累计成交金额（元）
-	NetAmount   float32 `json:"net_amount"`    // 净买入金额（元）
-	ShAmount    float32 `json:"sh_amount"`     // 沪市成交金额（元）
-	ShNetAmount float32 `json:"sh_net_amount"` // 沪市净买入金额（元）
-	ShBuy       float32 `json:"sh_buy"`        // 沪市买入金额（元）
-	ShSell      float32 `json:"sh_sell"`       // 沪市卖出金额
-	SzAmount    float32 `json:"sz_amount"`     // 深市成交金额（元）
-	SzNetAmount float32 `json:"sz_net_amount"` // 深市净买入金额（元）
-	SzBuy       float32 `json:"sz_buy"`        // 深市买入金额（元）
-	SzSell      float32 `json:"sz_sell"`       // 深市卖出金额（元）
+	Amount      float64 `json:"amount"`        // 累计成交金额（元）
+	NetAmount   float64 `json:"net_amount"`    // 净买入金额（元）
+	ShAmount    float64 `json:"sh_amount"`     // 沪市成交金额（元）
+	ShNetAmount float64 `json:"sh_net_amount"` // 沪市净买入金额（元）
+	ShBuy       float64 `json:"sh_buy"`        // 沪市买入金额（元）
+	ShSell      float64 `json:"sh_sell"`       // 沪市卖出金额
+	SzAmount    float64 `json:"sz_amount"`     // 深市成交金额（元）
+	SzNetAmount float64 `json:"sz_net_amount"` // 深市净买入金额（元）
+	SzBuy       float64 `json:"sz_buy"`        // 深市买入金额（元）
+	SzSell      float64 `json:"sz_sell"`       // 深市卖出金额（元）
 }
-
-// ApiGgtTop10 GgtTop10 api name
-const ApiGgtTop10 = "ggt_top10"
-
-// FieldsGgtTop10 GgtTop10 fields
-var FieldsGgtTop10 = []string{"trade_date", "ts_code", "name", "close", "p_change", "rank", "market_type", "amount", "net_amount", "sh_amount", "sh_net_amount", "sh_buy", "sh_sell", "sz_amount", "sz_net_amount", "sz_buy", "sz_sell"}
 
 type GgtTop10Request struct {
 	Limit      string `json:"limit"`
@@ -789,17 +813,11 @@ func (x *GgtTop10Response) String() string {
 // 港股通每日成交统计|ggt_daily
 type GgtDaily struct {
 	TradeDate  string  `json:"trade_date"`  // 交易日期
-	BuyAmount  float32 `json:"buy_amount"`  // 买入成交金额（亿元）
-	BuyVolume  float32 `json:"buy_volume"`  // 买入成交笔数（万笔）
-	SellAmount float32 `json:"sell_amount"` // 卖出成交金额（亿元）
-	SellVolume float32 `json:"sell_volume"` // 卖出成交笔数（万笔）
+	BuyAmount  float64 `json:"buy_amount"`  // 买入成交金额（亿元）
+	BuyVolume  float64 `json:"buy_volume"`  // 买入成交笔数（万笔）
+	SellAmount float64 `json:"sell_amount"` // 卖出成交金额（亿元）
+	SellVolume float64 `json:"sell_volume"` // 卖出成交笔数（万笔）
 }
-
-// ApiGgtDaily GgtDaily api name
-const ApiGgtDaily = "ggt_daily"
-
-// FieldsGgtDaily GgtDaily fields
-var FieldsGgtDaily = []string{"trade_date", "buy_amount", "buy_volume", "sell_amount", "sell_volume"}
 
 type GgtDailyRequest struct {
 	Limit     string `json:"limit"`
@@ -821,21 +839,15 @@ func (x *GgtDailyResponse) String() string {
 // 港股通每月成交统计|ggt_monthly
 type GgtMonthly struct {
 	Month        string  `json:"month"`          //	交易日期
-	DayBuyAmt    float32 `json:"day_buy_amt"`    //	当月日均买入成交金额（亿元）
-	DayBuyVol    float32 `json:"day_buy_vol"`    //	当月日均买入成交笔数（万笔）
-	DaySellAmt   float32 `json:"day_sell_amt"`   //	当月日均卖出成交金额（亿元）
-	DaySellVol   float32 `json:"day_sell_vol"`   //	当月日均卖出成交笔数（万笔）
-	TotalBuyAmt  float32 `json:"total_buy_amt"`  //	总买入成交金额（亿元）
-	TotalBuyVol  float32 `json:"total_buy_vol"`  //	总买入成交笔数（万笔）
-	TotalSellAmt float32 `json:"total_sell_amt"` //	总卖出成交金额（亿元）
-	TotalSellVol float32 `json:"total_sell_vol"` //	总卖出成交笔数（万笔）
+	DayBuyAmt    float64 `json:"day_buy_amt"`    //	当月日均买入成交金额（亿元）
+	DayBuyVol    float64 `json:"day_buy_vol"`    //	当月日均买入成交笔数（万笔）
+	DaySellAmt   float64 `json:"day_sell_amt"`   //	当月日均卖出成交金额（亿元）
+	DaySellVol   float64 `json:"day_sell_vol"`   //	当月日均卖出成交笔数（万笔）
+	TotalBuyAmt  float64 `json:"total_buy_amt"`  //	总买入成交金额（亿元）
+	TotalBuyVol  float64 `json:"total_buy_vol"`  //	总买入成交笔数（万笔）
+	TotalSellAmt float64 `json:"total_sell_amt"` //	总卖出成交金额（亿元）
+	TotalSellVol float64 `json:"total_sell_vol"` //	总卖出成交笔数（万笔）
 }
-
-// ApiGgtMonthly GgtMonthly api name
-const ApiGgtMonthly = "ggt_monthly"
-
-// FieldsGgtMonthly GgtMonthly fields
-var FieldsGgtMonthly = []string{"month", "day_buy_amt", "day_buy_vol", "day_sell_amt", "day_sell_vol", "total_buy_amt", "total_buy_vol", "total_sell_amt", "total_sell_vol"}
 
 type GgtMonthlyRequest struct {
 	Limit      string `json:"limit"`
@@ -859,41 +871,35 @@ type BakDaily struct {
 	TsCode      string  `json:"ts_code"`      // 股票代码
 	TradeDate   string  `json:"trade_date"`   // 交易日期
 	Name        string  `json:"name"`         // 股票名称
-	PctChange   float32 `json:"pct_change"`   // 涨跌幅
-	Close       float32 `json:"close"`        // 收盘价
-	Change      float32 `json:"change"`       // 涨跌额
-	Open        float32 `json:"open"`         // 开盘价
-	High        float32 `json:"high"`         // 最高价
-	Low         float32 `json:"low"`          // 最低价
-	PreClose    float32 `json:"pre_close"`    // 昨收价
-	VolRatio    float32 `json:"vol_ratio"`    // 量比
-	TurnOver    float32 `json:"turn_over"`    // 换手率
-	Swing       float32 `json:"swing"`        // 振幅
-	Vol         float32 `json:"vol"`          // 成交量
-	Amount      float32 `json:"amount"`       // 成交额
-	Selling     float32 `json:"selling"`      // 内盘（主动卖，手）
-	Buying      float32 `json:"buying"`       // 外盘（主动买， 手）
-	TotalShare  float32 `json:"total_share"`  // 总股本(亿)
-	FloatShare  float32 `json:"float_share"`  // 流通股本(亿)
-	Pe          float32 `json:"pe"`           // 市盈(动)
+	PctChange   float64 `json:"pct_change"`   // 涨跌幅
+	Close       float64 `json:"close"`        // 收盘价
+	Change      float64 `json:"change"`       // 涨跌额
+	Open        float64 `json:"open"`         // 开盘价
+	High        float64 `json:"high"`         // 最高价
+	Low         float64 `json:"low"`          // 最低价
+	PreClose    float64 `json:"pre_close"`    // 昨收价
+	VolRatio    float64 `json:"vol_ratio"`    // 量比
+	TurnOver    float64 `json:"turn_over"`    // 换手率
+	Swing       float64 `json:"swing"`        // 振幅
+	Vol         float64 `json:"vol"`          // 成交量
+	Amount      float64 `json:"amount"`       // 成交额
+	Selling     float64 `json:"selling"`      // 内盘（主动卖，手）
+	Buying      float64 `json:"buying"`       // 外盘（主动买， 手）
+	TotalShare  float64 `json:"total_share"`  // 总股本(亿)
+	FloatShare  float64 `json:"float_share"`  // 流通股本(亿)
+	Pe          float64 `json:"pe"`           // 市盈(动)
 	Industry    string  `json:"industry"`     // 所属行业
 	Area        string  `json:"area"`         // 所属地域
-	FloatMv     float32 `json:"float_mv"`     // 流通市值
-	TotalMv     float32 `json:"total_mv"`     // 总市值
-	AvgPrice    float32 `json:"avg_price"`    // 平均价
-	Strength    float32 `json:"strength"`     // 强弱度(%)
-	Activity    float32 `json:"activity"`     // 活跃度(%)
-	AvgTurnover float32 `json:"avg_turnover"` // 笔换手
-	Attack      float32 `json:"attack"`       // 攻击波(%)
-	Interval_3  float32 `json:"interval_3"`   // 近3月涨幅
-	Interval_6  float32 `json:"interval_6"`   // 近6月涨幅
+	FloatMv     float64 `json:"float_mv"`     // 流通市值
+	TotalMv     float64 `json:"total_mv"`     // 总市值
+	AvgPrice    float64 `json:"avg_price"`    // 平均价
+	Strength    float64 `json:"strength"`     // 强弱度(%)
+	Activity    float64 `json:"activity"`     // 活跃度(%)
+	AvgTurnover float64 `json:"avg_turnover"` // 笔换手
+	Attack      float64 `json:"attack"`       // 攻击波(%)
+	Interval_3  float64 `json:"interval_3"`   // 近3月涨幅
+	Interval_6  float64 `json:"interval_6"`   // 近6月涨幅
 }
-
-// ApiBakDaily BakDaily api name
-const ApiBakDaily = "bak_daily"
-
-// FieldsBakDaily BakDaily fields
-var FieldsBakDaily = []string{"ts_code", "trade_date", "name", "pct_change", "close", "change", "open", "high", "low", "pre_close", "vol_ratio", "turn_over", "swing", "vol", "amount", "selling", "buying", "total_share", "float_share", "pe", "industry", "area", "float_mv", "total_mv", "avg_price", "strength", "activity", "avg_turnover", "attack", "interval_3", "interval_6"}
 
 type BakDailyRequest struct {
 	Limit     string `json:"limit"`

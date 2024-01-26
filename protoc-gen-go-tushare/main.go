@@ -36,56 +36,69 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) {
 
 	g.P("var _ = ", jsonPackage.Ident("Decoder{}"))
 
+	apiNameStr := ""
+	fieldsStr := ""
+	messageStr := ""
+
 	for _, m := range file.Messages {
 		fields := []string{}
-		// 输出 message comment
+		// message comment
 		leadingComment := strings.TrimSuffix(m.Comments.Leading.String(), "\n")
-		g.P(leadingComment)
-		// 输出 type m.GoIdent struct {
-		g.P("type ", m.GoIdent, " struct {")
+		messageStr += m.Comments.Leading.String()
+
+		// type struct
+		messageStr += fmt.Sprintf("type %s struct {\n", m.GoIdent.GoName)
+
 		for _, field := range m.Fields {
 			trailingComment := strings.TrimSuffix(field.Comments.Trailing.String(), "\n")
 			kind := field.Desc.Kind().String()
 
 			// float类型
 			if field.Desc.Kind() == protoreflect.FloatKind {
-				kind = kind + "32"
+				kind = kind + "64"
 			}
 
-			line := fmt.Sprintf("%s %s `json:\"%s\"` %s", field.GoName, kind, field.Desc.JSONName(), trailingComment)
+			// 一般情况
+			inline := fmt.Sprintf("%s %s `json:\"%s\"` %s\n", field.GoName, kind, field.Desc.JSONName(), trailingComment)
 
 			// message 类型
 			if field.Desc.Kind() == protoreflect.MessageKind {
-				line = fmt.Sprintf("%s []*%s `json:\"%s\"` %s", field.GoName, field.Desc.Message().Name(), field.Desc.JSONName(), trailingComment)
+				inline = fmt.Sprintf("%s []*%s `json:\"%s\"` %s\n", field.GoName, field.Desc.Message().Name(), field.Desc.JSONName(), trailingComment)
 			}
+
+			messageStr += inline
 
 			// fileds
 			if !strings.Contains(m.GoIdent.GoName, "Request") && !strings.Contains(m.GoIdent.GoName, "Response") {
 				fields = append(fields, "\""+field.Desc.JSONName()+"\"")
 			}
-
-			// 输出 行内容
-			g.P(line)
 		}
-		// 输出 }
-		g.P("}")
 
-		// api name & fields
+		messageStr += "}\n\n"
+
 		if !strings.Contains(m.GoIdent.GoName, "Request") && !strings.Contains(m.GoIdent.GoName, "Response") {
-			g.P(fmt.Sprintf("// Api%s %s api name", m.Desc.Name(), m.Desc.Name()))
-			g.P(fmt.Sprintf("const Api%s = \"%s\"", m.Desc.Name(), strings.Split(leadingComment, "|")[1]))
-			g.P("")
-			g.P(fmt.Sprintf("// Fields%s %s fields", m.Desc.Name(), m.Desc.Name()))
-			g.P(fmt.Sprintf("var Fields%s = []string{%s}", m.Desc.Name(), strings.Join(fields, ",")))
+			apiNameStr += fmt.Sprintf("%s api name\n", strings.Split(leadingComment, "|")[0])
+			apiNameStr += fmt.Sprintf("const Api%s string = \"%s\"\n", m.Desc.Name(), strings.Split(leadingComment, "|")[1])
+			fieldsStr += fmt.Sprintf("%s fields\n", strings.Split(leadingComment, "|")[0])
+			fieldsStr += fmt.Sprintf("var Fields%s = []string{%s}\n", m.Desc.Name(), strings.Join(fields, ","))
 		}
 
-		// .String()
 		if strings.Contains(m.GoIdent.GoName, "Response") {
-			g.P(fmt.Sprintf("func (x *%s) String() string {", m.GoIdent.GoName))
-			g.P("bytes, _ := json.Marshal(x)")
-			g.P("return string(bytes)")
-			g.P("}")
+			messageStr += fmt.Sprintf("func (x *%s) String() string {\n", m.GoIdent.GoName)
+			messageStr += "bytes, _ := json.Marshal(x)\n"
+			messageStr += "return string(bytes)\n"
+			messageStr += "}\n"
 		}
 	}
-	g.P() // 换行
+	g.P("// api name")
+	g.P()
+	g.P(apiNameStr)
+	g.P()
+	g.P("// fields")
+	g.P()
+	g.P(fieldsStr)
+	g.P()
+	g.P("// struct")
+	g.P()
+	g.P(messageStr)
 }

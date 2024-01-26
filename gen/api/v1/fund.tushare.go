@@ -8,3 +8,9 @@ import (
 )
 
 var _ = json.Decoder{}
+
+// api name
+
+// fields
+
+// struct
