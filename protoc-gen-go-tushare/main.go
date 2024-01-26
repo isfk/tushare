@@ -70,8 +70,11 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) {
 		// 输出 }
 		g.P("}")
 
-		// fields
+		// api name & fields
 		if !strings.Contains(m.GoIdent.GoName, "Request") && !strings.Contains(m.GoIdent.GoName, "Response") {
+			g.P(fmt.Sprintf("// Api%s %s api name", m.Desc.Name(), m.Desc.Name()))
+			g.P(fmt.Sprintf("const Api%s = \"%s\"", m.Desc.Name(), strings.Split(leadingComment, "|")[1]))
+			g.P("")
 			g.P(fmt.Sprintf("// Fields%s %s fields", m.Desc.Name(), m.Desc.Name()))
 			g.P(fmt.Sprintf("var Fields%s = []string{%s}", m.Desc.Name(), strings.Join(fields, ",")))
 		}

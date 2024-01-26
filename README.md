@@ -4,7 +4,7 @@
 >
 > 使用泛型函数进行请求
 >
-> proto 定义了接口的 `Request` `Response` `数据结构` 以及 `Fields***` 接口对应全部字段, 方便使用
+> proto 定义了接口的 `数据结构` `Request` `Response` `Api***` `Fields***`, 方便使用
 
 接口说明请参考[官网文档](https://tushare.pro/document/2)
 
