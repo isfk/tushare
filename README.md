@@ -86,17 +86,17 @@ func main() {
         - [x] [港股通每日成交统计](./tushare_test.go#L353)
         - [x] [港股通每月成交统计](./tushare_test.go#L370) <i>因没有权限, 测试结果未验证</i>
         - [x] [备用行情](./tushare_test.go#L391)
-    - [ ] 财务数据
-        - [ ] 利润表
-        - [ ] 资产负债表
-        - [ ] 现金流量表
-        - [ ] 业绩预告
-        - [ ] 业绩快报
-        - [ ] 分红送股数据
-        - [ ] 财务指标数据
-        - [ ] 财务审计意见
-        - [ ] 主营业务构成
-        - [ ] 财报披露日期表
+    - [x] 财务数据
+        - [x] [利润表](./tushare_test.go#L408)
+        - [x] [资产负债表](./tushare_test.go#L425)
+        - [x] [现金流量表](./tushare_test.go#L442)
+        - [x] [业绩预告](./tushare_test.go#L459)
+        - [x] [业绩快报](./tushare_test.go#L476)
+        - [x] [分红送股数据](./tushare_test.go#L493)
+        - [x] [财务指标数据](./tushare_test.go#L510)
+        - [x] [财务审计意见](./tushare_test.go#L527)
+        - [x] [主营业务构成](./tushare_test.go#L544)
+        - [x] [财报披露日期表](./tushare_test.go#L561)
     - [ ] 参考数据
         - [ ] 融资融券交易汇总
         - [ ] 融资融券交易明细

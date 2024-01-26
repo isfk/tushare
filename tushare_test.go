@@ -404,3 +404,173 @@ func TestBakDaily(t *testing.T) {
 		t.Logf("%v", resp.Resp.String())
 	}
 }
+
+func TestIncome(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.IncomeRequest, v1.IncomeResponse](ts, &Request[v1.IncomeRequest]{
+		Params:  &v1.IncomeRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiIncome,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestBalanceSheet(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.BalanceSheetRequest, v1.BalanceSheetResponse](ts, &Request[v1.BalanceSheetRequest]{
+		Params:  &v1.BalanceSheetRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiBalanceSheet,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestCashFlow(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.CashFlowRequest, v1.CashFlowResponse](ts, &Request[v1.CashFlowRequest]{
+		Params:  &v1.CashFlowRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiCashFlow,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestForeCast(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.ForeCastRequest, v1.ForeCastResponse](ts, &Request[v1.ForeCastRequest]{
+		Params:  &v1.ForeCastRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiForeCast,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestExpress(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.ExpressRequest, v1.ExpressResponse](ts, &Request[v1.ExpressRequest]{
+		Params:  &v1.ExpressRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiExpress,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestDividend(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.DividendRequest, v1.DividendResponse](ts, &Request[v1.DividendRequest]{
+		Params:  &v1.DividendRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiDividend,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestFinaIndicator(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.FinaIndicatorRequest, v1.FinaIndicatorResponse](ts, &Request[v1.FinaIndicatorRequest]{
+		Params:  &v1.FinaIndicatorRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiFinaIndicator,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestFinaAudit(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.FinaAuditRequest, v1.FinaAuditResponse](ts, &Request[v1.FinaAuditRequest]{
+		Params:  &v1.FinaAuditRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiFinaAudit,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestFinaMainbz(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.FinaMainbzRequest, v1.FinaMainbzResponse](ts, &Request[v1.FinaMainbzRequest]{
+		Params:  &v1.FinaMainbzRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiFinaMainbz,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestDisclosureDate(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.DisclosureDateRequest, v1.DisclosureDateResponse](ts, &Request[v1.DisclosureDateRequest]{
+		Params:  &v1.DisclosureDateRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiDisclosureDate,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
