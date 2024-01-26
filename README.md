@@ -29,7 +29,7 @@ func main() {
 	ts := tushare.NewTushare("your token")  // Get token from https://tushare.pro/user/token
 	resp, err := tushare.RequestTushare[v1.TradeCalRequest, v1.TradeCalResponse](ts, &tushare.Request[v1.TradeCalRequest]{
 		Params:  &v1.TradeCalRequest{CalDate: time.Now().Format("20060102"), Limit: "2", Offset: "0"},
-		ApiName: tushare.ApiTradeCal,
+		ApiName: v1.ApiTradeCal,
 		Fields:  []string{},
 	})
 	if err != nil {
