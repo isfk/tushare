@@ -167,7 +167,7 @@ func TestDaily(t *testing.T) {
 	_ = godotenv.Load()
 	ts := NewTushare(os.Getenv("token"))
 	resp, err := RequestTushare[v1.DailyRequest, v1.DailyResponse](ts, &Request[v1.DailyRequest]{
-		Params:  &v1.DailyRequest{Limit: "2", Offset: "0", TradeDate: time.Now().AddDate(-50, 0, -1).Format("20060102")},
+		Params:  &v1.DailyRequest{Limit: "2", Offset: "0", TradeDate: time.Now().AddDate(0, 0, -1).Format("20060102")},
 		ApiName: v1.ApiDaily,
 		Fields:  []string{},
 	})
