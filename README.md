@@ -55,7 +55,7 @@ func main() {
 
 ## 进度
 
-- [ ] 沪深股票
+- [x] 沪深股票
     - [x] 基础数据
         - [x] [股票列表](./tushare_test.go#L13)
         - [x] [交易日历](./tushare_test.go#L30)
