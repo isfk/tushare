@@ -158,15 +158,15 @@ func main() {
     - [x] [中信行业指数日行情](./index_test.go#L285) <i>因没有权限, 测试结果未验证</i>
     - [x] [国际主要指数](./index_test.go#L306)
 - [x] 公募基金
-    - [x] [基金列表](./index_test.go#L13)
-    - [x] [基金管理人](./index_test.go#L34)
-    - [x] [基金经理](./index_test.go#L55)
-    - [x] [基金规模](./index_test.go#L76)
-    - [x] [基金净值](./index_test.go#L97)
-    - [x] [基金分红](./index_test.go#L118)
-    - [x] [基金持仓](./index_test.go#L139)
-    - [x] [基金行情](./index_test.go#L160)
-    - [x] [复权因子](./index_test.go#L181)
+    - [x] [基金列表](./fund_test.go#L13)
+    - [x] [基金管理人](./fund_test.go#L34)
+    - [x] [基金经理](./fund_test.go#L55)
+    - [x] [基金规模](./fund_test.go#L76)
+    - [x] [基金净值](./fund_test.go#L97)
+    - [x] [基金分红](./fund_test.go#L118)
+    - [x] [基金持仓](./fund_test.go#L139)
+    - [x] [基金行情](./fund_test.go#L160)
+    - [x] [复权因子](./fund_test.go#L181)
 - [ ] 期货
     - [ ] [合约信息]
     - [ ] [交易日历]
