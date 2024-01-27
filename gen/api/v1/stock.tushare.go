@@ -158,6 +158,42 @@ const ApiStkHolderNumber string = "stk_holdernumber"
 // 股东增减持 api name
 const ApiStkHolderTrade string = "stk_holdertrade"
 
+// 卖方盈利预测数据 api name
+const ApiReportRc string = "report_rc"
+
+// 每日筹码及胜率 api name
+const ApiCyqPerf string = "cyq_perf"
+
+// 每日筹码分布 api name
+const ApiCyqChips string = "cyq_chips"
+
+// 股票技术因子 api name
+const ApiStkFactor string = "stk_factor"
+
+// 中央结算系统持股汇总 api name
+const ApiCcassHold string = "ccass_hold"
+
+// 中央结算系统持股明细 api name
+const ApiCcasHoldDetail string = "ccass_hold_detail"
+
+// 沪深港股通持股明细 api name
+const ApiHkHold string = "hk_hold"
+
+// 涨跌停和炸板数据 api name
+const ApiLimitListd string = "limit_list_d"
+
+// 机构调研数据 api name
+const ApiStkSurv string = "stk_surv"
+
+// 券商月度金股 api name
+const ApiBrokerRecommend string = "broker_recommend"
+
+// 游资名录 api name
+const ApiHmList string = "hm_list"
+
+// 游资每日明细 api name
+const ApiHmDetail string = "hm_detail"
+
 // fields
 
 // 股票列表 fields
@@ -306,6 +342,42 @@ var FieldsStkHolderNumber = []string{"ts_code", "ann_date", "end_date", "holder_
 
 // 股东增减持 fields
 var FieldsStkHolderTrade = []string{"ts_code", "ann_date", "holder_name", "holder_type", "in_de", "change_vol", "change_ratio", "after_share", "after_ratio", "avg_price", "total_share", "begin_date", "close_date"}
+
+// 卖方盈利预测数据 fields
+var FieldsReportRc = []string{"ts_code", "name", "report_date", "report_title", "report_type", "classify", "org_name", "author_name", "quarter", "op_rt", "op_pr", "tp", "np", "eps", "pe", "rd", "roe", "ev_ebitda", "rating", "max_price", "min_price", "imp_dg", "create_time"}
+
+// 每日筹码及胜率 fields
+var FieldsCyqPerf = []string{"ts_code", "trade_date", "his_low", "his_high", "cost_5pct", "cost_15pct", "cost_50pct", "cost_85pct", "cost_95pct", "weight_avg", "winner_rate"}
+
+// 每日筹码分布 fields
+var FieldsCyqChips = []string{"ts_code", "trade_date", "price", "percent"}
+
+// 股票技术因子 fields
+var FieldsStkFactor = []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_change", "vol", "amount", "adj_factor", "open_hfq", "open_qfq", "close_hfq", "close_qfq", "high_hfq", "high_qfq", "low_hfq", "low_qfq", "pre_close_hfq", "pre_close_qfq", "macd_dif", "macd_dea", "macd", "kdj_k", "kdj_d", "kdj_j", "rsi_6", "rsi_12", "rsi_24", "boll_upper", "boll_mid", "boll_lower", "cci"}
+
+// 中央结算系统持股汇总 fields
+var FieldsCcassHold = []string{"trade_date", "ts_code", "name", "shareholding", "hold_nums", "hold_ratio"}
+
+// 中央结算系统持股明细 fields
+var FieldsCcasHoldDetail = []string{"trade_date", "ts_code", "name", "col_participant_id", "col_participant_name", "col_shareholding", "col_shareholding_percent"}
+
+// 沪深港股通持股明细 fields
+var FieldsHkHold = []string{"code", "trade_date", "ts_code", "name", "vol", "ratio", "exchange"}
+
+// 涨跌停和炸板数据 fields
+var FieldsLimitListd = []string{"trade_date", "ts_code", "industry", "name", "close", "pct_chg", "amount", "limit_amount", "float_mv", "total_mv", "turnover_ratio", "fd_amount", "first_time", "last_time", "open_times", "up_stat", "limit_times", "limit"}
+
+// 机构调研数据 fields
+var FieldsStkSurv = []string{"ts_code", "name", "surv_date", "fund_visitors", "rece_place", "rece_mode", "rece_org", "org_type", "comp_rece", "content"}
+
+// 券商月度金股 fields
+var FieldsBrokerRecommend = []string{"month", "broker", "ts_code", "name"}
+
+// 游资名录 fields
+var FieldsHmList = []string{"name", "desc", "orgs"}
+
+// 游资每日明细 fields
+var FieldsHmDetail = []string{"trade_date", "ts_code", "ts_name", "buy_amount", "sell_amount", "net_amount", "hm_name", "hm_orgs", "tag"}
 
 // struct
 
@@ -2387,6 +2459,408 @@ type StkHolderTradeResponse struct {
 }
 
 func (x *StkHolderTradeResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 卖方盈利预测数据|report_rc
+type ReportRc struct {
+	TsCode      string  `json:"ts_code"`      // 股票代码
+	Name        string  `json:"name"`         // 股票名称
+	ReportDate  string  `json:"report_date"`  // 研报日期
+	ReportTitle string  `json:"report_title"` // 报告标题
+	ReportType  string  `json:"report_type"`  // 报告类型
+	Classify    string  `json:"classify"`     // 报告分类
+	OrgName     string  `json:"org_name"`     // 机构名称
+	AuthorName  string  `json:"author_name"`  // 作者
+	Quarter     string  `json:"quarter"`      // 预测报告期
+	OpRt        float64 `json:"op_rt"`        // 预测营业收入（万元）
+	OpPr        float64 `json:"op_pr"`        // 预测营业利润（万元）
+	Tp          float64 `json:"tp"`           // 预测利润总额（万元）
+	Np          float64 `json:"np"`           // 预测净利润（万元）
+	Eps         float64 `json:"eps"`          // 预测每股收益（元）
+	Pe          float64 `json:"pe"`           // 预测市盈率
+	Rd          float64 `json:"rd"`           // 预测股息率
+	Roe         float64 `json:"roe"`          // 预测净资产收益率
+	EvEbitda    float64 `json:"ev_ebitda"`    // 预测EV/EBITDA
+	Rating      string  `json:"rating"`       // 卖方评级
+	MaxPrice    float64 `json:"max_price"`    // 预测最高目标价
+	MinPrice    float64 `json:"min_price"`    // 预测最低目标价
+	ImpDg       string  `json:"imp_dg"`       // 机构关注度
+	CreateTime  string  `json:"create_time"`  // TS数据更新时间
+}
+
+type ReportRcRequest struct {
+	Limit      string `json:"limit"`
+	Offset     string `json:"offset"`
+	TsCode     string `json:"ts_code"`     // 股票代码
+	ReportDate string `json:"report_date"` // 报告日期
+	StartDate  string `json:"start_date"`  // 报告开始日期
+	EndDate    string `json:"end_date"`    // 报告结束日期
+}
+
+type ReportRcResponse struct {
+	List []*ReportRc `json:"list"`
+}
+
+func (x *ReportRcResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 每日筹码及胜率|cyq_perf
+type CyqPerf struct {
+	TsCode     string  `json:"ts_code"`     // 股票代码
+	TradeDate  string  `json:"trade_date"`  // 交易日期
+	HisLow     float64 `json:"his_low"`     // 历史最低价
+	HisHigh    float64 `json:"his_high"`    // 历史最高价
+	Cost_5Pct  float64 `json:"cost_5pct"`   // 5分位成本
+	Cost_15Pct float64 `json:"cost_15pct"`  // 15分位成本
+	Cost_50Pct float64 `json:"cost_50pct"`  // 50分位成本
+	Cost_85Pct float64 `json:"cost_85pct"`  // 85分位成本
+	Cost_95Pct float64 `json:"cost_95pct"`  // 95分位成本
+	WeightAvg  float64 `json:"weight_avg"`  // 加权平均成本
+	WinnerRate float64 `json:"winner_rate"` // 胜率
+}
+
+type CyqPerfRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type CyqPerfResponse struct {
+	List []*CyqPerf `json:"list"`
+}
+
+func (x *CyqPerfResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 每日筹码分布|cyq_chips
+type CyqChips struct {
+	TsCode    string  `json:"ts_code"`    // 股票代码
+	TradeDate string  `json:"trade_date"` // 交易日期
+	Price     float64 `json:"price"`      // 成本价格
+	Percent   float64 `json:"percent"`    // 价格占比（%）
+}
+
+type CyqChipsRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type CyqChipsResponse struct {
+	List []*CyqChips `json:"list"`
+}
+
+func (x *CyqChipsResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 股票技术因子|stk_factor
+type StkFactor struct {
+	TsCode      string  `json:"ts_code"`       // 股票代码
+	TradeDate   string  `json:"trade_date"`    // 交易日期
+	Close       float64 `json:"close"`         // 收盘价
+	Open        float64 `json:"open"`          // 开盘价
+	High        float64 `json:"high"`          // 最高价
+	Low         float64 `json:"low"`           // 最低价
+	PreClose    float64 `json:"pre_close"`     // 昨收价
+	Change      float64 `json:"change"`        // 涨跌额
+	PctChange   float64 `json:"pct_change"`    // 涨跌幅
+	Vol         float64 `json:"vol"`           // 成交量 （手）
+	Amount      float64 `json:"amount"`        // 成交额 （千元）
+	AdjFactor   float64 `json:"adj_factor"`    // 复权因子
+	OpenHfq     float64 `json:"open_hfq"`      // 开盘价后复权
+	OpenQfq     float64 `json:"open_qfq"`      // 开盘价前复权
+	CloseHfq    float64 `json:"close_hfq"`     // 收盘价后复权
+	CloseQfq    float64 `json:"close_qfq"`     // 收盘价前复权
+	HighHfq     float64 `json:"high_hfq"`      // 最高价后复权
+	HighQfq     float64 `json:"high_qfq"`      // 最高价前复权
+	LowHfq      float64 `json:"low_hfq"`       // 最低价后复权
+	LowQfq      float64 `json:"low_qfq"`       // 最低价前复权
+	PreCloseHfq float64 `json:"pre_close_hfq"` // 昨收价后复权
+	PreCloseQfq float64 `json:"pre_close_qfq"` // 昨收价前复权
+	MacdDif     float64 `json:"macd_dif"`      // MCAD_DIF (基于前复权价格计算，下同)
+	MacdDea     float64 `json:"macd_dea"`      // MCAD_DEA
+	Macd        float64 `json:"macd"`          // MCAD
+	KdjK        float64 `json:"kdj_k"`         // KDJ_K
+	KdjD        float64 `json:"kdj_d"`         // KDJ_D
+	KdjJ        float64 `json:"kdj_j"`         // KDJ_J
+	Rsi_6       float64 `json:"rsi_6"`         // RSI_6
+	Rsi_12      float64 `json:"rsi_12"`        // RSI_12
+	Rsi_24      float64 `json:"rsi_24"`        // RSI_24
+	BollUpper   float64 `json:"boll_upper"`    // BOLL_UPPER
+	BollMid     float64 `json:"boll_mid"`      // BOLL_MID
+	BollLower   float64 `json:"boll_lower"`    // BOLL_LOWER
+	Cci         float64 `json:"cci"`           // CCI
+}
+
+type StkFactorRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期 （yyyymmdd，下同）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type StkFactorResponse struct {
+	List []*StkFactor `json:"list"`
+}
+
+func (x *StkFactorResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 中央结算系统持股汇总|ccass_hold
+type CcassHold struct {
+	TradeDate    string `json:"trade_date"`   // 交易日期
+	TsCode       string `json:"ts_code"`      // 股票代号
+	Name         string `json:"name"`         // 股票名称
+	Shareholding string `json:"shareholding"` // 于中央结算系统的持股量(股)
+	HoldNums     string `json:"hold_nums"`    // 参与者数目（个）
+	HoldRatio    string `json:"hold_ratio"`   // 占于上交所上市及交易的A股总数的百分比（%）
+}
+
+type CcassHoldRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 股票代码 (e.g. 605009.SH)
+	HkCode    string `json:"hk_code"`    // 港交所代码 （e.g. 95009）
+	TradeDate string `json:"trade_date"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type CcassHoldResponse struct {
+	List []*CcassHold `json:"list"`
+}
+
+func (x *CcassHoldResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 中央结算系统持股明细|ccass_hold_detail
+type CcasHoldDetail struct {
+	TradeDate              string `json:"trade_date"`               // 交易日期
+	TsCode                 string `json:"ts_code"`                  // 股票代号
+	Name                   string `json:"name"`                     // 股票名称
+	ColParticipantId       string `json:"col_participant_id"`       // 参与者编号
+	ColParticipantName     string `json:"col_participant_name"`     // 机构名称
+	ColShareholding        string `json:"col_shareholding"`         // 持股量(股)
+	ColShareholdingPercent string `json:"col_shareholding_percent"` // 占已发行股份/权证/单位百分比(%)
+}
+
+type CcasHoldDetailRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 股票代码 (e.g. 605009.SH)
+	HkCode    string `json:"hk_code"`    // 交所代码 （e.g. 95009）
+	TradeDate string `json:"trade_date"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type CcasHoldDetailResponse struct {
+	List []*CcasHoldDetail `json:"list"`
+}
+
+func (x *CcasHoldDetailResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 沪深港股通持股明细|hk_hold
+type HkHold struct {
+	Code      string  `json:"code"`       // 原始代码
+	TradeDate string  `json:"trade_date"` // 交易日期
+	TsCode    string  `json:"ts_code"`    // TS代码
+	Name      string  `json:"name"`       // 股票名称
+	Vol       int64   `json:"vol"`        // 持股数量(股)
+	Ratio     float64 `json:"ratio"`      // 持股占比（%），占已发行股份百分比
+	Exchange  string  `json:"exchange"`   // 类型：SH沪股通SZ深股通HK港股通
+}
+
+type HkHoldRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	Code      string `json:"code"`       // 交易所代码
+	TsCode    string `json:"ts_code"`    // TS股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+	Exchange  string `json:"exchange"`   // 类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）
+}
+
+type HkHoldResponse struct {
+	List []*HkHold `json:"list"`
+}
+
+func (x *HkHoldResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 涨跌停和炸板数据|limit_list_d
+type LimitListd struct {
+	TradeDate     string  `json:"trade_date"`     // 交易日期
+	TsCode        string  `json:"ts_code"`        // 股票代码
+	Industry      string  `json:"industry"`       // 所属行业
+	Name          string  `json:"name"`           // 股票名称
+	Close         float64 `json:"close"`          // 收盘价
+	PctChg        float64 `json:"pct_chg"`        // 涨跌幅
+	Amount        float64 `json:"amount"`         // 成交额
+	LimitAmount   float64 `json:"limit_amount"`   // 板上成交金额(涨停无此数据)
+	FloatMv       float64 `json:"float_mv"`       // 流通市值
+	TotalMv       float64 `json:"total_mv"`       // 总市值
+	TurnoverRatio float64 `json:"turnover_ratio"` // 换手率
+	FdAmount      float64 `json:"fd_amount"`      // 封单金额
+	FirstTime     string  `json:"first_time"`     // 首次封板时间（跌停无此数据）
+	LastTime      string  `json:"last_time"`      // 最后封板时间
+	OpenTimes     int64   `json:"open_times"`     // 炸板次数(跌停为开板次数)
+	UpStat        string  `json:"up_stat"`        // 涨停统计（N/T T天有N次涨停）
+	LimitTimes    int64   `json:"limit_times"`    // 连板数
+	Limit         string  `json:"limit"`          // D跌停U涨停Z炸板
+}
+
+type LimitListdRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode    string `json:"ts_code"`    // 股票代码
+	LimitType string `json:"limit_type"` // 涨跌停类型（U涨停D跌停Z炸板）
+	Exchange  string `json:"exchange"`   // 交易所（SH上交所SZ深交所BJ北交所）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type LimitListdResponse struct {
+	List []*LimitListd `json:"list"`
+}
+
+func (x *LimitListdResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 机构调研数据|stk_surv
+type StkSurv struct {
+	TsCode       string `json:"ts_code"`       // 股票代码
+	Name         string `json:"name"`          // 股票名称
+	SurvDate     string `json:"surv_date"`     // 调研日期
+	FundVisitors string `json:"fund_visitors"` // 机构参与人员
+	RecePlace    string `json:"rece_place"`    // 接待地点
+	ReceMode     string `json:"rece_mode"`     // 接待方式
+	ReceOrg      string `json:"rece_org"`      // 接待的公司
+	OrgType      string `json:"org_type"`      // 接待公司类型
+	CompRece     string `json:"comp_rece"`     // 上市公司接待人员
+	Content      string `json:"content"`       // 调研内容
+}
+
+type StkSurvRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 股票代码
+	TradeDate string `json:"trade_date"` // 调研日期
+	StartDate string `json:"start_date"` // 调研开始日期
+	EndDate   string `json:"end_date"`   // 调研结束日期
+}
+
+type StkSurvResponse struct {
+	List []*StkSurv `json:"list"`
+}
+
+func (x *StkSurvResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 券商月度金股|broker_recommend
+type BrokerRecommend struct {
+	Month  string `json:"month"`   // 月度
+	Broker string `json:"broker"`  // 券商
+	TsCode string `json:"ts_code"` // 股票代码
+	Name   string `json:"name"`    // 股票简称
+}
+
+type BrokerRecommendRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	Month  string `json:"month"` // 月度（YYYYMM）
+}
+
+type BrokerRecommendResponse struct {
+	List []*BrokerRecommend `json:"list"`
+}
+
+func (x *BrokerRecommendResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 游资名录|hm_list
+type HmList struct {
+	Name string `json:"name"` // 游资名称
+	Desc string `json:"desc"` // 说明
+	Orgs string `json:"orgs"` // 关联机构
+}
+
+type HmListRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	Name   string `json:"name"` // 游资名称
+}
+
+type HmListResponse struct {
+	List []*HmList `json:"list"`
+}
+
+func (x *HmListResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 游资每日明细|hm_detail
+type HmDetail struct {
+	TradeDate  string  `json:"trade_date"`  // 交易日期
+	TsCode     string  `json:"ts_code"`     // 股票代码
+	TsName     string  `json:"ts_name"`     // 股票名称
+	BuyAmount  float64 `json:"buy_amount"`  // 买入金额（元）
+	SellAmount float64 `json:"sell_amount"` // 卖出金额（元）
+	NetAmount  float64 `json:"net_amount"`  // 净买卖（元）
+	HmName     string  `json:"hm_name"`     // 游资名称
+	HmOrgs     string  `json:"hm_orgs"`     // 关联机构（一般为营业部或机构专用）
+	Tag        string  `json:"tag"`         // 标签
+}
+
+type HmDetailRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` // 交易日期(YYYYMMDD)
+	TsCode    string `json:"ts_code"`    // 股票代码
+	HmName    string `json:"hm_name"`    // 游资名称
+	StartDate string `json:"start_date"` // 开始日期(YYYYMMDD)
+	EndDate   string `json:"end_date"`   // 结束日期(YYYYMMDD)
+}
+
+type HmDetailResponse struct {
+	List []*HmDetail `json:"list"`
+}
+
+func (x *HmDetailResponse) String() string {
 	bytes, _ := json.Marshal(x)
 	return string(bytes)
 }

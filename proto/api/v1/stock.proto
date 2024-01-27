@@ -1748,3 +1748,321 @@ message StkHolderTradeRequest {
 message StkHolderTradeResponse {
   repeated StkHolderTrade list = 1;
 }
+
+// 券商盈利预测数据|report_rc
+message ReportRc {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string name = 2 [json_name = "name"]; // 股票名称
+  string report_date = 3 [json_name = "report_date"]; // 研报日期
+  string report_title = 4 [json_name = "report_title"]; // 报告标题
+  string report_type = 5 [json_name = "report_type"]; // 报告类型
+  string classify = 6 [json_name = "classify"]; // 报告分类
+  string org_name = 7 [json_name = "org_name"]; // 机构名称
+  string author_name = 8 [json_name = "author_name"]; // 作者
+  string quarter = 9 [json_name = "quarter"]; // 预测报告期
+  float op_rt = 10 [json_name = "op_rt"]; // 预测营业收入（万元）
+  float op_pr = 11 [json_name = "op_pr"]; // 预测营业利润（万元）
+  float tp = 12 [json_name = "tp"]; // 预测利润总额（万元）
+  float np = 13 [json_name = "np"]; // 预测净利润（万元）
+  float eps = 14 [json_name = "eps"]; // 预测每股收益（元）
+  float pe = 15 [json_name = "pe"]; // 预测市盈率
+  float rd = 16 [json_name = "rd"]; // 预测股息率
+  float roe = 17 [json_name = "roe"]; // 预测净资产收益率
+  float ev_ebitda = 18 [json_name = "ev_ebitda"]; // 预测EV/EBITDA
+  string rating = 19 [json_name = "rating"]; // 卖方评级
+  float max_price = 20 [json_name = "max_price"]; // 预测最高目标价
+  float min_price = 21 [json_name = "min_price"]; // 预测最低目标价
+  string imp_dg = 22 [json_name = "imp_dg"]; // 机构关注度
+  string create_time = 23 [json_name = "create_time"]; // TS数据更新时间
+}
+message ReportRcRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string report_date = 4 [json_name = "report_date"]; // 报告日期
+  string start_date = 5 [json_name = "start_date"]; // 报告开始日期
+  string end_date = 6 [json_name = "end_date"]; // 报告结束日期
+}
+message ReportRcResponse {
+  repeated ReportRc list = 1;
+}
+
+// 每日筹码及胜率|cyq_perf
+message CyqPerf {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float his_low = 3 [json_name = "his_low"]; // 历史最低价
+  float his_high = 4 [json_name = "his_high"]; // 历史最高价
+  float cost_5pct = 5 [json_name = "cost_5pct"]; // 5分位成本
+  float cost_15pct = 6 [json_name = "cost_15pct"]; // 15分位成本
+  float cost_50pct = 7 [json_name = "cost_50pct"]; // 50分位成本
+  float cost_85pct = 8 [json_name = "cost_85pct"]; // 85分位成本
+  float cost_95pct = 9 [json_name = "cost_95pct"]; // 95分位成本
+  float weight_avg = 10 [json_name = "weight_avg"]; // 加权平均成本
+  float winner_rate = 11 [json_name = "winner_rate"]; // 胜率
+}
+message CyqPerfRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message CyqPerfResponse {
+  repeated CyqPerf list = 1;
+}
+
+// 每日筹码分布|cyq_chips
+message CyqChips {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float price = 3 [json_name = "price"]; // 成本价格
+  float percent = 4 [json_name = "percent"]; // 价格占比（%）
+}
+message CyqChipsRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message CyqChipsResponse {
+  repeated CyqChips list = 1;
+}
+
+// 股票技术因子|stk_factor
+message StkFactor {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float close = 3 [json_name = "close"]; // 收盘价
+  float open = 4 [json_name = "open"]; // 开盘价
+  float high = 5 [json_name = "high"]; // 最高价
+  float low = 6 [json_name = "low"]; // 最低价
+  float pre_close = 7 [json_name = "pre_close"]; // 昨收价
+  float change = 8 [json_name = "change"]; // 涨跌额
+  float pct_change = 9 [json_name = "pct_change"]; // 涨跌幅
+  float vol = 10 [json_name = "vol"]; // 成交量 （手）
+  float amount = 11 [json_name = "amount"]; // 成交额 （千元）
+  float adj_factor = 12 [json_name = "adj_factor"]; // 复权因子
+  float open_hfq = 13 [json_name = "open_hfq"]; // 开盘价后复权
+  float open_qfq = 14 [json_name = "open_qfq"]; // 开盘价前复权
+  float close_hfq = 15 [json_name = "close_hfq"]; // 收盘价后复权
+  float close_qfq = 16 [json_name = "close_qfq"]; // 收盘价前复权
+  float high_hfq = 17 [json_name = "high_hfq"]; // 最高价后复权
+  float high_qfq = 18 [json_name = "high_qfq"]; // 最高价前复权
+  float low_hfq = 19 [json_name = "low_hfq"]; // 最低价后复权
+  float low_qfq = 20 [json_name = "low_qfq"]; // 最低价前复权
+  float pre_close_hfq = 21 [json_name = "pre_close_hfq"]; // 昨收价后复权
+  float pre_close_qfq = 22 [json_name = "pre_close_qfq"]; // 昨收价前复权
+  float macd_dif = 23 [json_name = "macd_dif"]; // MCAD_DIF (基于前复权价格计算，下同)
+  float macd_dea = 24 [json_name = "macd_dea"]; // MCAD_DEA
+  float macd = 25 [json_name = "macd"]; // MCAD
+  float kdj_k = 26 [json_name = "kdj_k"]; // KDJ_K
+  float kdj_d = 27 [json_name = "kdj_d"]; // KDJ_D
+  float kdj_j = 28 [json_name = "kdj_j"]; // KDJ_J
+  float rsi_6 = 29 [json_name = "rsi_6"]; // RSI_6
+  float rsi_12 = 30 [json_name = "rsi_12"]; // RSI_12
+  float rsi_24 = 31 [json_name = "rsi_24"]; // RSI_24
+  float boll_upper = 32 [json_name = "boll_upper"]; // BOLL_UPPER
+  float boll_mid = 33 [json_name = "boll_mid"]; // BOLL_MID
+  float boll_lower = 34 [json_name = "boll_lower"]; // BOLL_LOWER
+  float cci = 35 [json_name = "cci"]; // CCI
+}
+message StkFactorRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （yyyymmdd，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message StkFactorResponse {
+  repeated StkFactor list = 1;
+}
+
+// 中央结算系统持股统计|ccass_hold
+message CcassHold {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 股票代号
+  string name = 3 [json_name = "name"]; // 股票名称
+  string shareholding = 4 [json_name = "shareholding"]; // 于中央结算系统的持股量(股)
+  string hold_nums = 5 [json_name = "hold_nums"]; // 参与者数目（个）
+  string hold_ratio = 6 [json_name = "hold_ratio"]; // 占于上交所上市及交易的A股总数的百分比（%）
+}
+message CcassHoldRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码 (e.g. 605009.SH)
+  string hk_code = 4 [json_name = "hk_code"]; // 港交所代码 （e.g. 95009）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message CcassHoldResponse {
+  repeated CcassHold list = 1;
+}
+
+// 中央结算系统持股明细|ccass_hold_detail
+message CcasHoldDetail {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 股票代号
+  string name = 3 [json_name = "name"]; // 股票名称
+  string col_participant_id = 4 [json_name = "col_participant_id"]; // 参与者编号
+  string col_participant_name = 5 [json_name = "col_participant_name"]; // 机构名称
+  string col_shareholding = 6 [json_name = "col_shareholding"]; // 持股量(股)
+  string col_shareholding_percent = 7 [json_name = "col_shareholding_percent"]; // 占已发行股份/权证/单位百分比(%)
+}
+message CcasHoldDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码 (e.g. 605009.SH)
+  string hk_code = 4 [json_name = "hk_code"]; // 交所代码 （e.g. 95009）
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message CcasHoldDetailResponse {
+  repeated CcasHoldDetail list = 1;
+}
+
+// 沪深港股通持股明细|hk_hold
+message HkHold {
+  string code = 1 [json_name = "code"]; // 原始代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string name = 4 [json_name = "name"]; // 股票名称
+  int64 vol = 5 [json_name = "vol"]; // 持股数量(股)
+  float ratio = 6 [json_name = "ratio"]; // 持股占比（%），占已发行股份百分比
+  string exchange = 7 [json_name = "exchange"]; // 类型：SH沪股通SZ深股通HK港股通
+}
+message HkHoldRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string code = 3 [json_name = "code"]; // 交易所代码
+  string ts_code = 4 [json_name = "ts_code"]; // TS股票代码
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string exchange = 8 [json_name = "exchange"]; // 类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）
+}
+message HkHoldResponse {
+  repeated HkHold list = 1;
+}
+
+// 涨跌停和炸板数据|limit_list_d
+message LimitListd {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 股票代码
+  string industry = 3 [json_name = "industry"]; // 所属行业
+  string name = 4 [json_name = "name"]; // 股票名称
+  float close = 5 [json_name = "close"]; // 收盘价
+  float pct_chg = 6 [json_name = "pct_chg"]; // 涨跌幅
+  float amount = 7 [json_name = "amount"]; // 成交额
+  float limit_amount = 8 [json_name = "limit_amount"]; // 板上成交金额(涨停无此数据)
+  float float_mv = 9 [json_name = "float_mv"]; // 流通市值
+  float total_mv = 10 [json_name = "total_mv"]; // 总市值
+  float turnover_ratio = 11 [json_name = "turnover_ratio"]; // 换手率
+  float fd_amount = 12 [json_name = "fd_amount"]; // 封单金额
+  string first_time = 13 [json_name = "first_time"]; // 首次封板时间（跌停无此数据）
+  string last_time = 14 [json_name = "last_time"]; // 最后封板时间
+  int64 open_times = 15 [json_name = "open_times"]; // 炸板次数(跌停为开板次数)
+  string up_stat = 16 [json_name = "up_stat"]; // 涨停统计（N/T T天有N次涨停）
+  int64 limit_times = 17 [json_name = "limit_times"]; // 连板数
+  string limit = 18 [json_name = "limit"]; // D跌停U涨停Z炸板
+}
+message LimitListdRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string limit_type = 5 [json_name = "limit_type"]; // 涨跌停类型（U涨停D跌停Z炸板）
+  string exchange = 6 [json_name = "exchange"]; // 交易所（SH上交所SZ深交所BJ北交所）
+  string start_date = 7 [json_name = "start_date"]; // 开始日期
+  string end_date = 8 [json_name = "end_date"]; // 结束日期
+}
+message LimitListdResponse {
+  repeated LimitListd list = 1;
+}
+
+// 机构调研数据|stk_surv
+message StkSurv {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string name = 2 [json_name = "name"]; // 股票名称
+  string surv_date = 3 [json_name = "surv_date"]; // 调研日期
+  string fund_visitors = 4 [json_name = "fund_visitors"]; // 机构参与人员
+  string rece_place = 5 [json_name = "rece_place"]; // 接待地点
+  string rece_mode = 6 [json_name = "rece_mode"]; // 接待方式
+  string rece_org = 7 [json_name = "rece_org"]; // 接待的公司
+  string org_type = 8 [json_name = "org_type"]; // 接待公司类型
+  string comp_rece = 9 [json_name = "comp_rece"]; // 上市公司接待人员
+  string content = 10 [json_name = "content"]; // 调研内容
+}
+message StkSurvRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 调研日期
+  string start_date = 5 [json_name = "start_date"]; // 调研开始日期
+  string end_date = 6 [json_name = "end_date"]; // 调研结束日期
+}
+message StkSurvResponse {
+  repeated StkSurv list = 1;
+}
+
+// 券商月度金股|broker_recommend
+message BrokerRecommend {
+  string month = 1 [json_name = "month"]; // 月度
+  string broker = 2 [json_name = "broker"]; // 券商
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string name = 4 [json_name = "name"]; // 股票简称
+}
+message BrokerRecommendRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string month = 3 [json_name = "month"]; // 月度（YYYYMM）
+}
+message BrokerRecommendResponse {
+  repeated BrokerRecommend list = 1;
+}
+
+// 游资名录|hm_list
+message HmList {
+  string name = 1 [json_name = "name"]; // 游资名称
+  string desc = 2 [json_name = "desc"]; // 说明
+  string orgs = 3 [json_name = "orgs"]; // 关联机构
+}
+message HmListRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string name = 3 [json_name = "name"]; // 游资名称
+}
+message HmListResponse {
+  repeated HmList list = 1;
+}
+
+// 游资每日明细|hm_detail
+message HmDetail {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 股票代码
+  string ts_name = 3 [json_name = "ts_name"]; // 股票名称
+  float buy_amount = 4 [json_name = "buy_amount"]; // 买入金额（元）
+  float sell_amount = 5 [json_name = "sell_amount"]; // 卖出金额（元）
+  float net_amount = 6 [json_name = "net_amount"]; // 净买卖（元）
+  string hm_name = 7 [json_name = "hm_name"]; // 游资名称
+  string hm_orgs = 8 [json_name = "hm_orgs"]; // 关联机构（一般为营业部或机构专用）
+  string tag = 9 [json_name = "tag"]; // 标签
+}
+message HmDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期(YYYYMMDD)
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string hm_name = 5 [json_name = "hm_name"]; // 游资名称
+  string start_date = 6 [json_name = "start_date"]; // 开始日期(YYYYMMDD)
+  string end_date = 7 [json_name = "end_date"]; // 结束日期(YYYYMMDD)
+}
+message HmDetailResponse {
+  repeated HmDetail list = 1;
+}

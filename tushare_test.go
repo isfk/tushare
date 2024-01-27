@@ -377,7 +377,7 @@ func TestGgtMonthly(t *testing.T) {
 	})
 	if err != nil {
 		if strings.Contains(err.Error(), "code=40203") {
-			t.Log("该接口没有权限, 跳过测试")
+			t.Logf("权限问题: %v", err.Error())
 			return
 		}
 		t.Errorf("%v", err)
@@ -619,7 +619,7 @@ func TestMarginTarget(t *testing.T) {
 	})
 	if err != nil {
 		if strings.Contains(err.Error(), "code=40203") {
-			t.Log("该接口没有权限, 跳过测试")
+			t.Logf("权限问题: %v", err.Error())
 			return
 		}
 		t.Errorf("%v", err)
@@ -840,6 +840,210 @@ func TestStkHolderTrade(t *testing.T) {
 	resp, err := RequestTushare[v1.StkHolderTradeRequest, v1.StkHolderTradeResponse](ts, &Request[v1.StkHolderTradeRequest]{
 		Params:  &v1.StkHolderTradeRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
 		ApiName: v1.ApiStkHolderTrade,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestReportRc(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.ReportRcRequest, v1.ReportRcResponse](ts, &Request[v1.ReportRcRequest]{
+		Params:  &v1.ReportRcRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiReportRc,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestCyqPerf(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.CyqPerfRequest, v1.CyqPerfResponse](ts, &Request[v1.CyqPerfRequest]{
+		Params:  &v1.CyqPerfRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiCyqPerf,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestCyqChips(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.CyqChipsRequest, v1.CyqChipsResponse](ts, &Request[v1.CyqChipsRequest]{
+		Params:  &v1.CyqChipsRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiCyqChips,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestStkFactor(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.StkFactorRequest, v1.StkFactorResponse](ts, &Request[v1.StkFactorRequest]{
+		Params:  &v1.StkFactorRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiStkFactor,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestCcassHold(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.CcassHoldRequest, v1.CcassHoldResponse](ts, &Request[v1.CcassHoldRequest]{
+		Params:  &v1.CcassHoldRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiCcassHold,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestCcasHoldDetail(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.CcasHoldDetailRequest, v1.CcasHoldDetailResponse](ts, &Request[v1.CcasHoldDetailRequest]{
+		Params:  &v1.CcasHoldDetailRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiCcasHoldDetail,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestHkHold(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.HkHoldRequest, v1.HkHoldResponse](ts, &Request[v1.HkHoldRequest]{
+		Params:  &v1.HkHoldRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiHkHold,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestLimitListd(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.LimitListdRequest, v1.LimitListdResponse](ts, &Request[v1.LimitListdRequest]{
+		Params:  &v1.LimitListdRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiLimitListd,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestStkSurv(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.StkSurvRequest, v1.StkSurvResponse](ts, &Request[v1.StkSurvRequest]{
+		Params:  &v1.StkSurvRequest{Limit: "2", Offset: "0", TsCode: "000001.SZ"},
+		ApiName: v1.ApiStkSurv,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestBrokerRecommend(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.BrokerRecommendRequest, v1.BrokerRecommendResponse](ts, &Request[v1.BrokerRecommendRequest]{
+		Params:  &v1.BrokerRecommendRequest{Limit: "2", Offset: "0", Month: "202401"},
+		ApiName: v1.ApiBrokerRecommend,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestHmList(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.HmListRequest, v1.HmListResponse](ts, &Request[v1.HmListRequest]{
+		Params:  &v1.HmListRequest{Limit: "2", Offset: "0"},
+		ApiName: v1.ApiHmList,
+		Fields:  []string{},
+	})
+	if err != nil {
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestHmDetail(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.HmDetailRequest, v1.HmDetailResponse](ts, &Request[v1.HmDetailRequest]{
+		Params:  &v1.HmDetailRequest{Limit: "2", Offset: "0"},
+		ApiName: v1.ApiHmDetail,
 		Fields:  []string{},
 	})
 	if err != nil {
