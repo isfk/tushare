@@ -128,7 +128,7 @@ func main() {
         - [x] [机构调研数据](./tushare_test.go#L990)
         - [x] [券商月度金股](./tushare_test.go#L1007)
         - [x] [游资名录](./tushare_test.go#L1024)
-        - [x] [游资每日明细] (./tushare_test.go#L1041)
+        - [x] [游资每日明细](./tushare_test.go#L1041)
 - [ ] 指数
     - [ ] [指数基本信息]
     - [ ] [指数日线行情]
