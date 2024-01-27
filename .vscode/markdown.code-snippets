@@ -1,0 +1,10 @@
+
+{
+  "Create test line a link": {
+    "prefix": "test_line",
+    "body": [
+      "$0(./tushare_test.go#L${1:line})"
+    ],
+    "description": ""
+  }
+}
