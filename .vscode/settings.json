@@ -11,5 +11,15 @@
   },
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf"
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.renderWhitespace": "all",
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "on",
+      "strings": "on"
+    },
+    "editor.acceptSuggestionOnEnter": "on"
   }
 }
