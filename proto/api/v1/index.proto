@@ -4,4 +4,380 @@ package api.v1;
 
 option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
 
-/* 指数 */
+/*
+ - 指数
+ - https://tushare.pro/document/2?doc_id=93
+*/
+
+// 指数基本信息|index_basic
+message IndexBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string name = 2 [json_name = "name"]; // 简称
+  string fullname = 3 [json_name = "fullname"]; // 指数全称
+  string market = 4 [json_name = "market"]; // 市场
+  string publisher = 5 [json_name = "publisher"]; // 发布方
+  string index_type = 6 [json_name = "index_type"]; // 指数风格
+  string category = 7 [json_name = "category"]; // 指数类别
+  string base_date = 8 [json_name = "base_date"]; // 基期
+  float base_point = 9 [json_name = "base_point"]; // 基点
+  string list_date = 10 [json_name = "list_date"]; // 发布日期
+  string weight_rule = 11 [json_name = "weight_rule"]; // 加权方式
+  string desc = 12 [json_name = "desc"]; // 描述
+  string exp_date = 13 [json_name = "exp_date"]; // 终止日期
+}
+message IndexBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 指数代码
+  string name = 4 [json_name = "name"]; // 指数简称
+  string market = 5 [json_name = "market"]; // 交易所或服务商(默认SSE)
+  string publisher = 6 [json_name = "publisher"]; // 发布商
+  string category = 7 [json_name = "category"]; // 指数类别
+}
+message IndexBasicResponse {
+  repeated IndexBasic list = 1;
+}
+
+// 指数日线行情|index_daily
+message IndexDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // TS指数代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  float close = 3 [json_name = "close"]; // 收盘点位
+  float open = 4 [json_name = "open"]; // 开盘点位
+  float high = 5 [json_name = "high"]; // 最高点位
+  float low = 6 [json_name = "low"]; // 最低点位
+  float pre_close = 7 [json_name = "pre_close"]; // 昨日收盘点
+  float change = 8 [json_name = "change"]; // 涨跌点
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅（%）
+  float vol = 10 [json_name = "vol"]; // 成交量（手）
+  float amount = 11 [json_name = "amount"]; // 成交额（千元）
+}
+message IndexDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 指数代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （日期格式：YYYYMMDD，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message IndexDailyResponse {
+  repeated IndexDaily list = 1;
+}
+
+// 指数周线行情|index_weekly
+message IndexWeekly {
+  string ts_code = 1 [json_name = "ts_code"]; // TS指数代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  float close = 3 [json_name = "close"]; // 收盘点位
+  float open = 4 [json_name = "open"]; // 开盘点位
+  float high = 5 [json_name = "high"]; // 最高点位
+  float low = 6 [json_name = "low"]; // 最低点位
+  float pre_close = 7 [json_name = "pre_close"]; // 昨日收盘点
+  float change = 8 [json_name = "change"]; // 涨跌点位
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅
+  float vol = 10 [json_name = "vol"]; // 成交量（手）
+  float amount = 11 [json_name = "amount"]; // 成交额（千元）
+}
+message IndexWeeklyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message IndexWeeklyResponse {
+  repeated IndexWeekly list = 1;
+}
+
+// 指数月线行情|index_monthly
+message IndexMonthly {
+  string ts_code = 1 [json_name = "ts_code"]; // TS指数代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  float close = 3 [json_name = "close"]; // 收盘点位
+  float open = 4 [json_name = "open"]; // 开盘点位
+  float high = 5 [json_name = "high"]; // 最高点位
+  float low = 6 [json_name = "low"]; // 最低点位
+  float pre_close = 7 [json_name = "pre_close"]; // 昨日收盘点
+  float change = 8 [json_name = "change"]; // 涨跌点位
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅
+  float vol = 10 [json_name = "vol"]; // 成交量（手）
+  float amount = 11 [json_name = "amount"]; // 成交额（千元）
+}
+message IndexMonthlyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message IndexMonthlyResponse {
+  repeated IndexMonthly list = 1;
+}
+
+// 指数成分和权重|index_weight
+message IndexWeight {
+  string index_code = 1 [json_name = "index_code"]; // 指数代码
+  string con_code = 2 [json_name = "con_code"]; // 成分代码
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  float weight = 4 [json_name = "weight"]; // 权重
+}
+message IndexWeightRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string index_code = 3 [json_name = "index_code"]; // 指数代码 (二选一)
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期 （二选一）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message IndexWeightResponse {
+  repeated IndexWeight list = 1;
+}
+
+// 大盘指数每日指标|index_dailybasic
+message IndexDailyBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float total_mv = 3 [json_name = "total_mv"]; // 当日总市值（元）
+  float float_mv = 4 [json_name = "float_mv"]; // 当日流通市值（元）
+  float total_share = 5 [json_name = "total_share"]; // 当日总股本（股）
+  float float_share = 6 [json_name = "float_share"]; // 当日流通股本（股）
+  float free_share = 7 [json_name = "free_share"]; // 当日自由流通股本（股）
+  float turnover_rate = 8 [json_name = "turnover_rate"]; // 换手率
+  float turnover_rate_f = 9 [json_name = "turnover_rate_f"]; // 换手率(基于自由流通股本)
+  float pe = 10 [json_name = "pe"]; // 市盈率
+  float pe_ttm = 11 [json_name = "pe_ttm"]; // 市盈率TTM
+  float pb = 12 [json_name = "pb"]; // 市净率
+}
+message IndexDailyBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期 （格式：YYYYMMDD，比如20181018，下同）
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message IndexDailyBasicResponse {
+  repeated IndexDailyBasic list = 1;
+}
+
+// 申万行业分类|index_classify
+message IndexClassify {
+  string index_code = 1 [json_name = "index_code"]; // 指数代码
+  string industry_name = 2 [json_name = "industry_name"]; // 行业名称
+  string parent_code = 3 [json_name = "parent_code"]; // 父级代码
+  string level = 4 [json_name = "level"]; // 行业名称
+  string industry_code = 5 [json_name = "industry_code"]; // 行业代码
+  string is_pub = 6 [json_name = "is_pub"]; // 是否发布了指数
+  string src = 7 [json_name = "src"]; // 行业分类（SW申万）
+}
+message IndexClassifyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string index_code = 3 [json_name = "index_code"]; // 指数代码
+  string level = 4 [json_name = "level"]; // 行业分级（L1/L2/L3）
+  string parent_code = 5 [json_name = "parent_code"]; // 父级代码（一级为0）
+  string src = 6 [json_name = "src"]; // 指数来源（SW2014：申万2014年版本，SW2021：申万2021年版本）
+}
+message IndexClassifyResponse {
+  repeated IndexClassify list = 1;
+}
+
+// 申万行业成分|index_member
+message IndexMember {
+  string index_code = 1 [json_name = "index_code"]; // 指数代码
+  string index_name = 2 [json_name = "index_name"]; // 指数名称
+  string con_code = 3 [json_name = "con_code"]; // 成分股票代码
+  string con_name = 4 [json_name = "con_name"]; // 成分股票名称
+  string in_date = 5 [json_name = "in_date"]; // 纳入日期
+  string out_date = 6 [json_name = "out_date"]; // 剔除日期
+  string is_new = 7 [json_name = "is_new"]; // 是否最新Y是N否
+}
+message IndexMemberRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string index_code = 3 [json_name = "index_code"]; // 指数代码
+  string ts_code = 4 [json_name = "ts_code"]; // 股票代码
+  string is_new = 5 [json_name = "is_new"]; // 是否最新（默认为“Y是”）
+}
+message IndexMemberResponse {
+  repeated IndexMember list = 1;
+}
+
+// 沪深市场每日交易统计|daily_info
+message DailyInfo {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 市场代码
+  string ts_name = 3 [json_name = "ts_name"]; // 市场名称
+  int64 com_count = 4 [json_name = "com_count"]; // 挂牌数
+  float total_share = 5 [json_name = "total_share"]; // 总股本（亿股）
+  float float_share = 6 [json_name = "float_share"]; // 流通股本（亿股）
+  float total_mv = 7 [json_name = "total_mv"]; // 总市值（亿元）
+  float float_mv = 8 [json_name = "float_mv"]; // 流通市值（亿元）
+  float amount = 9 [json_name = "amount"]; // 交易金额（亿元）
+  float vol = 10 [json_name = "vol"]; // 成交量（亿股）
+  int64 trans_count = 11 [json_name = "trans_count"]; // 成交笔数（万笔）
+  float pe = 12 [json_name = "pe"]; // 平均市盈率
+  float tr = 13 [json_name = "tr"]; // 换手率（％），注：深交所暂无此列
+  string exchange = 14 [json_name = "exchange"]; // 交易所（SH上交所 SZ深交所）
+}
+message DailyInfoRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期（YYYYMMDD格式，下同）
+  string ts_code = 4 [json_name = "ts_code"]; // 板块代码（请参阅下方列表）
+  string exchange = 5 [json_name = "exchange"]; // 股票市场（SH上交所 SZ深交所）
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+  string fields = 8 [json_name = "fields"]; // 指定提取字段
+}
+message DailyInfoResponse {
+  repeated DailyInfo list = 1;
+}
+
+// 深圳市场每日交易情况|sz_daily_info
+message SzDailyInfo {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 市场类型
+  int64 count = 3 [json_name = "count"]; // 股票个数
+  float amount = 4 [json_name = "amount"]; // 成交金额
+  string vol = 5 [json_name = "vol"]; // 成交量
+  float total_share = 6 [json_name = "total_share"]; // 总股本
+  float total_mv = 7 [json_name = "total_mv"]; // 总市值
+  float float_share = 8 [json_name = "float_share"]; // 流通股票
+  float float_mv = 9 [json_name = "float_mv"]; // 流通市值
+}
+message SzDailyInfoRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期（YYYYMMDD格式，下同）
+  string ts_code = 4 [json_name = "ts_code"]; // 板块代码
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message SzDailyInfoResponse {
+  repeated SzDailyInfo list = 1;
+}
+
+// 同花顺概念和行业指数|ths_index
+message ThsIndex {
+  string ts_code = 1 [json_name = "ts_code"]; // 代码
+  string name = 2 [json_name = "name"]; // 名称
+  int64 count = 3 [json_name = "count"]; // 成分个数
+  string exchange = 4 [json_name = "exchange"]; // 交易所
+  string list_date = 5 [json_name = "list_date"]; // 上市日期
+  string type = 6 [json_name = "type"]; // N概念指数S特色指数
+}
+message ThsIndexRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 指数代码
+  string exchange = 4 [json_name = "exchange"]; // 市场类型A-a股 HK-港股 US-美股
+  string type = 5 [json_name = "type"]; // 指数类型 N-板块指数 I-行业指数 R-地域指数 S-同花顺特色指数
+}
+message ThsIndexResponse {
+  repeated ThsIndex list = 1;
+}
+
+// 同花顺概念和行业指数行情|ths_daily
+message ThsDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // TS指数代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  float close = 3 [json_name = "close"]; // 收盘点位
+  float open = 4 [json_name = "open"]; // 开盘点位
+  float high = 5 [json_name = "high"]; // 最高点位
+  float low = 6 [json_name = "low"]; // 最低点位
+  float pre_close = 7 [json_name = "pre_close"]; // 昨日收盘点
+  float avg_price = 8 [json_name = "avg_price"]; // 平均价
+  float change = 9 [json_name = "change"]; // 涨跌点位
+  float pct_change = 10 [json_name = "pct_change"]; // 涨跌幅
+  float vol = 11 [json_name = "vol"]; // 成交量
+  float turnover_rate = 12 [json_name = "turnover_rate"]; // 换手率
+  float total_mv = 13 [json_name = "total_mv"]; // 总市值
+  float float_mv = 14 [json_name = "float_mv"]; // 流通市值
+}
+message ThsDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 指数代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD格式，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message ThsDailyResponse {
+  repeated ThsDaily list = 1;
+}
+
+// 同花顺概念和行业指数成分|ths_member
+message ThsMember {
+  string ts_code = 1 [json_name = "ts_code"]; // 指数代码
+  string code = 2 [json_name = "code"]; // 股票代码
+  string name = 3 [json_name = "name"]; // 股票名称
+  float weight = 4 [json_name = "weight"]; // 权重(暂无)
+  string in_date = 5 [json_name = "in_date"]; // 纳入日期(暂无)
+  string out_date = 6 [json_name = "out_date"]; // 剔除日期(暂无)
+  string is_new = 7 [json_name = "is_new"]; // 是否最新Y是N否
+}
+message ThsMemberRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 板块指数代码
+  string code = 4 [json_name = "code"]; // 股票代码
+}
+message ThsMemberResponse {
+  repeated ThsMember list = 1;
+}
+
+// 中信行业指数行情|ci_daily
+message CiDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 指数代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float open = 3 [json_name = "open"]; // 开盘点位
+  float low = 4 [json_name = "low"]; // 最低点位
+  float high = 5 [json_name = "high"]; // 最高点位
+  float close = 6 [json_name = "close"]; // 收盘点位
+  float pre_close = 7 [json_name = "pre_close"]; // 昨日收盘点位
+  float change = 8 [json_name = "change"]; // 涨跌点位
+  float pct_change = 9 [json_name = "pct_change"]; // 涨跌幅
+  float vol = 10 [json_name = "vol"]; // 成交量（万股）
+  float amount = 11 [json_name = "amount"]; // 成交额（万元）
+}
+message CiDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 行业代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD格式，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message CiDailyResponse {
+  repeated CiDaily list = 1;
+}
+
+// 国际主要指数|index_global
+message IndexGlobal {
+  string ts_code = 1 [json_name = "ts_code"]; // TS指数代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  float open = 3 [json_name = "open"]; // 开盘点位
+  float close = 4 [json_name = "close"]; // 收盘点位
+  float high = 5 [json_name = "high"]; // 最高点位
+  float low = 6 [json_name = "low"]; // 最低点位
+  float pre_close = 7 [json_name = "pre_close"]; // 昨日收盘点
+  float change = 8 [json_name = "change"]; // 涨跌点位
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅
+  float swing = 10 [json_name = "swing"]; // 振幅
+  float vol = 11 [json_name = "vol"]; // 成交量 （大部分无此项数据）
+  float amount = 12 [json_name = "amount"]; // 成交额 （大部分无此项数据）
+}
+message IndexGlobalRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS指数代码，见下表
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期，YYYYMMDD格式，下同
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message IndexGlobalResponse {
+  repeated IndexGlobal list = 1;
+}

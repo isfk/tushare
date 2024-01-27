@@ -158,7 +158,7 @@ const ApiStkHolderNumber string = "stk_holdernumber"
 // 股东增减持 api name
 const ApiStkHolderTrade string = "stk_holdertrade"
 
-// 卖方盈利预测数据 api name
+// 券商盈利预测数据 api name
 const ApiReportRc string = "report_rc"
 
 // 每日筹码及胜率 api name
@@ -170,7 +170,7 @@ const ApiCyqChips string = "cyq_chips"
 // 股票技术因子 api name
 const ApiStkFactor string = "stk_factor"
 
-// 中央结算系统持股汇总 api name
+// 中央结算系统持股统计 api name
 const ApiCcassHold string = "ccass_hold"
 
 // 中央结算系统持股明细 api name
@@ -343,7 +343,7 @@ var FieldsStkHolderNumber = []string{"ts_code", "ann_date", "end_date", "holder_
 // 股东增减持 fields
 var FieldsStkHolderTrade = []string{"ts_code", "ann_date", "holder_name", "holder_type", "in_de", "change_vol", "change_ratio", "after_share", "after_ratio", "avg_price", "total_share", "begin_date", "close_date"}
 
-// 卖方盈利预测数据 fields
+// 券商盈利预测数据 fields
 var FieldsReportRc = []string{"ts_code", "name", "report_date", "report_title", "report_type", "classify", "org_name", "author_name", "quarter", "op_rt", "op_pr", "tp", "np", "eps", "pe", "rd", "roe", "ev_ebitda", "rating", "max_price", "min_price", "imp_dg", "create_time"}
 
 // 每日筹码及胜率 fields
@@ -355,7 +355,7 @@ var FieldsCyqChips = []string{"ts_code", "trade_date", "price", "percent"}
 // 股票技术因子 fields
 var FieldsStkFactor = []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_change", "vol", "amount", "adj_factor", "open_hfq", "open_qfq", "close_hfq", "close_qfq", "high_hfq", "high_qfq", "low_hfq", "low_qfq", "pre_close_hfq", "pre_close_qfq", "macd_dif", "macd_dea", "macd", "kdj_k", "kdj_d", "kdj_j", "rsi_6", "rsi_12", "rsi_24", "boll_upper", "boll_mid", "boll_lower", "cci"}
 
-// 中央结算系统持股汇总 fields
+// 中央结算系统持股统计 fields
 var FieldsCcassHold = []string{"trade_date", "ts_code", "name", "shareholding", "hold_nums", "hold_ratio"}
 
 // 中央结算系统持股明细 fields
@@ -2463,7 +2463,7 @@ func (x *StkHolderTradeResponse) String() string {
 	return string(bytes)
 }
 
-// 卖方盈利预测数据|report_rc
+// 券商盈利预测数据|report_rc
 type ReportRc struct {
 	TsCode      string  `json:"ts_code"`      // 股票代码
 	Name        string  `json:"name"`         // 股票名称
@@ -2624,7 +2624,7 @@ func (x *StkFactorResponse) String() string {
 	return string(bytes)
 }
 
-// 中央结算系统持股汇总|ccass_hold
+// 中央结算系统持股统计|ccass_hold
 type CcassHold struct {
 	TradeDate    string `json:"trade_date"`   // 交易日期
 	TsCode       string `json:"ts_code"`      // 股票代号
