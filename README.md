@@ -8,6 +8,12 @@
 
 接口说明请参考[官网文档](https://tushare.pro/document/2)
 
+
+## 支持下
+
+<img src="https://github.com/isfk/tushare/assets/70327450/49e3673a-dddb-4e85-8b15-a332507e1b27" width="300px" />
+<img src="https://github.com/isfk/tushare/assets/70327450/3d1cfcf7-5c7f-415c-a2b0-4a6f1c40c1bc" width="300px" />
+
 ## 使用
 
 ```sh
