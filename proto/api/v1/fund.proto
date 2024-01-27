@@ -1,7 +1,239 @@
 syntax = "proto3";
-
 package api.v1;
 
 option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
 
-/* 基金 */
+/*
+ - 公募基金
+ - https://tushare.pro/document/2?doc_id=18
+*/
+
+// 复权因子|fund_adj
+message FundAdj {
+  string ts_code = 1 [json_name = "ts_code"]; // ts基金代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float adj_factor = 3 [json_name = "adj_factor"]; // 复权因子
+}
+message FundAdjRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS基金代码（支持多只基金输入）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（格式：yyyymmdd，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message FundAdjResponse {
+  repeated FundAdj list = 1;
+}
+
+// 基金列表|fund_basic
+message FundBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // 基金代码
+  string name = 2 [json_name = "name"]; // 简称
+  string management = 3 [json_name = "management"]; // 管理人
+  string custodian = 4 [json_name = "custodian"]; // 托管人
+  string fund_type = 5 [json_name = "fund_type"]; // 投资类型
+  string found_date = 6 [json_name = "found_date"]; // 成立日期
+  string due_date = 7 [json_name = "due_date"]; // 到期日期
+  string list_date = 8 [json_name = "list_date"]; // 上市时间
+  string issue_date = 9 [json_name = "issue_date"]; // 发行日期
+  string delist_date = 10 [json_name = "delist_date"]; // 退市日期
+  float issue_amount = 11 [json_name = "issue_amount"]; // 发行份额(亿)
+  float m_fee = 12 [json_name = "m_fee"]; // 管理费
+  float c_fee = 13 [json_name = "c_fee"]; // 托管费
+  float duration_year = 14 [json_name = "duration_year"]; // 存续期
+  float p_value = 15 [json_name = "p_value"]; // 面值
+  float min_amount = 16 [json_name = "min_amount"]; // 起点金额(万元)
+  float exp_return = 17 [json_name = "exp_return"]; // 预期收益率
+  string benchmark = 18 [json_name = "benchmark"]; // 业绩比较基准
+  string status = 19 [json_name = "status"]; // 存续状态D摘牌 I发行 L已上市
+  string invest_type = 20 [json_name = "invest_type"]; // 投资风格
+  string type = 21 [json_name = "type"]; // 基金类型
+  string trustee = 22 [json_name = "trustee"]; // 受托人
+  string purc_startdate = 23 [json_name = "purc_startdate"]; // 日常申购起始日
+  string redm_startdate = 24 [json_name = "redm_startdate"]; // 日常赎回起始日
+  string market = 25 [json_name = "market"]; // E场内O场外
+}
+message FundBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 基金代码
+  string market = 4 [json_name = "market"]; // 交易市场: E场内 O场外（默认E）
+  string status = 5 [json_name = "status"]; // 存续状态 D摘牌 I发行 L上市中
+}
+message FundBasicResponse {
+  repeated FundBasic list = 1;
+}
+
+// 基金管理人|fund_company
+message FundCompany {
+  string name = 1 [json_name = "name"]; // 基金公司名称
+  string shortname = 2 [json_name = "shortname"]; // 简称
+  string short_enname = 3 [json_name = "short_enname"]; // 英文缩写
+  string province = 4 [json_name = "province"]; // 省份
+  string city = 5 [json_name = "city"]; // 城市
+  string address = 6 [json_name = "address"]; // 注册地址
+  string phone = 7 [json_name = "phone"]; // 电话
+  string office = 8 [json_name = "office"]; // 办公地址
+  string website = 9 [json_name = "website"]; // 公司网址
+  string chairman = 10 [json_name = "chairman"]; // 法人代表
+  string manager = 11 [json_name = "manager"]; // 总经理
+  float reg_capital = 12 [json_name = "reg_capital"]; // 注册资本
+  string setup_date = 13 [json_name = "setup_date"]; // 成立日期
+  string end_date = 14 [json_name = "end_date"]; // 公司终止日期
+  float employees = 15 [json_name = "employees"]; // 员工总数
+  string main_business = 16 [json_name = "main_business"]; // 主要产品及业务
+  string org_code = 17 [json_name = "org_code"]; // 组织机构代码
+  string credit_code = 18 [json_name = "credit_code"]; // 统一社会信用代码
+}
+message FundCompanyRequest {}
+message FundCompanyResponse {
+  repeated FundCompany list = 1;
+}
+
+// 基金行情|fund_daily
+message FundDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float open = 3 [json_name = "open"]; // 开盘价(元)
+  float high = 4 [json_name = "high"]; // 最高价(元)
+  float low = 5 [json_name = "low"]; // 最低价(元)
+  float close = 6 [json_name = "close"]; // 收盘价(元)
+  float pre_close = 7 [json_name = "pre_close"]; // 昨收盘价(元)
+  float change = 8 [json_name = "change"]; // 涨跌额(元)
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅(%)
+  float vol = 10 [json_name = "vol"]; // 成交量(手)
+  float amount = 11 [json_name = "amount"]; // 成交额(千元)
+}
+message FundDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 基金代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message FundDailyResponse {
+  repeated FundDaily list = 1;
+}
+
+// 基金分红|fund_div
+message FundDiv {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string imp_anndate = 3 [json_name = "imp_anndate"]; // 分红实施公告日
+  string base_date = 4 [json_name = "base_date"]; // 分配收益基准日
+  string div_proc = 5 [json_name = "div_proc"]; // 方案进度
+  string record_date = 6 [json_name = "record_date"]; // 权益登记日
+  string ex_date = 7 [json_name = "ex_date"]; // 除息日
+  string pay_date = 8 [json_name = "pay_date"]; // 派息日
+  string earpay_date = 9 [json_name = "earpay_date"]; // 收益支付日
+  string net_ex_date = 10 [json_name = "net_ex_date"]; // 净值除权日
+  float div_cash = 11 [json_name = "div_cash"]; // 每股派息(元)
+  float base_unit = 12 [json_name = "base_unit"]; // 基准基金份额(万份)
+  float ear_distr = 13 [json_name = "ear_distr"]; // 可分配收益(元)
+  float ear_amount = 14 [json_name = "ear_amount"]; // 收益分配金额(元)
+  string account_date = 15 [json_name = "account_date"]; // 红利再投资到账日
+  string base_year = 16 [json_name = "base_year"]; // 份额基准年度
+}
+message FundDivRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ann_date = 3 [json_name = "ann_date"]; // 公告日（以下参数四选一）
+  string ex_date = 4 [json_name = "ex_date"]; // 除息日
+  string pay_date = 5 [json_name = "pay_date"]; // 派息日
+  string ts_code = 6 [json_name = "ts_code"]; // 基金代码
+}
+message FundDivResponse {
+  repeated FundDiv list = 1;
+}
+
+// 基金经理|fund_manager
+message FundManager {
+  string ts_code = 1 [json_name = "ts_code"]; // 基金代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string name = 3 [json_name = "name"]; // 基金经理姓名
+  string gender = 4 [json_name = "gender"]; // 性别
+  string birth_year = 5 [json_name = "birth_year"]; // 出生年份
+  string edu = 6 [json_name = "edu"]; // 学历
+  string nationality = 7 [json_name = "nationality"]; // 国籍
+  string begin_date = 8 [json_name = "begin_date"]; // 任职日期
+  string end_date = 9 [json_name = "end_date"]; // 离任日期
+  string resume = 10 [json_name = "resume"]; // 简历
+}
+message FundManagerRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 基金代码，支持多只基金，逗号分隔
+  string ann_date = 4 [json_name = "ann_date"]; // 公告日期，格式：YYYYMMDD
+  string name = 5 [json_name = "name"]; // 基金经理姓名
+}
+message FundManagerResponse {
+  repeated FundManager list = 1;
+}
+
+// 基金净值|fund_nav
+message FundNav {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string nav_date = 3 [json_name = "nav_date"]; // 净值日期
+  float unit_nav = 4 [json_name = "unit_nav"]; // 单位净值
+  float accum_nav = 5 [json_name = "accum_nav"]; // 累计净值
+  float accum_div = 6 [json_name = "accum_div"]; // 累计分红
+  float net_asset = 7 [json_name = "net_asset"]; // 资产净值
+  float total_netasset = 8 [json_name = "total_netasset"]; // 合计资产净值
+  float adj_nav = 9 [json_name = "adj_nav"]; // 复权单位净值
+}
+message FundNavRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS基金代码 （二选一）
+  string nav_date = 4 [json_name = "nav_date"]; // 净值日期 （二选一）
+  string market = 5 [json_name = "market"]; // E场内 O场外
+  string start_date = 6 [json_name = "start_date"]; // 净值开始日期
+  string end_date = 7 [json_name = "end_date"]; // 净值结束日期
+}
+message FundNavResponse {
+  repeated FundNav list = 1;
+}
+
+// 基金持仓|fund_portfolio
+message FundPortfolio {
+  string ts_code = 1 [json_name = "ts_code"]; // TS基金代码
+  string ann_date = 2 [json_name = "ann_date"]; // 公告日期
+  string end_date = 3 [json_name = "end_date"]; // 截止日期
+  string symbol = 4 [json_name = "symbol"]; // 股票代码
+  float mkv = 5 [json_name = "mkv"]; // 持有股票市值(元)
+  float amount = 6 [json_name = "amount"]; // 持有股票数量（股）
+  float stk_mkv_ratio = 7 [json_name = "stk_mkv_ratio"]; // 占股票市值比
+  float stk_float_ratio = 8 [json_name = "stk_float_ratio"]; // 占流通股本比例
+}
+message FundPortfolioRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 基金代码
+  string ann_date = 4 [json_name = "ann_date"]; // 公告日期（YYYYMMDD格式）
+  string start_date = 5 [json_name = "start_date"]; // 报告期开始日期（YYYYMMDD格式）
+  string end_date = 6 [json_name = "end_date"]; // 报告期结束日期（YYYYMMDD格式）
+}
+message FundPortfolioResponse {
+  repeated FundPortfolio list = 1;
+}
+
+// 基金规模|fund_share
+message FundShare {
+  string ts_code = 1 [json_name = "ts_code"]; // 基金代码，支持多只基金同时提取，用逗号分隔
+  string trade_date = 2 [json_name = "trade_date"]; // 交易（变动）日期，格式YYYYMMDD
+  float fd_share = 3 [json_name = "fd_share"]; // 基金份额（万）
+}
+message FundShareRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS基金代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message FundShareResponse {
+  repeated FundShare list = 1;
+}

@@ -3,7 +3,7 @@
   "Create test line a link": {
     "prefix": "test_line",
     "body": [
-      "$0(./${2|index,tushare|}_test.go#L${1:line})"
+      "$0(./${2|fund,index,tushare|}_test.go#L${1:line})"
     ],
     "description": ""
   }

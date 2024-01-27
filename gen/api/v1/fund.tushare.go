@@ -11,6 +11,354 @@ var _ = json.Decoder{}
 
 // api name
 
+// 复权因子 api name
+const ApiFundAdj string = "fund_adj"
+
+// 基金列表 api name
+const ApiFundBasic string = "fund_basic"
+
+// 基金管理人 api name
+const ApiFundCompany string = "fund_company"
+
+// 基金行情 api name
+const ApiFundDaily string = "fund_daily"
+
+// 基金分红 api name
+const ApiFundDiv string = "fund_div"
+
+// 基金经理 api name
+const ApiFundManager string = "fund_manager"
+
+// 基金净值 api name
+const ApiFundNav string = "fund_nav"
+
+// 基金持仓 api name
+const ApiFundPortfolio string = "fund_portfolio"
+
+// 基金规模 api name
+const ApiFundShare string = "fund_share"
+
 // fields
 
+// 复权因子 fields
+var FieldsFundAdj = []string{"ts_code", "trade_date", "adj_factor"}
+
+// 基金列表 fields
+var FieldsFundBasic = []string{"ts_code", "name", "management", "custodian", "fund_type", "found_date", "due_date", "list_date", "issue_date", "delist_date", "issue_amount", "m_fee", "c_fee", "duration_year", "p_value", "min_amount", "exp_return", "benchmark", "status", "invest_type", "type", "trustee", "purc_startdate", "redm_startdate", "market"}
+
+// 基金管理人 fields
+var FieldsFundCompany = []string{"name", "shortname", "short_enname", "province", "city", "address", "phone", "office", "website", "chairman", "manager", "reg_capital", "setup_date", "end_date", "employees", "main_business", "org_code", "credit_code"}
+
+// 基金行情 fields
+var FieldsFundDaily = []string{"ts_code", "trade_date", "open", "high", "low", "close", "pre_close", "change", "pct_chg", "vol", "amount"}
+
+// 基金分红 fields
+var FieldsFundDiv = []string{"ts_code", "ann_date", "imp_anndate", "base_date", "div_proc", "record_date", "ex_date", "pay_date", "earpay_date", "net_ex_date", "div_cash", "base_unit", "ear_distr", "ear_amount", "account_date", "base_year"}
+
+// 基金经理 fields
+var FieldsFundManager = []string{"ts_code", "ann_date", "name", "gender", "birth_year", "edu", "nationality", "begin_date", "end_date", "resume"}
+
+// 基金净值 fields
+var FieldsFundNav = []string{"ts_code", "ann_date", "nav_date", "unit_nav", "accum_nav", "accum_div", "net_asset", "total_netasset", "adj_nav"}
+
+// 基金持仓 fields
+var FieldsFundPortfolio = []string{"ts_code", "ann_date", "end_date", "symbol", "mkv", "amount", "stk_mkv_ratio", "stk_float_ratio"}
+
+// 基金规模 fields
+var FieldsFundShare = []string{"ts_code", "trade_date", "fd_share"}
+
 // struct
+
+// 复权因子|fund_adj
+type FundAdj struct {
+	TsCode    string  `json:"ts_code"`    // ts基金代码
+	TradeDate string  `json:"trade_date"` // 交易日期
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
+}
+
+type FundAdjRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS基金代码（支持多只基金输入）
+	TradeDate string `json:"trade_date"` // 交易日期（格式：yyyymmdd，下同）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type FundAdjResponse struct {
+	List []*FundAdj `json:"list"`
+}
+
+func (x *FundAdjResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金列表|fund_basic
+type FundBasic struct {
+	TsCode        string  `json:"ts_code"`        // 基金代码
+	Name          string  `json:"name"`           // 简称
+	Management    string  `json:"management"`     // 管理人
+	Custodian     string  `json:"custodian"`      // 托管人
+	FundType      string  `json:"fund_type"`      // 投资类型
+	FoundDate     string  `json:"found_date"`     // 成立日期
+	DueDate       string  `json:"due_date"`       // 到期日期
+	ListDate      string  `json:"list_date"`      // 上市时间
+	IssueDate     string  `json:"issue_date"`     // 发行日期
+	DelistDate    string  `json:"delist_date"`    // 退市日期
+	IssueAmount   float64 `json:"issue_amount"`   // 发行份额(亿)
+	MFee          float64 `json:"m_fee"`          // 管理费
+	CFee          float64 `json:"c_fee"`          // 托管费
+	DurationYear  float64 `json:"duration_year"`  // 存续期
+	PValue        float64 `json:"p_value"`        // 面值
+	MinAmount     float64 `json:"min_amount"`     // 起点金额(万元)
+	ExpReturn     float64 `json:"exp_return"`     // 预期收益率
+	Benchmark     string  `json:"benchmark"`      // 业绩比较基准
+	Status        string  `json:"status"`         // 存续状态D摘牌 I发行 L已上市
+	InvestType    string  `json:"invest_type"`    // 投资风格
+	Type          string  `json:"type"`           // 基金类型
+	Trustee       string  `json:"trustee"`        // 受托人
+	PurcStartdate string  `json:"purc_startdate"` // 日常申购起始日
+	RedmStartdate string  `json:"redm_startdate"` // 日常赎回起始日
+	Market        string  `json:"market"`         // E场内O场外
+}
+
+type FundBasicRequest struct {
+	Limit  string `json:"limit"`
+	Offset string `json:"offset"`
+	TsCode string `json:"ts_code"` // 基金代码
+	Market string `json:"market"`  // 交易市场: E场内 O场外（默认E）
+	Status string `json:"status"`  // 存续状态 D摘牌 I发行 L上市中
+}
+
+type FundBasicResponse struct {
+	List []*FundBasic `json:"list"`
+}
+
+func (x *FundBasicResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金管理人|fund_company
+type FundCompany struct {
+	Name         string  `json:"name"`          // 基金公司名称
+	Shortname    string  `json:"shortname"`     // 简称
+	ShortEnname  string  `json:"short_enname"`  // 英文缩写
+	Province     string  `json:"province"`      // 省份
+	City         string  `json:"city"`          // 城市
+	Address      string  `json:"address"`       // 注册地址
+	Phone        string  `json:"phone"`         // 电话
+	Office       string  `json:"office"`        // 办公地址
+	Website      string  `json:"website"`       // 公司网址
+	Chairman     string  `json:"chairman"`      // 法人代表
+	Manager      string  `json:"manager"`       // 总经理
+	RegCapital   float64 `json:"reg_capital"`   // 注册资本
+	SetupDate    string  `json:"setup_date"`    // 成立日期
+	EndDate      string  `json:"end_date"`      // 公司终止日期
+	Employees    float64 `json:"employees"`     // 员工总数
+	MainBusiness string  `json:"main_business"` // 主要产品及业务
+	OrgCode      string  `json:"org_code"`      // 组织机构代码
+	CreditCode   string  `json:"credit_code"`   // 统一社会信用代码
+}
+
+type FundCompanyRequest struct {
+}
+
+type FundCompanyResponse struct {
+	List []*FundCompany `json:"list"`
+}
+
+func (x *FundCompanyResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金行情|fund_daily
+type FundDaily struct {
+	TsCode    string  `json:"ts_code"`    // TS代码
+	TradeDate string  `json:"trade_date"` // 交易日期
+	Open      float64 `json:"open"`       // 开盘价(元)
+	High      float64 `json:"high"`       // 最高价(元)
+	Low       float64 `json:"low"`        // 最低价(元)
+	Close     float64 `json:"close"`      // 收盘价(元)
+	PreClose  float64 `json:"pre_close"`  // 昨收盘价(元)
+	Change    float64 `json:"change"`     // 涨跌额(元)
+	PctChg    float64 `json:"pct_chg"`    // 涨跌幅(%)
+	Vol       float64 `json:"vol"`        // 成交量(手)
+	Amount    float64 `json:"amount"`     // 成交额(千元)
+}
+
+type FundDailyRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 基金代码
+	TradeDate string `json:"trade_date"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type FundDailyResponse struct {
+	List []*FundDaily `json:"list"`
+}
+
+func (x *FundDailyResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金分红|fund_div
+type FundDiv struct {
+	TsCode      string  `json:"ts_code"`      // TS代码
+	AnnDate     string  `json:"ann_date"`     // 公告日期
+	ImpAnndate  string  `json:"imp_anndate"`  // 分红实施公告日
+	BaseDate    string  `json:"base_date"`    // 分配收益基准日
+	DivProc     string  `json:"div_proc"`     // 方案进度
+	RecordDate  string  `json:"record_date"`  // 权益登记日
+	ExDate      string  `json:"ex_date"`      // 除息日
+	PayDate     string  `json:"pay_date"`     // 派息日
+	EarpayDate  string  `json:"earpay_date"`  // 收益支付日
+	NetExDate   string  `json:"net_ex_date"`  // 净值除权日
+	DivCash     float64 `json:"div_cash"`     // 每股派息(元)
+	BaseUnit    float64 `json:"base_unit"`    // 基准基金份额(万份)
+	EarDistr    float64 `json:"ear_distr"`    // 可分配收益(元)
+	EarAmount   float64 `json:"ear_amount"`   // 收益分配金额(元)
+	AccountDate string  `json:"account_date"` // 红利再投资到账日
+	BaseYear    string  `json:"base_year"`    // 份额基准年度
+}
+
+type FundDivRequest struct {
+	Limit   string `json:"limit"`
+	Offset  string `json:"offset"`
+	AnnDate string `json:"ann_date"` // 公告日（以下参数四选一）
+	ExDate  string `json:"ex_date"`  // 除息日
+	PayDate string `json:"pay_date"` // 派息日
+	TsCode  string `json:"ts_code"`  // 基金代码
+}
+
+type FundDivResponse struct {
+	List []*FundDiv `json:"list"`
+}
+
+func (x *FundDivResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金经理|fund_manager
+type FundManager struct {
+	TsCode      string `json:"ts_code"`     // 基金代码
+	AnnDate     string `json:"ann_date"`    // 公告日期
+	Name        string `json:"name"`        // 基金经理姓名
+	Gender      string `json:"gender"`      // 性别
+	BirthYear   string `json:"birth_year"`  // 出生年份
+	Edu         string `json:"edu"`         // 学历
+	Nationality string `json:"nationality"` // 国籍
+	BeginDate   string `json:"begin_date"`  // 任职日期
+	EndDate     string `json:"end_date"`    // 离任日期
+	Resume      string `json:"resume"`      // 简历
+}
+
+type FundManagerRequest struct {
+	Limit   string `json:"limit"`
+	Offset  string `json:"offset"`
+	TsCode  string `json:"ts_code"`  // 基金代码，支持多只基金，逗号分隔
+	AnnDate string `json:"ann_date"` // 公告日期，格式：YYYYMMDD
+	Name    string `json:"name"`     // 基金经理姓名
+}
+
+type FundManagerResponse struct {
+	List []*FundManager `json:"list"`
+}
+
+func (x *FundManagerResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金净值|fund_nav
+type FundNav struct {
+	TsCode        string  `json:"ts_code"`        // TS代码
+	AnnDate       string  `json:"ann_date"`       // 公告日期
+	NavDate       string  `json:"nav_date"`       // 净值日期
+	UnitNav       float64 `json:"unit_nav"`       // 单位净值
+	AccumNav      float64 `json:"accum_nav"`      // 累计净值
+	AccumDiv      float64 `json:"accum_div"`      // 累计分红
+	NetAsset      float64 `json:"net_asset"`      // 资产净值
+	TotalNetasset float64 `json:"total_netasset"` // 合计资产净值
+	AdjNav        float64 `json:"adj_nav"`        // 复权单位净值
+}
+
+type FundNavRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS基金代码 （二选一）
+	NavDate   string `json:"nav_date"`   // 净值日期 （二选一）
+	Market    string `json:"market"`     // E场内 O场外
+	StartDate string `json:"start_date"` // 净值开始日期
+	EndDate   string `json:"end_date"`   // 净值结束日期
+}
+
+type FundNavResponse struct {
+	List []*FundNav `json:"list"`
+}
+
+func (x *FundNavResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金持仓|fund_portfolio
+type FundPortfolio struct {
+	TsCode        string  `json:"ts_code"`         // TS基金代码
+	AnnDate       string  `json:"ann_date"`        // 公告日期
+	EndDate       string  `json:"end_date"`        // 截止日期
+	Symbol        string  `json:"symbol"`          // 股票代码
+	Mkv           float64 `json:"mkv"`             // 持有股票市值(元)
+	Amount        float64 `json:"amount"`          // 持有股票数量（股）
+	StkMkvRatio   float64 `json:"stk_mkv_ratio"`   // 占股票市值比
+	StkFloatRatio float64 `json:"stk_float_ratio"` // 占流通股本比例
+}
+
+type FundPortfolioRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // 基金代码
+	AnnDate   string `json:"ann_date"`   // 公告日期（YYYYMMDD格式）
+	StartDate string `json:"start_date"` // 报告期开始日期（YYYYMMDD格式）
+	EndDate   string `json:"end_date"`   // 报告期结束日期（YYYYMMDD格式）
+}
+
+type FundPortfolioResponse struct {
+	List []*FundPortfolio `json:"list"`
+}
+
+func (x *FundPortfolioResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 基金规模|fund_share
+type FundShare struct {
+	TsCode    string  `json:"ts_code"`    // 基金代码，支持多只基金同时提取，用逗号分隔
+	TradeDate string  `json:"trade_date"` // 交易（变动）日期，格式YYYYMMDD
+	FdShare   float64 `json:"fd_share"`   // 基金份额（万）
+}
+
+type FundShareRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TsCode    string `json:"ts_code"`    // TS基金代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type FundShareResponse struct {
+	List []*FundShare `json:"list"`
+}
+
+func (x *FundShareResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}

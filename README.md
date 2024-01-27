@@ -52,6 +52,13 @@ func main() {
 
 ## 开发
 
+### 新方法
+
+`tool` 目录放置了 `xlsx` 文件，从官网复制的数据，项目目录下执行 `make xlsx` 即可生成 `proto` 文件，然后 `make buf` 生成定义文件，编写测试方法即可
+
+
+### 笨方法
+
 - 安装插件 `go install github.com/isfk/tushare/protoc-gen-go-tushare@latest`
 - 使用快捷命令 `message_new` 添加定义
 - 使用 `buf generate` 生成定义
@@ -150,16 +157,16 @@ func main() {
     - [x] [同花顺概念和行业指数成分](./index_test.go#L264) <i>因没有权限, 测试结果未验证</i>
     - [x] [中信行业指数日行情](./index_test.go#L285) <i>因没有权限, 测试结果未验证</i>
     - [x] [国际主要指数](./index_test.go#L306)
-- [ ] 公募基金
-    - [ ] [基金列表]
-    - [ ] [基金管理人]
-    - [ ] [基金经理]
-    - [ ] [基金规模]
-    - [ ] [基金净值]
-    - [ ] [基金分红]
-    - [ ] [基金持仓]
-    - [ ] [基金行情]
-    - [ ] [复权因子]
+- [x] 公募基金
+    - [x] [基金列表](./index_test.go#L13)
+    - [x] [基金管理人](./index_test.go#L34)
+    - [x] [基金经理](./index_test.go#L55)
+    - [x] [基金规模](./index_test.go#L76)
+    - [x] [基金净值](./index_test.go#L97)
+    - [x] [基金分红](./index_test.go#L118)
+    - [x] [基金持仓](./index_test.go#L139)
+    - [x] [基金行情](./index_test.go#L160)
+    - [x] [复权因子](./index_test.go#L181)
 - [ ] 期货
     - [ ] [合约信息]
     - [ ] [交易日历]
