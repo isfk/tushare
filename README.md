@@ -62,85 +62,85 @@ func main() {
 - 安装插件 `go install github.com/isfk/tushare/protoc-gen-go-tushare@latest`
 - 使用快捷命令 `message_new` 添加定义
 - 使用 `buf generate` 生成定义
-- 在 `tushare_test.go` 中添加测试方法
+- 在 `stock_test.go` 中添加测试方法
 - 修改 `README.md` 进度
 
 ## 进度
 
 - [x] 沪深股票
     - [x] 基础数据
-        - [x] [股票列表](./tushare_test.go#L13)
-        - [x] [交易日历](./tushare_test.go#L30)
-        - [x] [股票曾用名](./tushare_test.go#L47)
-        - [x] [沪深股通成分股](./tushare_test.go#L64)
-        - [x] [上市公司基本信息](./tushare_test.go#L81)
-        - [x] [上市公司管理层](./tushare_test.go#L98)
-        - [x] [管理层薪酬和持股](./tushare_test.go#L115)
-        - [x] [IPO新股上市](./tushare_test.go#L132)
-        - [x] [备用列表](./tushare_test.go#L149)
+        - [x] [股票列表](./stock_test.go#L13)
+        - [x] [交易日历](./stock_test.go#L34)
+        - [x] [股票曾用名](./stock_test.go#L55)
+        - [x] [沪深股通成分股](./stock_test.go#L76)
+        - [x] [上市公司基本信息](./stock_test.go#L97)
+        - [x] [上市公司管理层](./stock_test.go#L118)
+        - [x] [管理层薪酬和持股](./stock_test.go#L139)
+        - [x] [IPO新股上市](./stock_test.go#L160)
+        - [x] [备用列表](./stock_test.go#L181)
     - [x] 行情数据
-        - [x] [日线行情](./tushare_test.go#L166)
-        - [x] [周线行情](./tushare_test.go#L183)
-        - [x] [月线行情](./tushare_test.go#L200)
+        - [x] [日线行情](./stock_test.go#L202)
+        - [x] [周线行情](./stock_test.go#L223)
+        - [x] [月线行情](./stock_test.go#L244)
         - [x] ~~复权行情~~ <i>未提供HTTP接口</i>
-        - [x] [复权因子](./tushare_test.go#L217)
-        - [x] ~~实时快照（爬虫）~~  <i>未提供HTTP接口</i>
-        - [x] ~~实时成交（爬虫）~~  <i>未提供HTTP接口</i>
-        - [x] ~~实时排名（爬虫）~~  <i>未提供HTTP接口</i>
-        - [x] [每日指标](./tushare_test.go#L234)
+        - [x] [复权因子](./stock_test.go#L265)
+        - [x] ~~实时快照（爬虫）~~ <i>未提供HTTP接口</i>
+        - [x] ~~实时成交（爬虫）~~ <i>未提供HTTP接口</i>
+        - [x] ~~实时排名（爬虫）~~ <i>未提供HTTP接口</i>
+        - [x] [每日指标](./stock_test.go#L286)
         - [x] ~~通用行情接口~~ <i>未提供HTTP接口</i>
-        - [x] [个股资金流向](./tushare_test.go#L251)
-        - [x] [每日涨跌停价格](./tushare_test.go#L268)
-        - [x] [每日停复牌信息](./tushare_test.go#L285)
-        - [x] [沪深港通资金流向](./tushare_test.go#L302)
-        - [x] [沪深股通十大成交股](./tushare_test.go#L319)
-        - [x] [港股通十大成交股](./tushare_test.go#L336)
-        - [x] [港股通每日成交统计](./tushare_test.go#L353)
-        - [x] [港股通每月成交统计](./tushare_test.go#L370) <i>因没有权限, 测试结果未验证</i>
-        - [x] [备用行情](./tushare_test.go#L391)
+        - [x] [个股资金流向](./stock_test.go#L307)
+        - [x] [每日涨跌停价格](./stock_test.go#L328)
+        - [x] [每日停复牌信息](./stock_test.go#L349)
+        - [x] [沪深港通资金流向](./stock_test.go#L370)
+        - [x] [沪深股通十大成交股](./stock_test.go#L391)
+        - [x] [港股通十大成交股](./stock_test.go#L412)
+        - [x] [港股通每日成交统计](./stock_test.go#L433)
+        - [x] [港股通每月成交统计](./stock_test.go#L454) <i>因没有权限, 测试结果未验证</i>
+        - [x] [备用行情](./stock_test.go#L475)
     - [x] 财务数据
-        - [x] [利润表](./tushare_test.go#L408)
-        - [x] [资产负债表](./tushare_test.go#L425)
-        - [x] [现金流量表](./tushare_test.go#L442)
-        - [x] [业绩预告](./tushare_test.go#L459)
-        - [x] [业绩快报](./tushare_test.go#L476)
-        - [x] [分红送股数据](./tushare_test.go#L493)
-        - [x] [财务指标数据](./tushare_test.go#L510)
-        - [x] [财务审计意见](./tushare_test.go#L527)
-        - [x] [主营业务构成](./tushare_test.go#L544)
-        - [x] [财报披露日期表](./tushare_test.go#L561)
+        - [x] [利润表](./stock_test.go#L496)
+        - [x] [资产负债表](./stock_test.go#L517)
+        - [x] [现金流量表](./stock_test.go#L538)
+        - [x] [业绩预告](./stock_test.go#L559)
+        - [x] [业绩快报](./stock_test.go#L580)
+        - [x] [分红送股数据](./stock_test.go#L601)
+        - [x] [财务指标数据](./stock_test.go#L622)
+        - [x] [财务审计意见](./stock_test.go#L643)
+        - [x] [主营业务构成](./stock_test.go#L664)
+        - [x] [财报披露日期表](./stock_test.go#L685)
     - [x] 参考数据
-        - [x] [融资融券交易汇总](./tushare_test.go#L578)
-        - [x] [融资融券交易明细](./tushare_test.go#L595)
-        - [x] [融资融券标的](./tushare_test.go#L612) <i>因没有权限, 测试结果未验证</i>
-        - [x] [前十大股东](./tushare_test.go#L633)
-        - [x] [前十大流通股东](./tushare_test.go#L650)
-        - [x] [龙虎榜每日明细](./tushare_test.go#L667)
-        - [x] [龙虎榜机构交易明细](./tushare_test.go#L684)
-        - [x] [股权质押统计数据](./tushare_test.go#L701)
-        - [x] [股权质押明细数据](./tushare_test.go#L718)
-        - [x] [股票回购](./tushare_test.go#L735)
-        - [x] [概念股分类表](./tushare_test.go#L752)
-        - [x] [概念股明细列表](./tushare_test.go#L769)
-        - [x] [限售股解禁](./tushare_test.go#L786)
-        - [x] [大宗交易](./tushare_test.go#L803)
+        - [x] [融资融券交易汇总](./stock_test.go#L706)
+        - [x] [融资融券交易明细](./stock_test.go#L727)
+        - [x] [融资融券标的](./stock_test.go#L748) <i>因没有权限, 测试结果未验证</i>
+        - [x] [前十大股东](./stock_test.go#L769)
+        - [x] [前十大流通股东](./stock_test.go#L790)
+        - [x] [龙虎榜每日明细](./stock_test.go#L811)
+        - [x] [龙虎榜机构交易明细](./stock_test.go#L832)
+        - [x] [股权质押统计数据](./stock_test.go#L853)
+        - [x] [股权质押明细数据](./stock_test.go#L874)
+        - [x] [股票回购](./stock_test.go#L895)
+        - [x] [概念股分类表](./stock_test.go#L916)
+        - [x] [概念股明细列表](./stock_test.go#L937)
+        - [x] [限售股解禁](./stock_test.go#L958)
+        - [x] [大宗交易](./stock_test.go#L979)
         - [x] ~~股票开户数据 （停）~~ <i>数据已停止更新</i>
         - [x] ~~股票开户数据（旧）~~ <i>数据已停止更新</i>
-        - [x] [股东人数](./tushare_test.go#L820)
-        - [x] [股东增减持](./tushare_test.go#L837)
+        - [x] [股东人数](./stock_test.go#L1000)
+        - [x] [股东增减持](./stock_test.go#L1021)
     - [x] 特色数据
-        - [x] [券商盈利预测数据](./tushare_test.go#L854)
-        - [x] [每日筹码及胜率](./tushare_test.go#L871)
-        - [x] [每日筹码分布](./tushare_test.go#L888)
-        - [x] [股票技术面因子](./tushare_test.go#L905)
-        - [x] [中央结算系统持股统计](./tushare_test.go#L922)
-        - [x] [中央结算系统持股明细](./tushare_test.go#L939)
-        - [x] [沪深股通持股明细](./tushare_test.go#L956)
-        - [x] [涨跌停和炸板数据](./tushare_test.go#L973)
-        - [x] [机构调研数据](./tushare_test.go#L990)
-        - [x] [券商月度金股](./tushare_test.go#L1007)
-        - [x] [游资名录](./tushare_test.go#L1024)
-        - [x] [游资每日明细](./tushare_test.go#L1041)
+        - [x] [券商盈利预测数据](./stock_test.go#L1043)
+        - [x] [每日筹码及胜率](./stock_test.go#L1064)
+        - [x] [每日筹码分布](./stock_test.go#L1085)
+        - [x] [股票技术面因子](./stock_test.go#L1106)
+        - [x] [中央结算系统持股统计](./stock_test.go#L1127)
+        - [x] [中央结算系统持股明细](./stock_test.go#L1148)
+        - [x] [沪深股通持股明细](./stock_test.go#L1169)
+        - [x] [涨跌停和炸板数据](./stock_test.go#L1190)
+        - [x] [机构调研数据](./stock_test.go#L1211)
+        - [x] [券商月度金股](./stock_test.go#L1232)
+        - [x] [游资名录](./stock_test.go#L1253)
+        - [x] [游资每日明细](./stock_test.go#L1274)
 - [x] 指数
     - [x] [指数基本信息](./index_test.go#L12)
     - [x] [指数日线行情](./index_test.go#L33)
@@ -167,18 +167,18 @@ func main() {
     - [x] [基金持仓](./fund_test.go#L139)
     - [x] [基金行情](./fund_test.go#L160)
     - [x] [复权因子](./fund_test.go#L181)
-- [ ] 期货
-    - [ ] [合约信息]
-    - [ ] [交易日历]
-    - [ ] [日线行情]
-    - [ ] [分钟行情]
-    - [ ] [Tick行情]
-    - [ ] [仓单日报]
-    - [ ] [每日结算参数]
-    - [ ] [每日持仓排名]
-    - [ ] [南华期货指数行情]
-    - [ ] [期货主力与连续合约]
-    - [ ] [期货主要品种交易周报]
+- [x] 期货
+    - [x] [合约信息](./fut_test.go#L13)
+    - [x] [交易日历](./stock_test.go#L34) <i>参考股票交易日历</i>
+    - [x] [日线行情](./fut_test.go#L34)
+    - [x] [分钟行情](./fut_test.go#L55)
+    - [x] ~~[Tick行情]~~ <i>未提供HTTP接口</i>
+    - [x] [仓单日报](./fut_test.go#L76)
+    - [x] [每日结算参数](./fut_test.go#L97)
+    - [x] [每日持仓排名](./fut_test.go#L1118)
+    - [x] [南华期货指数行情](./fut_test.go#L160)
+    - [x] [期货主力与连续合约](./fut_test.go#L181)
+    - [x] [期货主要品种交易周报](./fut_test.go#L181)
 - [ ] 现货
     - [ ] [上海黄金基础信息]
     - [ ] [上海黄金现货日行情]

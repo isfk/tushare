@@ -11,6 +11,8 @@ import (
 func main() {
 	// 公募基金
 	makeProto("fund", "公募基金", "https://tushare.pro/document/2?doc_id=18")
+	// 期货
+	makeProto("fut", "公募基金", "https://tushare.pro/document/2?doc_id=134")
 }
 
 // makeProto

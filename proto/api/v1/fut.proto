@@ -1,0 +1,233 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 公募基金
+ - https://tushare.pro/document/2?doc_id=134
+*/
+
+// 期货分钟行情|ft_mins
+message FtMins {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_time = 2 [json_name = "trade_time"]; // 交易时间
+  float open = 3 [json_name = "open"]; // 开盘价
+  float close = 4 [json_name = "close"]; // 收盘价
+  float high = 5 [json_name = "high"]; // 最高价
+  float low = 6 [json_name = "low"]; // 最低价
+  int64 vol = 7 [json_name = "vol"]; // 成交量
+  float amount = 8 [json_name = "amount"]; // 成交金额
+  float oi = 9 [json_name = "oi"]; // 持仓量
+}
+message FtMinsRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码，e.g.CU2310.SHF
+  string freq = 4 [json_name = "freq"]; // 分钟频度（1min/5min/15min/30min/60min）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期 格式：2023-08-25 09:00:00
+  string end_date = 6 [json_name = "end_date"]; // 结束时间 格式：2023-08-25 19:00:00
+}
+message FtMinsResponse {
+  repeated FtMins list = 1;
+}
+
+// 合约信息|fut_basic
+message FutBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // 合约代码
+  string symbol = 2 [json_name = "symbol"]; // 交易标识
+  string exchange = 3 [json_name = "exchange"]; // 交易市场
+  string name = 4 [json_name = "name"]; // 中文简称
+  string fut_code = 5 [json_name = "fut_code"]; // 合约产品代码
+  float multiplier = 6 [json_name = "multiplier"]; // 合约乘数(只适用于国债期货、指数期货)
+  string trade_unit = 7 [json_name = "trade_unit"]; // 交易计量单位
+  float per_unit = 8 [json_name = "per_unit"]; // 交易单位(每手)
+  string quote_unit = 9 [json_name = "quote_unit"]; // 报价单位
+  string quote_unit_desc = 10 [json_name = "quote_unit_desc"]; // 最小报价单位说明
+  string d_mode_desc = 11 [json_name = "d_mode_desc"]; // 交割方式说明
+  string list_date = 12 [json_name = "list_date"]; // 上市日期
+  string delist_date = 13 [json_name = "delist_date"]; // 最后交易日期
+  string d_month = 14 [json_name = "d_month"]; // 交割月份
+  string last_ddate = 15 [json_name = "last_ddate"]; // 最后交割日
+  string trade_time_desc = 16 [json_name = "trade_time_desc"]; // 交易时间说明
+}
+message FutBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string exchange = 3 [json_name = "exchange"]; // 交易所代码 CFFEX-中金所 DCE-大商所 CZCE-郑商所 SHFE-上期所 INE-上海国际能源交易中心 GFEX-广州期货交易所
+  string fut_type = 4 [json_name = "fut_type"]; // 合约类型 (1 普通合约 2主力与连续合约 默认取全部)
+  string fut_code = 5 [json_name = "fut_code"]; // 标准合约代码，如白银AG、AP鲜苹果等
+}
+message FutBasicResponse {
+  repeated FutBasic list = 1;
+}
+
+// 期货日线行情|fut_daily
+message FutDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // TS合约代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float pre_close = 3 [json_name = "pre_close"]; // 昨收盘价
+  float pre_settle = 4 [json_name = "pre_settle"]; // 昨结算价
+  float open = 5 [json_name = "open"]; // 开盘价
+  float high = 6 [json_name = "high"]; // 最高价
+  float low = 7 [json_name = "low"]; // 最低价
+  float close = 8 [json_name = "close"]; // 收盘价
+  float settle = 9 [json_name = "settle"]; // 结算价
+  float change1 = 10 [json_name = "change1"]; // 涨跌1 收盘价-昨结算价
+  float change2 = 11 [json_name = "change2"]; // 涨跌2 结算价-昨结算价
+  float vol = 12 [json_name = "vol"]; // 成交量(手)
+  float amount = 13 [json_name = "amount"]; // 成交金额(万元)
+  float oi = 14 [json_name = "oi"]; // 持仓量(手)
+  float oi_chg = 15 [json_name = "oi_chg"]; // 持仓量变化
+  float delv_settle = 16 [json_name = "delv_settle"]; // 交割结算价
+}
+message FutDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string ts_code = 4 [json_name = "ts_code"]; // 合约代码
+  string exchange = 5 [json_name = "exchange"]; // 交易所代码
+  string start_date = 6 [json_name = "start_date"]; // 开始日期
+  string end_date = 7 [json_name = "end_date"]; // 结束日期
+}
+message FutDailyResponse {
+  repeated FutDaily list = 1;
+}
+
+// 每日成交持仓排名|fut_holding
+message FutHolding {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string symbol = 2 [json_name = "symbol"]; // 合约代码或类型
+  string broker = 3 [json_name = "broker"]; // 期货公司会员简称
+  int64 vol = 4 [json_name = "vol"]; // 成交量
+  int64 vol_chg = 5 [json_name = "vol_chg"]; // 成交量变化
+  int64 long_hld = 6 [json_name = "long_hld"]; // 持买仓量
+  int64 long_chg = 7 [json_name = "long_chg"]; // 持买仓量变化
+  int64 short_hld = 8 [json_name = "short_hld"]; // 持卖仓量
+  int64 short_chg = 9 [json_name = "short_chg"]; // 持卖仓量变化
+  string exchange = 10 [json_name = "exchange"]; // 交易所
+}
+message FutHoldingRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期 （trade_date/symbol至少输入一个参数）
+  string symbol = 4 [json_name = "symbol"]; // 合约或产品代码
+  string start_date = 5 [json_name = "start_date"]; // 开始日期(YYYYMMDD格式，下同)
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string exchange = 7 [json_name = "exchange"]; // 交易所代码
+}
+message FutHoldingResponse {
+  repeated FutHolding list = 1;
+}
+
+// 期货主力与连续合约|fut_mapping
+message FutMapping {
+  string ts_code = 1 [json_name = "ts_code"]; // 连续合约代码
+  string trade_date = 2 [json_name = "trade_date"]; // 起始日期
+  string mapping_ts_code = 3 [json_name = "mapping_ts_code"]; // 期货合约代码
+}
+message FutMappingRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 合约代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message FutMappingResponse {
+  repeated FutMapping list = 1;
+}
+
+// 结算参数|fut_settle
+message FutSettle {
+  string ts_code = 1 [json_name = "ts_code"]; // 合约代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float settle = 3 [json_name = "settle"]; // 结算价
+  float trading_fee_rate = 4 [json_name = "trading_fee_rate"]; // 交易手续费率
+  float trading_fee = 5 [json_name = "trading_fee"]; // 交易手续费
+  float delivery_fee = 6 [json_name = "delivery_fee"]; // 交割手续费
+  float b_hedging_margin_rate = 7 [json_name = "b_hedging_margin_rate"]; // 买套保交易保证金率
+  float s_hedging_margin_rate = 8 [json_name = "s_hedging_margin_rate"]; // 卖套保交易保证金率
+  float long_margin_rate = 9 [json_name = "long_margin_rate"]; // 买投机交易保证金率
+  float short_margin_rate = 10 [json_name = "short_margin_rate"]; // 卖投机交易保证金率
+  float offset_today_fee = 11 [json_name = "offset_today_fee"]; // 平今仓手续率
+  string exchange = 12 [json_name = "exchange"]; // 交易所
+}
+message FutSettleRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期 （trade_date/ts_code至少需要输入一个参数）
+  string ts_code = 4 [json_name = "ts_code"]; // 合约代码
+  string start_date = 5 [json_name = "start_date"]; // 开始日期(YYYYMMDD格式，下同)
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string exchange = 7 [json_name = "exchange"]; // 交易所代码
+}
+message FutSettleResponse {
+  repeated FutSettle list = 1;
+}
+
+// 期货主要品种交易周报|fut_weekly_detail
+message FutWeeklyDetail {
+  string exchange = 1 [json_name = "exchange"]; // 交易所代码
+  string prd = 2 [json_name = "prd"]; // 期货品种代码
+  string name = 3 [json_name = "name"]; // 品种名称
+  int64 vol = 4 [json_name = "vol"]; // 成交量（手）
+  float vol_yoy = 5 [json_name = "vol_yoy"]; // 同比增减（%）
+  float amount = 6 [json_name = "amount"]; // 成交金额（亿元）
+  float amout_yoy = 7 [json_name = "amout_yoy"]; // 同比增减（%）
+  int64 cumvol = 8 [json_name = "cumvol"]; // 年累计成交总量（手）
+  float cumvol_yoy = 9 [json_name = "cumvol_yoy"]; // 同比增减（%）
+  float cumamt = 10 [json_name = "cumamt"]; // 年累计成交金额（亿元）
+  float cumamt_yoy = 11 [json_name = "cumamt_yoy"]; // 同比增减（%）
+  int64 open_interest = 12 [json_name = "open_interest"]; // 持仓量（手）
+  float interest_wow = 13 [json_name = "interest_wow"]; // 环比增减（%）
+  float mc_close = 14 [json_name = "mc_close"]; // 本周主力合约收盘价
+  float close_wow = 15 [json_name = "close_wow"]; // 环比涨跌（%）
+  string week = 16 [json_name = "week"]; // 周期
+  string week_date = 17 [json_name = "week_date"]; // 周日期
+}
+message FutWeeklyDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string week = 3 [json_name = "week"]; // 周期（每年第几周，e.g. 202001 表示2020第1周）
+  string prd = 4 [json_name = "prd"]; // 期货品种（支持多品种输入，逗号分隔）
+  string start_week = 5 [json_name = "start_week"]; // 开始周期
+  string end_week = 6 [json_name = "end_week"]; // 结束周期
+  string exchange = 7 [json_name = "exchange"]; // 交易所（请参考交易所说明）
+}
+message FutWeeklyDetailResponse {
+  repeated FutWeeklyDetail list = 1;
+}
+
+// 仓单日报|fut_wsr
+message FutWsr {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string symbol = 2 [json_name = "symbol"]; // 产品代码
+  string fut_name = 3 [json_name = "fut_name"]; // 产品名称
+  string warehouse = 4 [json_name = "warehouse"]; // 仓库名称
+  string wh_id = 5 [json_name = "wh_id"]; // 仓库编号
+  int64 pre_vol = 6 [json_name = "pre_vol"]; // 昨日仓单量
+  int64 vol = 7 [json_name = "vol"]; // 今日仓单量
+  int64 vol_chg = 8 [json_name = "vol_chg"]; // 增减量
+  string area = 9 [json_name = "area"]; // 地区
+  string year = 10 [json_name = "year"]; // 年度
+  string grade = 11 [json_name = "grade"]; // 等级
+  string brand = 12 [json_name = "brand"]; // 品牌
+  string place = 13 [json_name = "place"]; // 产地
+  int64 pd = 14 [json_name = "pd"]; // 升贴水
+  string is_ct = 15 [json_name = "is_ct"]; // 是否折算仓单
+  string unit = 16 [json_name = "unit"]; // 单位
+  string exchange = 17 [json_name = "exchange"]; // 交易所
+}
+message FutWsrRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string symbol = 4 [json_name = "symbol"]; // 产品代码
+  string start_date = 5 [json_name = "start_date"]; // 开始日期(YYYYMMDD格式，下同)
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string exchange = 7 [json_name = "exchange"]; // 交易所代码
+}
+message FutWsrResponse {
+  repeated FutWsr list = 1;
+}
