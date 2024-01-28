@@ -17,6 +17,12 @@ func main() {
 	makeProto("sge", "现货", "https://tushare.pro/document/2?doc_id=283")
 	// 期权
 	makeProto("opt", "期权", "https://tushare.pro/document/2?doc_id=157")
+	// 外汇
+	makeProto("fx", "外汇", "https://tushare.pro/document/2?doc_id=177")
+	// 港股
+	makeProto("hk", "港股", "https://tushare.pro/document/2?doc_id=190")
+	// 美股
+	makeProto("us", "美股", "https://tushare.pro/document/2?doc_id=251")
 }
 
 // makeProto

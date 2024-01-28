@@ -1,0 +1,99 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 港股
+ - https://tushare.pro/document/2?doc_id=190
+*/
+
+// 港股列表|hk_basic
+message HkBasic {
+  string name = 2 [json_name = "name"]; // 股票简称
+  string fullname = 3 [json_name = "fullname"]; // 公司全称
+  string enname = 4 [json_name = "enname"]; // 英文名称
+  string cn_spell = 5 [json_name = "cn_spell"]; // 拼音
+  string market = 6 [json_name = "market"]; // 市场类别
+  string list_status = 7 [json_name = "list_status"]; // 上市状态
+  string list_date = 8 [json_name = "list_date"]; // 上市日期
+  string delist_date = 9 [json_name = "delist_date"]; // 退市日期
+  float trade_unit = 10 [json_name = "trade_unit"]; // 交易单位
+  string isin = 11 [json_name = "isin"]; // ISIN代码
+  string curr_type = 12 [json_name = "curr_type"]; // 货币代码
+}
+message HkBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string list_status = 4 [json_name = "list_status"]; // 上市状态 L上市 D退市 P暂停上市 ，默认L
+}
+message HkBasicResponse {
+  repeated HkBasic list = 1;
+}
+
+// 港股行情|hk_daily
+message HkDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float open = 3 [json_name = "open"]; // 开盘价
+  float high = 4 [json_name = "high"]; // 最高价
+  float low = 5 [json_name = "low"]; // 最低价
+  float close = 6 [json_name = "close"]; // 收盘价
+  float pre_close = 7 [json_name = "pre_close"]; // 昨收价
+  float change = 8 [json_name = "change"]; // 涨跌额
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅(%)
+  float vol = 10 [json_name = "vol"]; // 成交量(股)
+  float amount = 11 [json_name = "amount"]; // 成交额(元)
+}
+message HkDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message HkDailyResponse {
+  repeated HkDaily list = 1;
+}
+
+// 港股分钟行情|hk_mins
+message HkMins {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_time = 2 [json_name = "trade_time"]; // 交易时间
+  float open = 3 [json_name = "open"]; // 开盘价
+  float close = 4 [json_name = "close"]; // 收盘价
+  float high = 5 [json_name = "high"]; // 最高价
+  float low = 6 [json_name = "low"]; // 最低价
+  int64 vol = 7 [json_name = "vol"]; // 成交量
+  float amount = 8 [json_name = "amount"]; // 成交金额
+}
+message HkMinsRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码，e.g.00001.HK
+  string freq = 4 [json_name = "freq"]; // 分钟频度（1min/5min/15min/30min/60min）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期 格式：2023-03-13 09:00:00
+  string end_date = 6 [json_name = "end_date"]; // 结束时间 格式：2023-03-13 19:00:00
+}
+message HkMinsResponse {
+  repeated HkMins list = 1;
+}
+
+// 港股交易日历|hk_tradecal
+message HkTradecal {
+  string cal_date = 1 [json_name = "cal_date"]; // 日历日期
+  int64 is_open = 2 [json_name = "is_open"]; // 是否交易 '0'休市 '1'交易
+  string pretrade_date = 3 [json_name = "pretrade_date"]; // 上一个交易日
+}
+message HkTradecalRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string start_date = 3 [json_name = "start_date"]; // 开始日期
+  string end_date = 4 [json_name = "end_date"]; // 结束日期
+  string is_open = 5 [json_name = "is_open"]; // 是否交易 '0'休市 '1'交易
+}
+message HkTradecalResponse {
+  repeated HkTradecal list = 1;
+}

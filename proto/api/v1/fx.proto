@@ -1,0 +1,63 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 外汇
+ - https://tushare.pro/document/2?doc_id=177
+*/
+
+// 外汇日线行情|fx_daily
+message FxDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 外汇代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float bid_open = 3 [json_name = "bid_open"]; // 买入开盘价
+  float bid_close = 4 [json_name = "bid_close"]; // 买入收盘价
+  float bid_high = 5 [json_name = "bid_high"]; // 买入最高价
+  float bid_low = 6 [json_name = "bid_low"]; // 买入最低价
+  float ask_open = 7 [json_name = "ask_open"]; // 卖出开盘价
+  float ask_close = 8 [json_name = "ask_close"]; // 卖出收盘价
+  float ask_high = 9 [json_name = "ask_high"]; // 卖出最高价
+  float ask_low = 10 [json_name = "ask_low"]; // 卖出最低价
+  int64 tick_qty = 11 [json_name = "tick_qty"]; // 报价笔数
+  string exchange = 12 [json_name = "exchange"]; // 交易商
+}
+message FxDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（GMT，日期是格林尼治时间，比北京时间晚一天）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期（GMT）
+  string end_date = 6 [json_name = "end_date"]; // 结束日期（GMT）
+  string exchange = 7 [json_name = "exchange"]; // 交易商，目前只有FXCM
+}
+message FxDailyResponse {
+  repeated FxDaily list = 1;
+}
+
+// 外汇基础信息（海外）|fx_obasic
+message FxObasic {
+  string ts_code = 1 [json_name = "ts_code"]; // 外汇代码
+  string name = 2 [json_name = "name"]; // 名称
+  string classify = 3 [json_name = "classify"]; // 分类
+  string exchange = 4 [json_name = "exchange"]; // 交易商
+  float min_unit = 5 [json_name = "min_unit"]; // 最小交易单位
+  float max_unit = 6 [json_name = "max_unit"]; // 最大交易单位
+  float pip = 7 [json_name = "pip"]; // 点
+  float pip_cost = 8 [json_name = "pip_cost"]; // 点值
+  float traget_spread = 9 [json_name = "traget_spread"]; // 目标差价
+  float min_stop_distance = 10 [json_name = "min_stop_distance"]; // 最小止损距离（点子）
+  string trading_hours = 11 [json_name = "trading_hours"]; // 交易时间
+  string break_time = 12 [json_name = "break_time"]; // 休市时间
+}
+message FxObasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string exchange = 3 [json_name = "exchange"]; // 交易商
+  string classify = 4 [json_name = "classify"]; // 分类
+  string ts_code = 5 [json_name = "ts_code"]; // TS代码
+}
+message FxObasicResponse {
+  repeated FxObasic list = 1;
+}

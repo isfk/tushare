@@ -1,0 +1,76 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 美股
+ - https://tushare.pro/document/2?doc_id=251
+*/
+
+// 美股列表|us_basic
+message UsBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // 美股代码
+  string name = 2 [json_name = "name"]; // 中文名称
+  string enname = 3 [json_name = "enname"]; // 英文名称
+  string classify = 4 [json_name = "classify"]; // 分类ADR/GDR/EQ
+  string list_date = 5 [json_name = "list_date"]; // 上市日期
+  string delist_date = 6 [json_name = "delist_date"]; // 退市日期
+}
+message UsBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码, eg.AAPL（苹果）
+  string classify = 4 [json_name = "classify"]; // 股票分类, ADR/GDR/EQ
+}
+message UsBasicResponse {
+  repeated UsBasic list = 1;
+}
+
+// 美股行情|us_daily
+message UsDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 股票代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float close = 3 [json_name = "close"]; // 收盘价
+  float open = 4 [json_name = "open"]; // 开盘价
+  float high = 5 [json_name = "high"]; // 最高价
+  float low = 6 [json_name = "low"]; // 最低价
+  float pre_close = 7 [json_name = "pre_close"]; // 昨收价
+  float change = 8 [json_name = "change"]; // 涨跌额
+  float pct_change = 9 [json_name = "pct_change"]; // 涨跌幅
+  float vol = 10 [json_name = "vol"]; // 成交量
+  float amount = 11 [json_name = "amount"]; // 成交额
+  float vwap = 12 [json_name = "vwap"]; // 平均价
+  float turnover_ratio = 13 [json_name = "turnover_ratio"]; // 换手率
+  float total_mv = 14 [json_name = "total_mv"]; // 总市值
+  float pe = 15 [json_name = "pe"]; // PE
+  float pb = 16 [json_name = "pb"]; // PB
+}
+message UsDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码（e.g. AAPL）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期（YYYYMMDD）
+  string end_date = 6 [json_name = "end_date"]; // 结束日期（YYYYMMDD）
+}
+message UsDailyResponse {
+  repeated UsDaily list = 1;
+}
+
+// 美股交易日历|us_tradecal
+message UsTradecal {
+  string cal_date = 1 [json_name = "cal_date"]; // 日历日期
+  int64 is_open = 2 [json_name = "is_open"]; // 是否交易 '0'休市 '1'交易
+  string pretrade_date = 3 [json_name = "pretrade_date"]; // 上一个交易日
+}
+message UsTradecalRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string start_date = 3 [json_name = "start_date"]; // 开始日期
+  string end_date = 4 [json_name = "end_date"]; // 结束日期
+  string is_open = 5 [json_name = "is_open"]; // 是否交易
+}
+message UsTradecalResponse {
+  repeated UsTradecal list = 1;
+}
