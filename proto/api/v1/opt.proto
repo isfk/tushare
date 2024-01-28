@@ -1,0 +1,71 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 期权
+ - https://tushare.pro/document/2?doc_id=157
+*/
+
+// 期权合约信息|opt_basic
+message OptBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string exchange = 2 [json_name = "exchange"]; // 交易市场
+  string name = 3 [json_name = "name"]; // 合约名称
+  int64 per_unit = 4 [json_name = "per_unit"]; // 合约单位
+  string opt_code = 5 [json_name = "opt_code"]; // 标的合约代码
+  string opt_type = 6 [json_name = "opt_type"]; // 合约类型
+  string call_put = 7 [json_name = "call_put"]; // 期权类型
+  string exercise_type = 8 [json_name = "exercise_type"]; // 行权方式
+  float exercise_price = 9 [json_name = "exercise_price"]; // 行权价格
+  string s_month = 10 [json_name = "s_month"]; // 结算月
+  string maturity_date = 11 [json_name = "maturity_date"]; // 到期日
+  float list_price = 12 [json_name = "list_price"]; // 挂牌基准价
+  string list_date = 13 [json_name = "list_date"]; // 开始交易日期
+  string delist_date = 14 [json_name = "delist_date"]; // 最后交易日期
+  string last_edate = 15 [json_name = "last_edate"]; // 最后行权日期
+  string last_ddate = 16 [json_name = "last_ddate"]; // 最后交割日期
+  string quote_unit = 17 [json_name = "quote_unit"]; // 报价单位
+  string min_price_chg = 18 [json_name = "min_price_chg"]; // 最小价格波幅
+}
+message OptBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS期权代码
+  string exchange = 4 [json_name = "exchange"]; // 交易所代码 （包括上交所SSE等交易所）
+  string opt_code = 5 [json_name = "opt_code"]; // 标准合约代码，OP+期货合约TS_CODE，如棕榈油2207合约，输入OPP2207.DCE
+  string call_put = 6 [json_name = "call_put"]; // 期权类型
+}
+message OptBasicResponse {
+  repeated OptBasic list = 1;
+}
+
+// 期权日线行情|opt_daily
+message OptDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  string exchange = 3 [json_name = "exchange"]; // 交易市场
+  float pre_settle = 4 [json_name = "pre_settle"]; // 昨结算价
+  float pre_close = 5 [json_name = "pre_close"]; // 前收盘价
+  float open = 6 [json_name = "open"]; // 开盘价
+  float high = 7 [json_name = "high"]; // 最高价
+  float low = 8 [json_name = "low"]; // 最低价
+  float close = 9 [json_name = "close"]; // 收盘价
+  float settle = 10 [json_name = "settle"]; // 结算价
+  float vol = 11 [json_name = "vol"]; // 成交量(手)
+  float amount = 12 [json_name = "amount"]; // 成交金额(万元)
+  float oi = 13 [json_name = "oi"]; // 持仓量(手)
+}
+message OptDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS合约代码（输入代码或时间至少任意一个参数）
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+  string exchange = 7 [json_name = "exchange"]; // 交易所(SSE/SZSE/CFFEX/DCE/SHFE/CZCE）
+}
+message OptDailyResponse {
+  repeated OptDaily list = 1;
+}

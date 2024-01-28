@@ -1,0 +1,64 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 现货
+ - https://tushare.pro/document/2?doc_id=283
+*/
+
+// 黄金现货基础信息|sge_basic
+message SgeBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // 品种代码
+  string ts_name = 2 [json_name = "ts_name"]; // 品种名称
+  string trade_type = 3 [json_name = "trade_type"]; // 交易类型
+  float t_unit = 4 [json_name = "t_unit"]; // 交易单位(克/手)
+  float p_unit = 5 [json_name = "p_unit"]; // 报价单位
+  float min_change = 6 [json_name = "min_change"]; // 最小变动价位
+  float price_limit = 7 [json_name = "price_limit"]; // 每日价格最大波动限制
+  int64 min_vol = 8 [json_name = "min_vol"]; // 最小单笔报价量(手)
+  int64 max_vol = 9 [json_name = "max_vol"]; // 最大单笔报价量(手)
+  string trade_mode = 10 [json_name = "trade_mode"]; // 交易期限
+  float margin_rate = 11 [json_name = "margin_rate"]; // 保证金比例
+  float liq_rate = 12 [json_name = "liq_rate"]; // 违约金比例(%)
+  string trade_time = 13 [json_name = "trade_time"]; // 交易时间
+  string list_date = 14 [json_name = "list_date"]; // 上市日期
+}
+message SgeBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 合约代码 （支持多个，逗号分隔，不输入为获取全部）
+}
+message SgeBasicResponse {
+  repeated SgeBasic list = 1;
+}
+
+// 现货黄金日行情|sge_daily
+message SgeDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 现货合约代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  float close = 3 [json_name = "close"]; // 收盘点(元/克)
+  float open = 4 [json_name = "open"]; // 开盘点(元/克)
+  float high = 5 [json_name = "high"]; // 最高点(元/克)
+  float low = 6 [json_name = "low"]; // 最低点(元/克)
+  float price_avg = 7 [json_name = "price_avg"]; // 加权平均价(元/克)
+  float change = 8 [json_name = "change"]; // 涨跌点位(元/克)
+  float pct_change = 9 [json_name = "pct_change"]; // 涨跌幅
+  float vol = 10 [json_name = "vol"]; // 成交量(千克)
+  float amount = 11 [json_name = "amount"]; // 成交金额(元)
+  float oi = 12 [json_name = "oi"]; // 市场持仓
+  float settle_vol = 13 [json_name = "settle_vol"]; // 交收量
+  string settle_dire = 14 [json_name = "settle_dire"]; // 持仓方向
+}
+message SgeDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 合约代码，可通过基础信息获得
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message SgeDailyResponse {
+  repeated SgeDaily list = 1;
+}

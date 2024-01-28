@@ -12,7 +12,11 @@ func main() {
 	// 公募基金
 	makeProto("fund", "公募基金", "https://tushare.pro/document/2?doc_id=18")
 	// 期货
-	makeProto("fut", "公募基金", "https://tushare.pro/document/2?doc_id=134")
+	makeProto("fut", "期货", "https://tushare.pro/document/2?doc_id=134")
+	// 现货
+	makeProto("sge", "现货", "https://tushare.pro/document/2?doc_id=283")
+	// 期权
+	makeProto("opt", "期权", "https://tushare.pro/document/2?doc_id=157")
 }
 
 // makeProto

@@ -4,7 +4,7 @@ package api.v1;
 option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
 
 /*
- - 公募基金
+ - 期货
  - https://tushare.pro/document/2?doc_id=134
 */
 
