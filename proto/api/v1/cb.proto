@@ -1,0 +1,344 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/isfk/tushare/gen/api/v1;v1";
+
+/*
+ - 债券
+ - https://tushare.pro/document/2?doc_id=184
+*/
+
+// 债券大宗交易|bond_blk
+message BondBlk {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 债券代码
+  string name = 3 [json_name = "name"]; // 债券名称
+  float price = 4 [json_name = "price"]; // 成交价（元）
+  float vol = 5 [json_name = "vol"]; // 累计成交数量（万股/万份/万张/万手）
+  float amount = 6 [json_name = "amount"]; // 累计成交金额（万元）
+}
+message BondBlkRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 债券代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD格式，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message BondBlkResponse {
+  repeated BondBlk list = 1;
+}
+
+// 大宗交易明细|bond_blk_detail
+message BondBlkDetail {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 债券代码
+  string name = 3 [json_name = "name"]; // 债券名称
+  float price = 4 [json_name = "price"]; // 成交价（元）
+  float vol = 5 [json_name = "vol"]; // 成交数量（万股/万份/万张/万手）
+  float amount = 6 [json_name = "amount"]; // 成交金额（万元）
+  string buy_dp = 7 [json_name = "buy_dp"]; // 买方营业部
+  string sell_dp = 8 [json_name = "sell_dp"]; // 卖方营业部
+}
+message BondBlkDetailRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 债券代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期（YYYYMMDD格式，下同）
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message BondBlkDetailResponse {
+  repeated BondBlkDetail list = 1;
+}
+
+// 可转债基本信息|cb_basic
+message CbBasic {
+  string ts_code = 1 [json_name = "ts_code"]; // 转债代码
+  string bond_full_name = 2 [json_name = "bond_full_name"]; // 转债名称
+  string bond_short_name = 3 [json_name = "bond_short_name"]; // 转债简称
+  string cb_code = 4 [json_name = "cb_code"]; // 转股申报代码
+  string stk_code = 5 [json_name = "stk_code"]; // 正股代码
+  string stk_short_name = 6 [json_name = "stk_short_name"]; // 正股简称
+  float maturity = 7 [json_name = "maturity"]; // 发行期限（年）
+  float par = 8 [json_name = "par"]; // 面值
+  float issue_price = 9 [json_name = "issue_price"]; // 发行价格
+  float issue_size = 10 [json_name = "issue_size"]; // 发行总额（元）
+  float remain_size = 11 [json_name = "remain_size"]; // 债券余额（元）
+  string value_date = 12 [json_name = "value_date"]; // 起息日期
+  string maturity_date = 13 [json_name = "maturity_date"]; // 到期日期
+  string rate_type = 14 [json_name = "rate_type"]; // 利率类型
+  float coupon_rate = 15 [json_name = "coupon_rate"]; // 票面利率（%）
+  float add_rate = 16 [json_name = "add_rate"]; // 补偿利率（%）
+  int64 pay_per_year = 17 [json_name = "pay_per_year"]; // 年付息次数
+  string list_date = 18 [json_name = "list_date"]; // 上市日期
+  string delist_date = 19 [json_name = "delist_date"]; // 摘牌日
+  string exchange = 20 [json_name = "exchange"]; // 上市地点
+  string conv_start_date = 21 [json_name = "conv_start_date"]; // 转股起始日
+  string conv_end_date = 22 [json_name = "conv_end_date"]; // 转股截止日
+  string conv_stop_date = 23 [json_name = "conv_stop_date"]; // 停止转股日(提前到期)
+  float first_conv_price = 24 [json_name = "first_conv_price"]; // 初始转股价
+  float conv_price = 25 [json_name = "conv_price"]; // 最新转股价
+  string rate_clause = 26 [json_name = "rate_clause"]; // 利率说明
+  string put_clause = 27 [json_name = "put_clause"]; // 赎回条款
+  float maturity_put_price = 28 [json_name = "maturity_put_price"]; // 到期赎回价格(含税)
+  string call_clause = 29 [json_name = "call_clause"]; // 回售条款
+  string reset_clause = 30 [json_name = "reset_clause"]; // 特别向下修正条款
+  string conv_clause = 31 [json_name = "conv_clause"]; // 转股条款
+  string guarantor = 32 [json_name = "guarantor"]; // 担保人
+  string guarantee_type = 33 [json_name = "guarantee_type"]; // 担保方式
+  string issue_rating = 34 [json_name = "issue_rating"]; // 发行信用等级
+  string newest_rating = 35 [json_name = "newest_rating"]; // 最新信用等级
+  string rating_comp = 36 [json_name = "rating_comp"]; // 最新评级机构
+}
+message CbBasicRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 转债代码
+  string list_date = 4 [json_name = "list_date"]; // 上市日期
+  string exchange = 5 [json_name = "exchange"]; // 上市地点
+}
+message CbBasicResponse {
+  repeated CbBasic list = 1;
+}
+
+// 可转债赎回信息|cb_call
+message CbCall {
+  string ts_code = 1 [json_name = "ts_code"]; // 转债代码
+  string call_type = 2 [json_name = "call_type"]; // 赎回类型：到赎、强赎
+  string is_call = 3 [json_name = "is_call"]; // 是否赎回：已满足强赎条件、公告提示强赎、公告实施强赎、公告到期赎回、公告不强赎
+  string ann_date = 4 [json_name = "ann_date"]; // 公告/提示日期
+  string call_date = 5 [json_name = "call_date"]; // 赎回日期
+  float call_price = 6 [json_name = "call_price"]; // 赎回价格(含税，元/张)
+  float call_price_tax = 7 [json_name = "call_price_tax"]; // 赎回价格(扣税，元/张)
+  float call_vol = 8 [json_name = "call_vol"]; // 赎回债券数量(张)
+  float call_amount = 9 [json_name = "call_amount"]; // 赎回金额(万元)
+  string payment_date = 10 [json_name = "payment_date"]; // 行权后款项到账日
+  string call_reg_date = 11 [json_name = "call_reg_date"]; // 赎回登记日
+}
+message CbCallRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 转债代码，支持多值输入
+}
+message CbCallResponse {
+  repeated CbCall list = 1;
+}
+
+// 可转债行情|cb_daily
+message CbDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // 转债代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  float pre_close = 3 [json_name = "pre_close"]; // 昨收盘价(元)
+  float open = 4 [json_name = "open"]; // 开盘价(元)
+  float high = 5 [json_name = "high"]; // 最高价(元)
+  float low = 6 [json_name = "low"]; // 最低价(元)
+  float close = 7 [json_name = "close"]; // 收盘价(元)
+  float change = 8 [json_name = "change"]; // 涨跌(元)
+  float pct_chg = 9 [json_name = "pct_chg"]; // 涨跌幅(%)
+  float vol = 10 [json_name = "vol"]; // 成交量(手)
+  float amount = 11 [json_name = "amount"]; // 成交金额(万元)
+  float bond_value = 12 [json_name = "bond_value"]; // 纯债价值
+  float bond_over_rate = 13 [json_name = "bond_over_rate"]; // 纯债溢价率(%)
+  float cb_value = 14 [json_name = "cb_value"]; // 转股价值
+  float cb_over_rate = 15 [json_name = "cb_over_rate"]; // 转股溢价率(%)
+}
+message CbDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message CbDailyResponse {
+  repeated CbDaily list = 1;
+}
+
+// 可转债发行|cb_issue
+message CbIssue {
+  string ts_code = 1 [json_name = "ts_code"]; // 转债代码
+  string ann_date = 2 [json_name = "ann_date"]; // 发行公告日
+  string res_ann_date = 3 [json_name = "res_ann_date"]; // 发行结果公告日
+  float plan_issue_size = 4 [json_name = "plan_issue_size"]; // 计划发行总额（元）
+  float issue_size = 5 [json_name = "issue_size"]; // 发行总额（元）
+  float issue_price = 6 [json_name = "issue_price"]; // 发行价格
+  string issue_type = 7 [json_name = "issue_type"]; // 发行方式
+  float issue_cost = 8 [json_name = "issue_cost"]; // 发行费用（元）
+  string onl_code = 9 [json_name = "onl_code"]; // 网上申购代码
+  string onl_name = 10 [json_name = "onl_name"]; // 网上申购简称
+  string onl_date = 11 [json_name = "onl_date"]; // 网上发行日期
+  float onl_size = 12 [json_name = "onl_size"]; // 网上发行总额（张）
+  float onl_pch_vol = 13 [json_name = "onl_pch_vol"]; // 网上发行有效申购数量（张）
+  int64 onl_pch_num = 14 [json_name = "onl_pch_num"]; // 网上发行有效申购户数
+  float onl_pch_excess = 15 [json_name = "onl_pch_excess"]; // 网上发行超额认购倍数
+  float onl_winning_rate = 16 [json_name = "onl_winning_rate"]; // 网上发行中签率（%）
+  string shd_ration_code = 17 [json_name = "shd_ration_code"]; // 老股东配售代码
+  string shd_ration_name = 18 [json_name = "shd_ration_name"]; // 老股东配售简称
+  string shd_ration_date = 19 [json_name = "shd_ration_date"]; // 老股东配售日
+  string shd_ration_record_date = 20 [json_name = "shd_ration_record_date"]; // 老股东配售股权登记日
+  string shd_ration_pay_date = 21 [json_name = "shd_ration_pay_date"]; // 老股东配售缴款日
+  float shd_ration_price = 22 [json_name = "shd_ration_price"]; // 老股东配售价格
+  float shd_ration_ratio = 23 [json_name = "shd_ration_ratio"]; // 老股东配售比例
+  float shd_ration_size = 24 [json_name = "shd_ration_size"]; // 老股东配售数量（张）
+  float shd_ration_vol = 25 [json_name = "shd_ration_vol"]; // 老股东配售有效申购数量（张）
+  int64 shd_ration_num = 26 [json_name = "shd_ration_num"]; // 老股东配售有效申购户数
+  float shd_ration_excess = 27 [json_name = "shd_ration_excess"]; // 老股东配售超额认购倍数
+  float offl_size = 28 [json_name = "offl_size"]; // 网下发行总额（张）
+  float offl_deposit = 29 [json_name = "offl_deposit"]; // 网下发行定金比例（%）
+  float offl_pch_vol = 30 [json_name = "offl_pch_vol"]; // 网下发行有效申购数量（张）
+  int64 offl_pch_num = 31 [json_name = "offl_pch_num"]; // 网下发行有效申购户数
+  float offl_pch_excess = 32 [json_name = "offl_pch_excess"]; // 网下发行超额认购倍数
+  float offl_winning_rate = 33 [json_name = "offl_winning_rate"]; // 网下发行中签率
+  string lead_underwriter = 34 [json_name = "lead_underwriter"]; // 主承销商
+  float lead_underwriter_vol = 35 [json_name = "lead_underwriter_vol"]; // 主承销商包销数量（张）
+}
+message CbIssueRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string ann_date = 4 [json_name = "ann_date"]; // 发行公告日
+  string start_date = 5 [json_name = "start_date"]; // 公告开始日期
+  string end_date = 6 [json_name = "end_date"]; // 公告结束日期
+}
+message CbIssueResponse {
+  repeated CbIssue list = 1;
+}
+
+// 可转债转股价变动|cb_price_chg
+message CbPriceChg {
+  string ts_code = 1 [json_name = "ts_code"]; // 转债代码
+  string bond_short_name = 2 [json_name = "bond_short_name"]; // 转债简称
+  string publish_date = 3 [json_name = "publish_date"]; // 公告日期
+  string change_date = 4 [json_name = "change_date"]; // 变动日期
+  float convert_price_initial = 5 [json_name = "convert_price_initial"]; // 初始转股价格
+  float convertprice_bef = 6 [json_name = "convertprice_bef"]; // 修正前转股价格
+  float convertprice_aft = 7 [json_name = "convertprice_aft"]; // 修正后转股价格
+}
+message CbPriceChgRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 转债代码，支持多值输入
+}
+message CbPriceChgResponse {
+  repeated CbPriceChg list = 1;
+}
+
+// 可转债票面利率|cb_rate
+message CbRate {
+  string ts_code = 1 [json_name = "ts_code"]; // 转债代码
+  int64 rate_freq = 2 [json_name = "rate_freq"]; // 付息频率(次/年)
+  string rate_start_date = 3 [json_name = "rate_start_date"]; // 付息开始日期
+  string rate_end_date = 4 [json_name = "rate_end_date"]; // 付息结束日期
+  float coupon_rate = 5 [json_name = "coupon_rate"]; // 票面利率(%)
+}
+message CbRateRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 转债代码，支持多值输入
+}
+message CbRateResponse {
+  repeated CbRate list = 1;
+}
+
+// 可转债转股结果|cb_share
+message CbShare {
+  string ts_code = 1 [json_name = "ts_code"]; // 债券代码
+  string bond_short_name = 2 [json_name = "bond_short_name"]; // 债券简称
+  string publish_date = 3 [json_name = "publish_date"]; // 公告日期
+  string end_date = 4 [json_name = "end_date"]; // 统计截止日期
+  float issue_size = 5 [json_name = "issue_size"]; // 可转债发行总额
+  float convert_price_initial = 6 [json_name = "convert_price_initial"]; // 初始转换价格
+  float convert_price = 7 [json_name = "convert_price"]; // 本次转换价格
+  float convert_val = 8 [json_name = "convert_val"]; // 本次转股金额
+  float convert_vol = 9 [json_name = "convert_vol"]; // 本次转股数量
+  float convert_ratio = 10 [json_name = "convert_ratio"]; // 本次转股比例
+  float acc_convert_val = 11 [json_name = "acc_convert_val"]; // 累计转股金额
+  float acc_convert_vol = 12 [json_name = "acc_convert_vol"]; // 累计转股数量
+  float acc_convert_ratio = 13 [json_name = "acc_convert_ratio"]; // 累计转股比例
+  float remain_size = 14 [json_name = "remain_size"]; // 可转债剩余金额
+  float total_shares = 15 [json_name = "total_shares"]; // 转股后总股本
+}
+message CbShareRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 转债代码，支持多值输入
+}
+message CbShareResponse {
+  repeated CbShare list = 1;
+}
+
+// 财经日历|eco_cal
+message EcoCal {
+  string date = 1 [json_name = "date"]; // 日期
+  string time = 2 [json_name = "time"]; // 时间
+  string currency = 3 [json_name = "currency"]; // 货币代码
+  string country = 4 [json_name = "country"]; // 国家
+  string event = 5 [json_name = "event"]; // 经济事件
+  string value = 6 [json_name = "value"]; // 今值
+  string pre_value = 7 [json_name = "pre_value"]; // 前值
+  string fore_value = 8 [json_name = "fore_value"]; // 预测值
+}
+message EcoCalRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string date = 3 [json_name = "date"]; // 日期（YYYYMMDD格式）
+  string start_date = 4 [json_name = "start_date"]; // 开始日期
+  string end_date = 5 [json_name = "end_date"]; // 结束日期
+  string currency = 6 [json_name = "currency"]; // 货币代码
+  string country = 7 [json_name = "country"]; // 国家（比如：中国、美国）
+  string event = 8 [json_name = "event"]; // 事件 （支持模糊匹配： *非农*）
+}
+message EcoCalResponse {
+  repeated EcoCal list = 1;
+}
+
+// 债券回购日行情|repo_daily
+message RepoDaily {
+  string ts_code = 1 [json_name = "ts_code"]; // TS代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日期
+  string repo_maturity = 3 [json_name = "repo_maturity"]; // 期限品种
+  float pre_close = 4 [json_name = "pre_close"]; // 前收盘(%)
+  float open = 5 [json_name = "open"]; // 开盘价(%)
+  float high = 6 [json_name = "high"]; // 最高价(%)
+  float low = 7 [json_name = "low"]; // 最低价(%)
+  float close = 8 [json_name = "close"]; // 收盘价(%)
+  float weight = 9 [json_name = "weight"]; // 加权价(%)
+  float weight_r = 10 [json_name = "weight_r"]; // 加权价(利率债)(%)
+  float amount = 11 [json_name = "amount"]; // 成交金额(万元)
+  int64 num = 12 [json_name = "num"]; // 成交笔数(笔)
+}
+message RepoDailyRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // TS代码
+  string trade_date = 4 [json_name = "trade_date"]; // 交易日期(YYYYMMDD格式，下同)
+  string start_date = 5 [json_name = "start_date"]; // 开始日期
+  string end_date = 6 [json_name = "end_date"]; // 结束日期
+}
+message RepoDailyResponse {
+  repeated RepoDaily list = 1;
+}
+
+// 国债收益率曲线|yc_cb
+message YcCb {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 2 [json_name = "ts_code"]; // 曲线编码
+  string curve_name = 3 [json_name = "curve_name"]; // 曲线名称
+  string curve_type = 4 [json_name = "curve_type"]; // 曲线类型：0-到期，1-即期
+  float curve_term = 5 [json_name = "curve_term"]; // 期限(年)
+  float yield = 6 [json_name = "yield"]; // 收益率(%)
+}
+message YcCbRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string ts_code = 3 [json_name = "ts_code"]; // 收益率曲线编码：1001.CB-国债收益率曲线
+  string curve_type = 4 [json_name = "curve_type"]; // 曲线类型：0-到期，1-即期
+  string trade_date = 5 [json_name = "trade_date"]; // 交易日期
+  string start_date = 6 [json_name = "start_date"]; // 查询起始日期
+  string end_date = 7 [json_name = "end_date"]; // 查询结束日期
+  float curve_term = 8 [json_name = "curve_term"]; // 期限
+}
+message YcCbResponse {
+  repeated YcCb list = 1;
+}
