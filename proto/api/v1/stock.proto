@@ -1451,6 +1451,24 @@ message MarginTargetResponse {
   repeated MarginTarget list = 1;
 }
 
+// 融资融券标的(盘前)|margin_secs
+message MarginSecs {
+  string ts_code = 1 [json_name = "ts_code"]; // 标的代码
+  string trade_date = 2 [json_name = "trade_date"]; // 交易日
+  string exchange = 3 [json_name = "exchange"]; // 交易所（SSE上交所 SZSE深交所 BSE北交所）
+  string start_date = 4 [json_name = "start_date"]; // 开始日期
+  string end_date = 5 [json_name = "end_date"]; // 结束日期
+}
+message MarginSecsRequest {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 3 [json_name = "ts_code"]; // 标的代码
+  string name = 4 [json_name = "name"]; // 标的名称
+  string exchange = 5 [json_name = "exchange"]; // 交易所
+}
+message MarginSecsResponse {
+  repeated MarginSecs list = 1;
+}
+
 // 前十大股东|top10_holders
 message Top10Holders {
   string ts_code = 1 [json_name = "ts_code"]; // TS股票代码

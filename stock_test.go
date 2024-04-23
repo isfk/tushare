@@ -1290,3 +1290,24 @@ func TestHmDetail(t *testing.T) {
 		t.Logf("%v", resp.Resp.String())
 	}
 }
+
+func TestMarginSecs(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.MarginSecsRequest, v1.MarginSecsResponse](ts, &Request[v1.MarginSecsRequest]{
+		Params:  &v1.MarginSecsRequest{TradeDate: "20240422", TsCode: "688728 .SH"},
+		ApiName: v1.ApiMarginSecs,
+		Fields:  []string{},
+	})
+	if err != nil {
+		if strings.Contains(err.Error(), "code=40203") {
+			t.Logf("权限问题: %v", err.Error())
+			return
+		}
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}

@@ -113,6 +113,7 @@ func main() {
         - [x] [融资融券交易汇总](./stock_test.go#L706)
         - [x] [融资融券交易明细](./stock_test.go#L727)
         - [x] [融资融券标的](./stock_test.go#L748) <i>因没有权限, 测试结果未验证</i>
+        - [x] [融资融券标的(盘前)](./stock_test.go#L1294)
         - [x] [前十大股东](./stock_test.go#L769)
         - [x] [前十大流通股东](./stock_test.go#L790)
         - [x] [龙虎榜每日明细](./stock_test.go#L811)

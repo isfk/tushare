@@ -119,6 +119,9 @@ const ApiMarginDetail string = "margin_detail"
 // 融资融券标的 api name
 const ApiMarginTarget string = "margin_target"
 
+// 融资融券标的(盘前) api name
+const ApiMarginSecs string = "margin_secs"
+
 // 前十大股东 api name
 const ApiTop10Holders string = "top10_holders"
 
@@ -303,6 +306,9 @@ var FieldsMarginDetail = []string{"trade_date", "ts_code", "name", "rzye", "rqye
 
 // 融资融券标的 fields
 var FieldsMarginTarget = []string{"ts_code", "mg_type", "is_new", "in_date", "out_date", "ann_date"}
+
+// 融资融券标的(盘前) fields
+var FieldsMarginSecs = []string{"ts_code", "trade_date", "exchange", "start_date", "end_date"}
 
 // 前十大股东 fields
 var FieldsTop10Holders = []string{"ts_code", "ann_date", "end_date", "holder_name", "hold_amount", "hold_ratio", "hold_float_ratio", "hold_change", "holder_type"}
@@ -2070,6 +2076,31 @@ type MarginTargetResponse struct {
 }
 
 func (x *MarginTargetResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 融资融券标的(盘前)|margin_secs
+type MarginSecs struct {
+	TsCode    string `json:"ts_code"`    // 标的代码
+	TradeDate string `json:"trade_date"` // 交易日
+	Exchange  string `json:"exchange"`   // 交易所（SSE上交所 SZSE深交所 BSE北交所）
+	StartDate string `json:"start_date"` // 开始日期
+	EndDate   string `json:"end_date"`   // 结束日期
+}
+
+type MarginSecsRequest struct {
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode    string `json:"ts_code"`    // 标的代码
+	Name      string `json:"name"`       // 标的名称
+	Exchange  string `json:"exchange"`   // 交易所
+}
+
+type MarginSecsResponse struct {
+	List []*MarginSecs `json:"list"`
+}
+
+func (x *MarginSecsResponse) String() string {
 	bytes, _ := json.Marshal(x)
 	return string(bytes)
 }
