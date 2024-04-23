@@ -1460,10 +1460,12 @@ message MarginSecs {
   string end_date = 5 [json_name = "end_date"]; // 结束日期
 }
 message MarginSecsRequest {
-  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
-  string ts_code = 3 [json_name = "ts_code"]; // 标的代码
-  string name = 4 [json_name = "name"]; // 标的名称
-  string exchange = 5 [json_name = "exchange"]; // 交易所
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 4 [json_name = "ts_code"]; // 标的代码
+  string name = 5 [json_name = "name"]; // 标的名称
+  string exchange = 6 [json_name = "exchange"]; // 交易所
 }
 message MarginSecsResponse {
   repeated MarginSecs list = 1;
@@ -2083,4 +2085,54 @@ message HmDetailRequest {
 }
 message HmDetailResponse {
   repeated HmDetail list = 1;
+}
+
+// 同花顺App热榜|ths_hot
+message ThsHot {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string data_type = 2 [json_name = "data_type"]; // 数据类型
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string ts_name = 4 [json_name = "ts_name"]; // 股票名称
+  int64 rank = 5 [json_name = "rank"]; // 排行
+  float pct_change = 6 [json_name = "pct_change"]; // 涨跌幅%
+  float current_price = 7 [json_name = "current_price"]; // 当前价格
+  string concept = 8 [json_name = "concept"]; // 标签
+  string rank_reason = 9 [json_name = "rank_reason"]; // 上榜解读
+  float hot = 10 [json_name = "hot"]; // 热度值
+  string rank_time = 11 [json_name = "rank_time"]; // 排行榜获取时间
+}
+message ThsHotRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码
+  string market = 5 [json_name = "market"]; // 热榜类型(热股、ETF、可转债、行业板块、概念板块、期货、港股、热基、美股)
+  string is_new = 6 [json_name = "is_new"]; // 是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段）
+}
+message ThsHotResponse {
+  repeated ThsHot list = 1;
+}
+
+// 东方财富App热榜|dc_hot
+message DcHot {
+  string trade_date = 1 [json_name = "trade_date"]; // 交易日期
+  string data_type = 2 [json_name = "data_type"]; // 数据类型
+  string ts_code = 3 [json_name = "ts_code"]; // 股票代码
+  string ts_name = 4 [json_name = "ts_name"]; // 股票名称
+  int64 rank = 5 [json_name = "rank"]; // 排行或者热度
+  float pct_change = 6 [json_name = "pct_change"]; // 涨跌幅%
+  float current_price = 7 [json_name = "current_price"]; // 当前价
+  string rank_time = 8 [json_name = "rank_time"]; // 排行榜获取时间
+}
+message DcHotRequest {
+  string limit = 1 [json_name = "limit"];
+  string offset = 2 [json_name = "offset"];
+  string trade_date = 3 [json_name = "trade_date"]; // 交易日期
+  string ts_code = 4 [json_name = "ts_code"]; // TS代码
+  string market = 5 [json_name = "market"]; // 类型(A股市场、ETF基金、港股市场、美股市场)
+  string hot_type = 6 [json_name = "hot_type"]; // 热点类型(人气榜、飙升榜)
+  string is_new = 7 [json_name = "is_new"]; // 是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段）
+}
+message DcHotResponse {
+  repeated DcHot list = 1;
 }

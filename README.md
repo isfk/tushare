@@ -142,6 +142,8 @@ func main() {
         - [x] [券商月度金股](./stock_test.go#L1232)
         - [x] [游资名录](./stock_test.go#L1253)
         - [x] [游资每日明细](./stock_test.go#L1274)
+        - [x] [同花顺App热榜](./stock_test.go#L1315)
+        - [x] [东方App热榜](./stock_test.go#L1336)
 - [x] 指数
     - [x] [指数基本信息](./index_test.go#L12)
     - [x] [指数日线行情](./index_test.go#L33)

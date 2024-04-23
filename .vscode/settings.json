@@ -1,17 +1,4 @@
 {
-  "files.associations": {
-    "*.proto": "proto3"
-  },
-  "protoc": {
-    "path": "/opt/homebrew/bin/buf",
-    "compile_on_save": false,
-    "options": [
-      "--proto_path=${workspaceRoot}/proto"
-    ]
-  },
-  "[proto3]": {
-    "editor.defaultFormatter": "bufbuild.vscode-buf"
-  },
   "[markdown]": {
     "editor.formatOnSave": true,
     "editor.renderWhitespace": "all",

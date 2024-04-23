@@ -197,6 +197,12 @@ const ApiHmList string = "hm_list"
 // 游资每日明细 api name
 const ApiHmDetail string = "hm_detail"
 
+// 同花顺App热榜 api name
+const ApiThsHot string = "ths_hot"
+
+// 东方财富App热榜 api name
+const ApiDcHot string = "dc_hot"
+
 // fields
 
 // 股票列表 fields
@@ -384,6 +390,12 @@ var FieldsHmList = []string{"name", "desc", "orgs"}
 
 // 游资每日明细 fields
 var FieldsHmDetail = []string{"trade_date", "ts_code", "ts_name", "buy_amount", "sell_amount", "net_amount", "hm_name", "hm_orgs", "tag"}
+
+// 同花顺App热榜 fields
+var FieldsThsHot = []string{"trade_date", "data_type", "ts_code", "ts_name", "rank", "pct_change", "current_price", "concept", "rank_reason", "hot", "rank_time"}
+
+// 东方财富App热榜 fields
+var FieldsDcHot = []string{"trade_date", "data_type", "ts_code", "ts_name", "rank", "pct_change", "current_price", "rank_time"}
 
 // struct
 
@@ -2090,6 +2102,8 @@ type MarginSecs struct {
 }
 
 type MarginSecsRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
 	TradeDate string `json:"trade_date"` // 交易日期
 	TsCode    string `json:"ts_code"`    // 标的代码
 	Name      string `json:"name"`       // 标的名称
@@ -2892,6 +2906,70 @@ type HmDetailResponse struct {
 }
 
 func (x *HmDetailResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 同花顺App热榜|ths_hot
+type ThsHot struct {
+	TradeDate    string  `json:"trade_date"`    // 交易日期
+	DataType     string  `json:"data_type"`     // 数据类型
+	TsCode       string  `json:"ts_code"`       // 股票代码
+	TsName       string  `json:"ts_name"`       // 股票名称
+	Rank         int64   `json:"rank"`          // 排行
+	PctChange    float64 `json:"pct_change"`    // 涨跌幅%
+	CurrentPrice float64 `json:"current_price"` // 当前价格
+	Concept      string  `json:"concept"`       // 标签
+	RankReason   string  `json:"rank_reason"`   // 上榜解读
+	Hot          float64 `json:"hot"`           // 热度值
+	RankTime     string  `json:"rank_time"`     // 排行榜获取时间
+}
+
+type ThsHotRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode    string `json:"ts_code"`    // TS代码
+	Market    string `json:"market"`     // 热榜类型(热股、ETF、可转债、行业板块、概念板块、期货、港股、热基、美股)
+	IsNew     string `json:"is_new"`     // 是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段）
+}
+
+type ThsHotResponse struct {
+	List []*ThsHot `json:"list"`
+}
+
+func (x *ThsHotResponse) String() string {
+	bytes, _ := json.Marshal(x)
+	return string(bytes)
+}
+
+// 东方财富App热榜|dc_hot
+type DcHot struct {
+	TradeDate    string  `json:"trade_date"`    // 交易日期
+	DataType     string  `json:"data_type"`     // 数据类型
+	TsCode       string  `json:"ts_code"`       // 股票代码
+	TsName       string  `json:"ts_name"`       // 股票名称
+	Rank         int64   `json:"rank"`          // 排行或者热度
+	PctChange    float64 `json:"pct_change"`    // 涨跌幅%
+	CurrentPrice float64 `json:"current_price"` // 当前价
+	RankTime     string  `json:"rank_time"`     // 排行榜获取时间
+}
+
+type DcHotRequest struct {
+	Limit     string `json:"limit"`
+	Offset    string `json:"offset"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode    string `json:"ts_code"`    // TS代码
+	Market    string `json:"market"`     // 类型(A股市场、ETF基金、港股市场、美股市场)
+	HotType   string `json:"hot_type"`   // 热点类型(人气榜、飙升榜)
+	IsNew     string `json:"is_new"`     // 是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段）
+}
+
+type DcHotResponse struct {
+	List []*DcHot `json:"list"`
+}
+
+func (x *DcHotResponse) String() string {
 	bytes, _ := json.Marshal(x)
 	return string(bytes)
 }

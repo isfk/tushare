@@ -1311,3 +1311,45 @@ func TestMarginSecs(t *testing.T) {
 		t.Logf("%v", resp.Resp.String())
 	}
 }
+
+func TestThsHot(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.ThsHotRequest, v1.ThsHotResponse](ts, &Request[v1.ThsHotRequest]{
+		Params:  &v1.ThsHotRequest{TradeDate: "20240422", Limit: "1"},
+		ApiName: v1.ApiThsHot,
+		Fields:  []string{},
+	})
+	if err != nil {
+		if strings.Contains(err.Error(), "code=40203") {
+			t.Logf("权限问题: %v", err.Error())
+			return
+		}
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
+
+func TestDcHot(t *testing.T) {
+	_ = godotenv.Load()
+	ts := NewTushare(os.Getenv("token"))
+	resp, err := RequestTushare[v1.DcHotRequest, v1.DcHotResponse](ts, &Request[v1.DcHotRequest]{
+		Params:  &v1.DcHotRequest{TradeDate: "20240422", Limit: "1"},
+		ApiName: v1.ApiThsHot,
+		Fields:  []string{},
+	})
+	if err != nil {
+		if strings.Contains(err.Error(), "code=40203") {
+			t.Logf("权限问题: %v", err.Error())
+			return
+		}
+		t.Errorf("%v", err)
+		return
+	}
+	if resp.Resp != nil {
+		t.Logf("%v", resp.Resp.String())
+	}
+}
