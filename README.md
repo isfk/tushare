@@ -50,6 +50,8 @@ func main() {
 <img src="https://github.com/isfk/tushare/assets/70327450/49e3673a-dddb-4e85-8b15-a332507e1b27" width="300px" />
 <img src="https://github.com/isfk/tushare/assets/70327450/3d1cfcf7-5c7f-415c-a2b0-4a6f1c40c1bc" width="300px" />
 
+- 感谢大佬 *犬 微信 100元 20240914 中秋快乐😀
+
 ## 开发
 
 ### 新方法
