@@ -2,8 +2,6 @@ module github.com/isfk/tushare
 
 go 1.21
 
-toolchain go1.23.3
-
 require (
 	github.com/joho/godotenv v1.5.1
 	github.com/xuri/excelize/v2 v2.9.0
