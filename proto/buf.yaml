@@ -1,9 +1,0 @@
-version: v1
-breaking:
-  use:
-    - FILE
-lint:
-  use:
-    - DEFAULT
-  enum_zero_value_suffix: _NONE # 枚举 0 值后缀
-  service_suffix: Api # service 后缀
